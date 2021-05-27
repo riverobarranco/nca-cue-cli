@@ -1,5 +1,5 @@
 <template>
-    <div v-if="slider.tipo == 'json'" class="carousel slide carousel-fade">
+    <div v-if="slider.jsonvisible" class="carousel slide carousel-fade">
 
         <div class="carousel-sesiones row" style="position:relative">
             <div v-for="(sesion, index) in sliderjson.sesiones" class="nca_carousel_sesiones_hija col" v-bind:style="stylesesion(sesion.numactividades)" v-bind:key="sesion">
@@ -60,7 +60,7 @@
         </div>
     </div>
 
-    <div v-if="slider.tipo == 'html'" v-html="slider.datos" class="carousel slide carousel-fade"> </div>
+    <div v-if="!slider.jsonvisible" v-html="slider.datos" class="carousel slide carousel-fade"> </div>
 
 </template>
 
@@ -94,19 +94,20 @@ export default {
         // Aquí están los elementos que se llaman cuando el componente se ha actualizado
         this.slidercolorFijo = this.sliderusuario.color;
         // Unimos las listas de recursos
-        var arrayunida = [];
-        arrayunida = arrayunida.concat(this.sliderusuario.interactivas,this.sliderusuario.recursostitulo,this.sliderusuario.evaluaciones);
+        let arrayunida = this.arrayunida; // esto es una propiedad computed
+        console.log('esto es el array unido con todos los elementos')
+        console.log(arrayunida)
         //Aquí realizaremos el reemplazo dinámico de urls. por ahora definimos la función
         function textfinder (searchingtext, array) {
-        for (var i = 0; i < array.length; i++) {
-            if (array[i].titulo.split(" ")[0] == searchingtext) {
-            //console.log (array[i]);
-            return array[i];
-            } else {
-            //console.log (array[i].titulo.split(" ")[0] + '-------------' + searchingtext)
+            for (var i = 0; i < array.length; i++) {
+                if (array[i].titulo.split(" ")[0] == searchingtext) {
+                //console.log (array[i]);
+                return array[i];
+                } else {
+                //console.log (array[i].titulo.split(" ")[0] + '-------------' + searchingtext)
+                }
             }
-        }
-        return false;
+            return false;
         }
         // Sacamos todos los elementos con href del slider (no del json) y los reemplazamos
         var vinculoslista = document.querySelectorAll('.nca_book_recursos_col_short a[href]');
@@ -123,19 +124,22 @@ export default {
                 }
             }
         }
-        // cargamos el filtro multimedia de nuevo para mostrar los videos de youtube
-        //require(["media_videojs/loader"], function(loader) {
-        //    loader.setUp(function() {});
-        //});
     },
     computed: {
         sliderjson() {
-            if (this.slider.tipo == 'json') {
-                return JSON.parse(this.slider.datos)
+            if (this.slider.jsonvisible) {
+                return this.slider.datos;
             } else {
                 return {};
             }
-        }
+        },
+         arrayunida() {
+             let temp0 = [];
+             if (this.sliderusuario.interactivas && this.sliderusuario.recursostitulo && this.sliderusuario.evaluaciones) {
+                 temp0 = temp0.concat(this.sliderusuario.interactivas,this.sliderusuario.recursostitulo,this.sliderusuario.evaluaciones);
+            }
+            return temp0;
+         },
     },
     methods: {
         slidercolorAclarado(color) {

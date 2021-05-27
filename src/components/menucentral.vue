@@ -91,8 +91,8 @@
         </div>
 
         <div id="nca13-mnu-ctrl-recursos" class="row justify-content-start" v-if="centralrecursosactivo">
-            <div class="col-auto" v-if="slider.tipo == 'json'">
-                <div v-bind:style="centralstylerec" style="cursor:pointer;" class="nca13-mnu-ctrl-recursos-elem" v-on:click="generapdf(slider.datos)">{{ guiatraducida[centralusuario.lang] }}</div>
+            <div class="col-auto" v-if="sliderdatos.tipo == 'json'">
+                <div v-bind:style="centralstylerec" style="cursor:pointer;" class="nca13-mnu-ctrl-recursos-elem" v-on:click="generapdf(sliderdatos.datos)">{{ guiatraducida[centralusuario.lang] }}</div>
             </div>
             <div class="col-auto" v-for="recurso in centralrecursostitulofiltrado" v-bind:key="recurso">
                 <a target="_blank" v-bind:href="recurso.url" v-bind:style="centralstylerec">
@@ -110,7 +110,7 @@
         </div>
     </div>
 
-    <slider v-bind:sliderusuario="centralusuario" v-bind:slider="slider"></slider>
+    <slider v-bind:sliderusuario="centralusuario" v-bind:slider="sliderdatos"></slider>
 
 </template>
 
@@ -142,11 +142,12 @@ export default {
           en: "Guía de actividades english",
         },
         tipoactivoFijo : this.centralusuario.tipoactivo,
-        slider: {tipo: null, datos:''},
+        sliderdatos: {jsonvisible: false, tipo: null, datos:''},
       }
     },
     updated() {
       this.tipoactivoFijo = this.centralusuario.tipoactivo;
+      console.log(this.sliderdatos);
     },
     methods: {
         innerfiltroccaa(elem, index, array) {
@@ -176,30 +177,42 @@ export default {
         },
         centralslidercargado(sliderfiltrado) {
             let temp0 = sliderfiltrado;
-            var pasadatos = this.slider
-            if (temp0 && temp0[0]) {
+            //let pasadatos = {tipo:'html', jsonvisible:false, datos: ''};
+            let pasadatos = this.sliderdatos;
+            let url;
+            if (temp0 && temp0[0] && temp0[0].url) {
                 // marcamos el tipo de slider para pintarlo bien
-                if (temp0[0].url && temp0[0].indice !== "JS") {
+                if (temp0[0].indice !== "JS") {
                     pasadatos.tipo = 'html';
+                    url = temp0[0].url;
                 } else {
                     pasadatos.tipo = 'json';
+                    url = '/local/slider/getslider.php?slidername=' + temp0[0].titulo.split(' ')[0];
                 }
-                // hacemos la consulta para actualizar los valores del slider y lo guardamos en el explorador
-                axios.get(temp0[0].url)
+                // hacemos la consulta para actualizar los valores del slider
+                axios.get(url)
                 .then(function (response) {
                 // handle success
-                    var e = document.createElement("div");
-                    e.innerHTML = response.data;
-                    pasadatos.datos = e.querySelector('#region-main .box').innerHTML;
-                    console.log(pasadatos)
+                    if (pasadatos.tipo == 'html') {
+                        var e = document.createElement("div");
+                        e.innerHTML = response.data;
+                        pasadatos.datos = e.querySelector('#region-main .box').innerHTML;
+                        pasadatos.jsonvisible = false;
+                    }
+                    if (pasadatos.tipo == 'json') {
+                        pasadatos.datos = response.data;
+                        pasadatos.jsonvisible = true;
+                    }
+                    console.log('esto es la respuesta de la consulta get');
+                    console.log(response.data);
+                    console.log('esto es el objeto pasadatos');
+                    console.log(pasadatos);
                 })
                 .catch(function (error) {
-                    pasadatos.datos = 'error'
                     console.log(error)
                 }) //handle error
                 .then(function () {}); // always executed
-            } else {
-                this.slider = {tipo: null, datos:''};
+                
             }
         },
         actualizarecursoactivo() {
@@ -299,6 +312,7 @@ export default {
             // Filtro por rol. Ocultamos los slider de profesor;
             if (this.centralusuario.rol == "student") {
                 temp0 = temp0.filter(elem => elem.indice !== "PF")
+                temp0 = temp0.filter(elem => elem.indice !== "JS")
             } else {
                 temp0 = temp0.filter(elem => elem.indice !== "AL")
             }
@@ -328,7 +342,8 @@ export default {
             if (temp2.length > 0) {
                 temp0 = temp2
             }
-            console.log('slider filtro por origen de datos queda: ' + temp0);
+            console.log('slider filtro por origen de datos queda: ');
+            console.log(temp0);
             this.centralslidercargado(temp0);
             return temp0;
         },
