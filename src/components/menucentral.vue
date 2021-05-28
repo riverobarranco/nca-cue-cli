@@ -213,6 +213,11 @@ export default {
                 }) //handle error
                 .then(function () {}); // always executed
                 
+            } else {
+                // esto es lo que se ejecuta en el caso de que no haya slider, se oculta todo.
+                pasadatos.jsonvisible = false;
+                pasadatos.datos = '';
+                pasadatos.tipo = 'html';
             }
         },
         actualizarecursoactivo() {
