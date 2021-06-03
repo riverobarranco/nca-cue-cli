@@ -86,7 +86,10 @@
                 </div>
             </div>
             <div class="col nca13-mnu-ctrl-icon">
-                <img v-if="centralurllogo !== 'vacio'" id="nca13-mnu-imagen" v-bind:src="centralurllogo" style="width:100%">
+                <img v-if="centralurllogo !== 'vacio' && centralusuario.rol !== 'editingteacher'" id="nca13-mnu-imagen" v-bind:src="centralurllogo" style="width:100%">
+                <a v-if="centralurllogo !== 'vacio' && centralusuario.rol == 'editingteacher'" v-bind:href="centralurleditarslider" target="_blank">
+                    <img id="nca13-mnu-imagen" v-bind:src="centralurllogo" style="width:100%">
+                </a>
             </div>
         </div>
 
@@ -351,6 +354,13 @@ export default {
             console.log(temp0);
             this.centralslidercargado(temp0);
             return temp0;
+        },
+        centralurleditarslider() {
+            if (this.sliderfiltrado[0] && this.sliderfiltrado[0].titulo) {
+                return '/local/slider/insertslider.php?slidername=' + this.sliderfiltrado[0].titulo.split(' ')[0];
+            } else {
+                return '';
+            }
         },
 
     },

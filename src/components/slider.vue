@@ -20,36 +20,31 @@
                     <div class="col-md-1 title nca_book_orden" v-bind:style="styleorden()">
                         <div class="row align-items-center" style="text-align:center;">
                             <div class="col-md-3"><span class="carousel-control-prev-icon" aria-hidden="true" v-on:click="actualizarslider(activatras())"></span></div>
-                            <div class="col-md-6"><h2>{{ contentactividad(activactivo) }}</h2></div>
+                            <div class="col-md-6"><h2>{{ contentactividad(activactivofiltrada) }}</h2></div>
                             <div class="col-md-3"><span class="carousel-control-next-icon" aria-hidden="true" v-on:click="actualizarslider(activdelante())"></span></div>
                         </div>
                     </div>
 
                     <div class="col-md-7">
                         <div class="col-md-12 nca_book_titulo">
-                            <h2>{{ sliderjson.actividades[activactivo].titulo }}</h2>
+                            <h2>{{ sliderjson.actividades[activactivofiltrada].titulo }}</h2>
                         </div>
-                        <div class="col-md-12 left nca_book_descripcion" v-html="sliderjson.actividades[activactivo].descripcion"></div>
+                        <div class="col-md-12 left nca_book_descripcion" v-html="sliderjson.actividades[activactivofiltrada].descripcion"></div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="nca_book_recursos" v-bind:style="'background-color:' + slidercolorAclarado(slidercolorFijo)">
-                            <div class="row" v-for="(recur, index) in sliderjson.actividades[activactivo].recursos" v-bind:key="recur"> 
+                            <div class="row" v-for="(recur, index) in sliderjson.actividades[activactivofiltrada].recursos" v-bind:key="recur"> 
                                 <div class="nca_book_recursos_col_long">
-                                    {{ sliderjson.actividades[activactivo].recursos[index].titulo }}
+                                    {{ sliderjson.actividades[activactivofiltrada].recursos[index].titulo }}
                                 </div>
-                                <div v-if="(sliderjson.actividades[activactivo].recursos[index].tipo !== 'mat')" class="nca_book_recursos_col_short">
-                                    <a class="nca_book_recursos_icon" v-bind:href="sliderjson.actividades[activactivo].recursos[index].url" target="_blank">
+                                <div v-if="(sliderjson.actividades[activactivofiltrada].recursos[index].tipo !== 'mat')" class="nca_book_recursos_col_short">
+                                    <a class="nca_book_recursos_icon" v-bind:href="sliderjson.actividades[activactivofiltrada].recursos[index].url" target="_blank">
                                         <i v-bind:class="classicono(index)" aria-hidden="true"></i>
                                     </a>
                                 </div>
-                                <div v-if="sliderjson.actividades[activactivo].recursos[index].tipo == 'vid' && recursourlvideo(sliderjson.actividades[activactivo].recursos[index].url) == ''" class="nca_book_recursos_col_long" style="width:100%; margin-top:10px;">
-                                    <a v-bind:href="sliderjson.actividades[activactivo].recursos[index].url" target="_blank">
-                                        Content Link
-                                    </a>
-                                </div>
-                                <div v-if="sliderjson.actividades[activactivo].recursos[index].tipo == 'vid' && recursourlvideo(sliderjson.actividades[activactivo].recursos[index].url) !== ''" class="nca_book_recursos_col_long" style="height:0; width:100%; margin-top:20px; position:relative; padding-bottom:56.25%">
-                                    <iframe v-bind:src="recursourlvideo(sliderjson.actividades[activactivo].recursos[index].url)" style="position: absolute; top: 0; left: 0; height:100%; width: 100%; padding-left: 20px; padding-right:20px; padding-bottom:20px; border: 0;"></iframe>
+                                <div v-if="sliderjson.actividades[activactivofiltrada].recursos[index].tipo == 'vid' && recursourlvideo(sliderjson.actividades[activactivofiltrada].recursos[index].url) !== ''" class="nca_book_recursos_col_long" style="height:0; width:100%; margin-top:20px; position:relative; padding-bottom:56.25%">
+                                    <iframe v-bind:src="recursourlvideo(sliderjson.actividades[activactivofiltrada].recursos[index].url)" style="position: absolute; top: 0; left: 0; height:100%; width: 100%; padding-left: 20px; padding-right:20px; padding-bottom:20px; border: 0;"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -95,8 +90,8 @@ export default {
         this.slidercolorFijo = this.sliderusuario.color;
         // Unimos las listas de recursos
         let arrayunida = this.arrayunida; // esto es una propiedad computed
-        console.log('esto es el array unido con todos los elementos')
-        console.log(arrayunida)
+        console.log('esto es el array unido con todos los elementos');
+        console.log(arrayunida);
         //Aquí realizaremos el reemplazo dinámico de urls. por ahora definimos la función
         function textfinder (searchingtext, array) {
             for (var i = 0; i < array.length; i++) {
@@ -126,6 +121,15 @@ export default {
         }
     },
     computed: {
+        activactivofiltrada() {
+            let temp = this.activactivo;
+            if (this.sliderjson.actividades) {
+                if (this.activactivo >= this.sliderjson.actividades.length) {
+                    temp = 0;
+                }
+            }
+            return temp;
+        },
         sliderjson() {
             if (this.slider.jsonvisible) {
                 return this.slider.datos;
@@ -133,13 +137,13 @@ export default {
                 return {};
             }
         },
-         arrayunida() {
+        arrayunida() {
              let temp0 = [];
              if (this.sliderusuario.interactivas && this.sliderusuario.recursostitulo && this.sliderusuario.evaluaciones) {
                  temp0 = temp0.concat(this.sliderusuario.interactivas,this.sliderusuario.recursostitulo,this.sliderusuario.evaluaciones);
             }
             return temp0;
-         },
+        },
     },
     methods: {
         slidercolorAclarado(color) {
@@ -154,7 +158,7 @@ export default {
         classactividad(index) {
             let temp1 = '';
             let temp2 = '';
-            if (this.activactivo == index) {
+            if (this.activactivofiltrada == index) {
                 temp1 = ' active';
             }
             if (this.sliderjson.actividades[index].evaluable == true) {
@@ -164,7 +168,7 @@ export default {
         },
         classicono(index) {
             let temp1 = '';
-            let temp2 = this.sliderjson.actividades[this.activactivo].recursos[index].tipo
+            let temp2 = this.sliderjson.actividades[this.activactivofiltrada].recursos[index].tipo
             if (temp2 == 'rec') {temp1 = "fa fa-briefcase"}
             if (temp2 == 'cua') {temp1 = "fa fa-book"}
             if (temp2 == 'int') {temp1 = "fa fa-laptop"}
@@ -180,7 +184,7 @@ export default {
         styleactividad(index) {
             let temp1 = '';
             let temp2 = 'background-color:' + this.slidercolorFijo + '; color:white;';
-            if (this.activactivo == index) {
+            if (this.activactivofiltrada == index) {
                 return temp2;
             } else {
                 return temp1;
@@ -200,6 +204,11 @@ export default {
             this.activactivo = index;
         },
         activatras() {
+            // mecanismo de seguridad por si hay guardado un activactivo de un slider previo con más número de actividades que el actual
+            if (this.activactivofiltrada == 0) {
+                this.activactivo = 0;
+            }
+            // mecanismo de seguridad para evitar valores negativos
             let temp1 = this.activactivo - 1;
             if (this.activactivo == 0) {
                 return 0
@@ -208,6 +217,11 @@ export default {
             }
         },
         activdelante() {
+            // mecanismo de seguridad por si hay guardado un activactivo de un slider previo con más número de actividades que el actual
+            if (this.activactivofiltrada == 0) {
+                this.activactivo = 0;
+            }
+            // mecanismo de seguridad para evitar valores mayores que el número de actividades del json
             let temp1 = this.activactivo + 1;
             if (this.activactivo == (this.sliderjson.actividades.length - 1) ) {
                 return this.activactivo;

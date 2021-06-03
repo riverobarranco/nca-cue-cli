@@ -644,8 +644,9 @@ export default {
   },
   mounted() {
     window.addEventListener('DOMContentLoaded', () => {
-      this.cargaPrincipal();
+      // carga principal por defecto
       this.cargaUsuario();
+      this.cargaPrincipal();
     });
   },
   computed: {
@@ -776,7 +777,7 @@ export default {
         let datosusuario = this.datosusuario;
 
         // Obtenemos el dato de CCAA. Ojo, esta llamada no es relativa, sino absoluta al estar dentro el htmlrequest;
-        datosusuario.ccaa = "error" // Ponemos un valor por defecto en caso de que no funcione el get
+        //datosusuario.ccaa = "error" // Ponemos un valor por defecto en caso de que no funcione el get
         axios.get("../filter/sallenet/getIdCCAA.php")
           .then(function (response) {
             // handle success
@@ -789,9 +790,9 @@ export default {
           })
           .then(function () {
           // always executed
-          if (datosusuario.ccaa == "error") {
-            datosusuario.ccaa = "13"
-          }
+          //if (datosusuario.ccaa == "error") {
+          //  datosusuario.ccaa = "13"
+          //}
           });
         //datosusuario.ccaa = "13"
 
@@ -801,7 +802,7 @@ export default {
         }
 
         // Obtenemos el rol del usuario;
-        datosusuario.rol = "error";
+        //datosusuario.rol = "error";
         let url = window.location.origin;
         url = url.indexOf(".dev.") > -1 ? url + "/lsms" : url
         axios.get(url + "/filter/sallenet/getRoles.php")
@@ -825,9 +826,9 @@ export default {
           })
           .then(function () {
             // always executed
-            if (datosusuario.rol == "error") {
-              datosusuario.rol = "editingteacher"
-            }
+            //if (datosusuario.rol == "error") {
+            //  datosusuario.rol = "editingteacher"
+            //}
           });
         //datosusuario.rol = "teacher"
     },
@@ -915,6 +916,24 @@ export default {
           console.log('encontrada seccion sin título')
         }
       }
+      
+      // esta parte permite volver a secciones visitadas previamente después de editar
+      if (localStorage.getItem("seccionactiva") && localStorage.getItem("seccionactiva") !== "null" && window.location.href.indexOf('section=') == -1) {
+        if ( localStorage.getItem("tipoactivo") &&
+             localStorage.getItem("subtipoactivo") &&
+             localStorage.getItem("seccionactiva")  
+            ) {
+          this.datosusuario.tipoactivo = localStorage.getItem("tipoactivo");
+          this.datosusuario.subtipoactivo = localStorage.getItem("subtipoactivo");
+          this.cargaseccion(localStorage.getItem("seccionactiva"));
+          localStorage.setItem("tipoactivo", null);
+          localStorage.setItem("subtipoactivo", null)
+          localStorage.setItem("seccionactiva", null)
+        }
+      }
+
+      // Fin de carga principal
+
     },
     cargarecursos(urldestino) {
       // definimos variables para usar globalmente
