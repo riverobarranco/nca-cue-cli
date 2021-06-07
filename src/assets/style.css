@@ -42,6 +42,7 @@
     margin-right: 2px;
     margin-left: 2px;
     font-family: arial;
+    font-size: 0.75vw;
     color: darkgray;
     text-align: center;
     padding: 0px;
@@ -91,7 +92,7 @@
     color: white;
     text-align: center;
     font-weight: bolder;
-    font-size: 2.5vw;
+    font-size: 2vw;
 }
 
 .nca_book_recursos {
@@ -211,6 +212,7 @@
     text-align: center;
     color: white;
     font-weight: bolder;
+    font-size: 2vw;
 }
 
 .nca_book_titulo {
