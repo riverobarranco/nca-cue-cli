@@ -356,8 +356,12 @@ export default {
             return temp0;
         },
         centralurleditarslider() {
-            if (this.sliderfiltrado[0] && this.sliderfiltrado[0].titulo) {
-                return '/local/slider/insertslider.php?slidername=' + this.sliderfiltrado[0].titulo.split(' ')[0];
+            if (this.centralsliderfiltrado) {
+                if (this.centralsliderfiltrado[0] && this.centralsliderfiltrado[0].titulo) {
+                    return '/local/slider/insertslider.php?slidername=' + this.centralsliderfiltrado[0].titulo.split(' ')[0];
+                } else {
+                    return '';
+                }
             } else {
                 return '';
             }

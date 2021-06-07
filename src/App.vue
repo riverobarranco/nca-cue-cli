@@ -1142,8 +1142,15 @@ export default {
       .then(function () {}); // always executed
     },
     generapdf(json) {
-      // Obtenemos el título de la unidad (no está en el json)
-      let titulo = document.querySelector('#nca13-mnu-titulo').textContent
+      // Obtenemos el título de la unidad (no está en el json) y le juntamos el código de la misma
+      let titulo = document.querySelector('#nca13-mnu-titulo').textContent;
+      let codigounidad = '';
+      if (this.datosusuario.slider) {
+        if (this.datosusuario.slider.length > 0) {
+          codigounidad = this.datosusuario.slider[0].titulo.split("-")[0];  // cualquiera de los sliders tendrá el primer miembro igual y será el código de la unidad.
+          titulo = codigounidad + ' ' + titulo;
+        }
+      }
       // creamos el objeto jsPDF (no podemos crearlo dentro de la función porque no tenemos la librería en ella)
       var doc = new jsPDF({ putOnlyUsedFonts: true, orientation: "portrait" });
       // invocamos la función externa
@@ -1167,13 +1174,13 @@ export default {
             for (let i=0; i<textos.length; i++) {
                 let textoActual = textos[i];
                 if (textoActual.id == id) {
-                if (textoActual.textos[lang] && textoActual.textos[lang] !== '') {
-                    textoTraducido = textoActual.textos[lang];
-                    return textoTraducido;
-                } else {
-                    textoTraducido = 'traduccion no encontrada'
-                    return textoTraducido;
-                }
+                  if (textoActual.textos[lang] && textoActual.textos[lang] !== '') {
+                      textoTraducido = textoActual.textos[lang];
+                      return textoTraducido;
+                  } else {
+                      textoTraducido = 'traduccion no encontrada'
+                      return textoTraducido;
+                  }
                 }
             }
         }
@@ -1194,35 +1201,60 @@ export default {
         doc.text(textoMul('tablaContenidos',idiomaUsuario), 14, finalY + 25)
         let numactividad = 0;
         let tablaactividad = [];
+        let estiloactividad = 'normal';
         for (let i = 0; i < json.sesiones.length; i++) {
             let sesion = '00' + (i + 1);
             sesion = sesion.substring(sesion.length-2,sesion.length);
             let numactividades = json.sesiones[i].numactividades;
             let actividades = ""
             for (let j = 0; j < numactividades; j++) {
-                actividades = actividades + json.actividades[numactividad].titulo + '\n';
-                numactividad++;
+              actividades = json.actividades[numactividad].titulo;
+              // Ajustamos el estilo de fuente en el caso de que sea una actividad evaluable
+              if (json.actividades[numactividad].evaluable == true) {
+                estiloactividad = 'bold';
+              } else {
+                estiloactividad = 'normal';
+              }
+              // Generamos los elementos de la tabla
+              if (j == 0) {
+                //tablaactividad.push([ textoMul('sesion',idiomaUsuario) + ' ' + sesion, actividades]);
+                tablaactividad.push([
+                  { content: textoMul('sesion',idiomaUsuario) + ' ' + sesion, colSpan: 1, rowSpan: numactividades, styles: { fontStyle: 'normal'} },
+                  { content: actividades, colSpan: 1, rowSpan: 1, styles: { fontStyle: estiloactividad} }
+                ]);
+              } else {
+                tablaactividad.push([
+                  //{ content: '', colSpan: 1, rowSpan: 1, styles: { fontStyle: estiloactividad} },
+                  { content: actividades, colSpan: 1, rowSpan: 1, styles: { fontStyle: estiloactividad} }
+                ]);
+              }
+              // actualizamos el número de actividad
+              numactividad++;
             }
-            tablaactividad.push([ textoMul('sesion',idiomaUsuario) + ' ' + sesion, actividades])
+            // Insertamos una fila vacía para separar sesiones
+            tablaactividad.push(['','']);
         }
         
         // Insertamos la tabla de contenidos
         doc.autoTable({
-        startY: finalY + 30,
-        head: [[textoMul('sesion',idiomaUsuario), textoMul('actividad',idiomaUsuario)]],
-        body: tablaactividad,
-        headStyles: {
-            fillColor: [200, 200, 200],
-            fontSize: 15,
-        },
-        bodyStyles: {
-            fillColor: [245, 245, 245],
-            textColor: 50,
-        },
-            alternateRowStyles: {
-            fillColor: [245, 245, 245],
-            textColor: 50,
-        },
+          startY: finalY + 30,
+          head: [[textoMul('sesion',idiomaUsuario), textoMul('actividad',idiomaUsuario)]],
+          body: tablaactividad,
+          headStyles: {
+              fillColor: [200, 200, 200],
+              fontSize: 15,
+          },
+          bodyStyles: {
+              fillColor: [245, 245, 245],
+              textColor: 50,
+              rowHeight: 0, 
+              cellPadding: 1,
+              fontSize: 9,
+          },
+              alternateRowStyles: {
+              fillColor: [245, 245, 245],
+              textColor: 50,
+          },
         })
         doc.addPage();
         
@@ -1291,7 +1323,7 @@ export default {
             numactividad++;
             }
         }
-        doc.save();
+        doc.save(titulotema + '.pdf');
     },
   },
 }
