@@ -49,9 +49,9 @@
     computed: {
         listastyletit() {
             let colortitulo = this.listacolor;
-            if (localStorage.getItem('color') && localStorage.getItem('color') !== 'null') {
-                colortitulo = localStorage.getItem('color');
-            }
+            //if (localStorage.getItem('color') && localStorage.getItem('color') !== 'null') {
+            //    colortitulo = localStorage.getItem('color');
+            //}
             return 'font-weight: bold; border: none; background-color: ' + colortitulo;
         },
         listastylerec() {

@@ -733,9 +733,6 @@ export default {
     },
     subtipoactivocolor() {
       let colorsalida = 'null'
-      if (localStorage.getItem('color') && localStorage.getItem('color') !== 'null') {
-        colorsalida = localStorage.getItem('color');
-      }
       if(this.datosusuario.tipoactivo && this.datosusuario.subtipoactivo && this.datosusuario.lang && this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo]) {
           if (this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].color) {
               colorsalida = this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].color;
@@ -953,8 +950,8 @@ export default {
       if (localStorage.getItem("seccionactiva") && localStorage.getItem("seccionactiva") !== "null" && window.location.href.indexOf('section=') == -1) {
         if ( localStorage.getItem("tipoactivo") &&
              localStorage.getItem("subtipoactivo") &&
-             localStorage.getItem("seccionactiva") &&
-             localStorage.getItem("color")
+             localStorage.getItem("seccionactiva")
+             //localStorage.getItem("color")
             ) {
           //this.datosusuario.tipoactivo = localStorage.getItem("tipoactivo");
           this.activatipo(localStorage.getItem("tipoactivo"));
@@ -1051,9 +1048,9 @@ export default {
         this.datosusuario.subtipoactivo = subtip;
         console.log('el valor de datosusuario es ' + this.datosusuario.subtipoactivo)
         console.log(this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo])
-        if (localStorage.getItem('color') && localStorage.getItem('color') !== 'null') {
-          this.datosusuario.color = localStorage.getItem('color')
-        }
+        //if (localStorage.getItem('color') && localStorage.getItem('color') !== 'null') {
+        //  this.datosusuario.color = localStorage.getItem('color')
+        //}
       } 
     },
     cargaseccion (urldestino) {
