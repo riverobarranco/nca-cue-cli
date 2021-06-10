@@ -62,9 +62,10 @@ export default {
                 urlSinSeccion = window.location.href.split('&')[0] + '&sesskey=' + window.M.cfg.sesskey + '&edit=off';
                 // guardamos en la memoria del explorador la sección activa
                 if (this.logousuario.urlseccionactiva.indexOf('section=') > -1) {
-                    localStorage.setItem("tipoactivo", this.logousuario.tipoactivo);
-                    localStorage.setItem("subtipoactivo", this.logousuario.subtipoactivo);
-                    localStorage.setItem("seccionactiva", this.logousuario.urlseccionactiva);
+                    //localStorage.setItem("tipoactivo", this.logousuario.tipoactivo);
+                    //localStorage.setItem("subtipoactivo", this.logousuario.subtipoactivo);
+                    //localStorage.setItem("seccionactiva", this.logousuario.urlseccionactiva);
+                    //localStorage.setItem("color", this.logousuario.color);
                     //alert(this.logousuario.urlseccionactiva)
                 }
                 // Vamos a la url indicada en la misma pestaña
@@ -78,6 +79,7 @@ export default {
                     localStorage.setItem("tipoactivo", this.logousuario.tipoactivo);
                     localStorage.setItem("subtipoactivo", this.logousuario.subtipoactivo);
                     localStorage.setItem("seccionactiva", this.logousuario.urlseccionactiva);
+                    localStorage.setItem("color", this.logousuario.color);
                     // Vamos a la url indicada en la misma pestaña
                     window.open(urlSinSeccion, "_self");
                 }

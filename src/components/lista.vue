@@ -48,7 +48,11 @@
     },
     computed: {
         listastyletit() {
-            return 'font-weight: bold; border: none; background-color: ' + this.listacolor;
+            let colortitulo = this.listacolor;
+            if (localStorage.getItem('color') && localStorage.getItem('color') !== 'null') {
+                colortitulo = localStorage.getItem('color');
+            }
+            return 'font-weight: bold; border: none; background-color: ' + colortitulo;
         },
         listastylerec() {
             //return 'border: none; background-color: rgba(' + this.listacolor.slice(4,this.listacolor.length-1) + ',0.2)';

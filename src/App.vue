@@ -561,9 +561,27 @@ export default {
                       unidades: [],
                       recursos: [],
                   },
+                  // Música para todas las ccaa salvo cataluña
                   mus: {
                       nom: "MUS",
                       color: "rgb(120,62,144)",
+                      ccaa: ["1","2","3","4","5","6","7","8","10","11","12","13","14","15","16","17","18","19"],  //Cataluña no tiene esta música
+                      subtitulo: {
+                          es: "MÚSICA",
+                          eu: "MUSIKA",
+                          ca: "MÚSICA",
+                          gl: "MÚSICA",
+                          ca_valencia: "MÚSICA",
+                          en: "MUSIC",
+                      },
+                      unidades: [],
+                      recursos: [],
+                  },
+                  // Música para cataluña
+                  msc: {
+                      nom: "MSC",
+                      color: "rgb(120,62,144)",
+                      ccaa: ["9"],
                       subtitulo: {
                           es: "MÚSICA",
                           eu: "MUSIKA",
@@ -641,6 +659,19 @@ export default {
     if (encabezado) {
       encabezado.style.height = 'unset'
     }
+    // cargamos el css del filtro de sallenet. Allí hay que dejar el archivo style.css de la carpeta assets
+    var cssId = 'myCss';  // you could encode the css path itself to generate id..
+    if (!document.getElementById(cssId))
+    {
+        var head  = document.getElementsByTagName('head')[0];
+        var link  = document.createElement('link');
+        link.id   = cssId;
+        link.rel  = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../filter/sallenet/_styles.css';
+        link.media = 'all';
+        head.appendChild(link);
+    }
   },
   mounted() {
     window.addEventListener('DOMContentLoaded', () => {
@@ -701,15 +732,16 @@ export default {
       }
     },
     subtipoactivocolor() {
+      let colorsalida = 'null'
+      if (localStorage.getItem('color') && localStorage.getItem('color') !== 'null') {
+        colorsalida = localStorage.getItem('color');
+      }
       if(this.datosusuario.tipoactivo && this.datosusuario.subtipoactivo && this.datosusuario.lang && this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo]) {
           if (this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].color) {
-              return this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].color;
-          } else {
-              return 'null'
+              colorsalida = this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].color;
           }
-      } else {
-        return 'null'
       }
+      return colorsalida;
     },
     subtipoactivorecursos() {
       if (this.subtipos && this.datosusuario.subtipoactivo) {
@@ -921,14 +953,19 @@ export default {
       if (localStorage.getItem("seccionactiva") && localStorage.getItem("seccionactiva") !== "null" && window.location.href.indexOf('section=') == -1) {
         if ( localStorage.getItem("tipoactivo") &&
              localStorage.getItem("subtipoactivo") &&
-             localStorage.getItem("seccionactiva")  
+             localStorage.getItem("seccionactiva") &&
+             localStorage.getItem("color")
             ) {
-          this.datosusuario.tipoactivo = localStorage.getItem("tipoactivo");
-          this.datosusuario.subtipoactivo = localStorage.getItem("subtipoactivo");
+          //this.datosusuario.tipoactivo = localStorage.getItem("tipoactivo");
+          this.activatipo(localStorage.getItem("tipoactivo"));
+          this.activasubtipo(localStorage.getItem("subtipoactivo"));
           this.cargaseccion(localStorage.getItem("seccionactiva"));
+          //this.datosusuario.color = localStorage.getItem("color");
+          this.datosusuario.subtipoactivo = localStorage.getItem("subtipoactivo");
           localStorage.setItem("tipoactivo", null);
-          localStorage.setItem("subtipoactivo", null)
-          localStorage.setItem("seccionactiva", null)
+          localStorage.setItem("subtipoactivo", null);
+          localStorage.setItem("seccionactiva", null);
+          //localStorage.setItem("color", null)
         }
       }
 
@@ -1014,6 +1051,9 @@ export default {
         this.datosusuario.subtipoactivo = subtip;
         console.log('el valor de datosusuario es ' + this.datosusuario.subtipoactivo)
         console.log(this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo])
+        if (localStorage.getItem('color') && localStorage.getItem('color') !== 'null') {
+          this.datosusuario.color = localStorage.getItem('color')
+        }
       } 
     },
     cargaseccion (urldestino) {
