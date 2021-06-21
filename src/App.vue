@@ -660,18 +660,19 @@ export default {
       encabezado.style.height = 'unset'
     }
     // cargamos el css del filtro de sallenet. Allí hay que dejar el archivo style.css de la carpeta assets
-    var cssId = 'myCss';  // you could encode the css path itself to generate id..
-    if (!document.getElementById(cssId))
-    {
-        var head  = document.getElementsByTagName('head')[0];
-        var link  = document.createElement('link');
-        link.id   = cssId;
-        link.rel  = 'stylesheet';
-        link.type = 'text/css';
-        link.href = '../filter/sallenet/_styles.css';
-        link.media = 'all';
-        head.appendChild(link);
-    }
+    // ANULADO PORQUE TARDA UN POCO Y SE VEN LOS ELEMENTOS DESCOLOCADOS AL PRINCIPIO
+    //var cssId = 'myCss';  // you could encode the css path itself to generate id..
+    //if (!document.getElementById(cssId))
+    //{
+    //    var head  = document.getElementsByTagName('head')[0];
+    //    var link  = document.createElement('link');
+    //    link.id   = cssId;
+    //    link.rel  = 'stylesheet';
+    //    link.type = 'text/css';
+    //    link.href = '../filter/sallenet/_styles.css';
+    //    link.media = 'all';
+    //    head.appendChild(link);
+    //}
   },
   mounted() {
     window.addEventListener('DOMContentLoaded', () => {
