@@ -139,7 +139,7 @@ export default {
         guiatraducida: {
           es: "Guía actividades",
           eu: "Jarduera gida",
-          ca: "Guía actividades catalá",
+          ca: "Guia activitats català",
           gl: "Guía activdiades galego",
           ca_valencia: "Guía actividades valenciá",
           en: "Guía de actividades english",
