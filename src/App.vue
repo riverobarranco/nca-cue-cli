@@ -364,11 +364,11 @@ export default {
                       unidades: [],
                       recursos: [],
                   },
-                  // Castellano en general, salvo Cataluña y Euskadi
+                  // Castellano en general, salvo Cataluña
                   cas: {
                       nom: "CAS",
                       color: "rgb(236,179,127)",
-                      ccaa: ["1","2","3","4","5","6","7","8","10","11","12","13","14","15","17","18","19"], //Cataluña y Euskadi no tienen este castellano
+                      ccaa: ["1","2","3","4","5","6","7","8","10","11","12","13","14","15","16","17","18","19"], //Cataluña no tiene este castellano
                       subtitulo: {
                           es: "LENGUA CASTELLANA",
                           eu: "LENGUA CASTELLANA",
