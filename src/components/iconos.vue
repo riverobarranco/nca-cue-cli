@@ -1,7 +1,7 @@
 <template>
     <div v-if="iconosurl" id="nca13_mnu_icon" class="row">
         <div v-for="tip in iconostipos" v-bind:key="tip" v-bind:style="iconosWidth" class="col nca13_mnu_icon_btn"  v-on:click="iconosactivatipo(tip)">
-          <a><img v-bind:src="iconosurl + 'icono' + tip + '.png'" style="width:100%"></a>
+          <a><img v-bind:src="iconosurl + 'icono' + tip + iconoslangfiltrado + '.png'" style="width:100%"></a>
         </div>
     </div>
 </template>
@@ -19,6 +19,11 @@ export default {
             type: String,
             required: true,
             default: '',
+        },
+        iconoslang: {
+            type: String,
+            required: true,
+            default: '',
         }
     },
     computed: {
@@ -27,6 +32,13 @@ export default {
           return 'width: ' + (100 / this.iconostipos.length) + '%';
         } else {
           return 'width: 20%';
+        }
+      },
+      iconoslangfiltrado() {
+        if (this.iconoslang !== '') {
+          return '-' + this.iconoslang;
+        } else {
+          return this.iconoslang;
         }
       },
     },

@@ -1,7 +1,7 @@
 <template>
   <div id="app-ltrl">
     <logo v-bind:logousuario="datosusuario"></logo>
-    <iconos v-bind:iconosurl="datosusuario.urlmenulateral" v-bind:iconostipos="tipos" @activa-tipo="activatipo"></iconos>
+    <iconos v-bind:iconosurl="datosusuario.urlmenulateral" v-bind:iconostipos="tipos" v-bind:iconoslang="datosusuario.lang" @activa-tipo="activatipo"></iconos>
     <botones v-bind:botonestipo="datosusuario.tipoactivo" v-bind:botonessubtipos="tipoactivosubtipos" v-bind:botonestitulo="tipoactivotitulo" v-bind:botonesccaa="datosusuario.ccaa" @activa-subtipo="activasubtipo"></botones>
     <lista @activa-seccion="cargaseccion" v-bind:listasubtipo="datosusuario.subtipoactivo" v-bind:listatitulo="subtipoactivotitulo" v-bind:listaunidades="subtipoactivounidades" v-bind:listarecursos="subtipoactivorecursos" v-bind:listacolor="subtipoactivocolor"></lista>
   </div>
@@ -15,9 +15,9 @@ import botones from './components/botones.vue'
 import lista from './components/lista.vue'
 import menucentral from './components/menucentral.vue'
 import axios from 'axios';
-import { jsPDF } from "jspdf";
-import 'jspdf-autotable';
-//import jsonToPdf from "jsonToPdf";
+//import { jsPDF } from "jspdf";
+//import 'jspdf-autotable';
+import { jsonToPdf } from './assets/jsonToPdf2/sliderpdf';
 
 export default {
   name: 'App',
@@ -43,6 +43,7 @@ export default {
           ccaa: "datoccaa",
           lang: "datolang",
           rol: "datorol",
+          recursosglobales: [], // esto es el array con los recursos relativos al NCA al completo, aparecerán botones en la portada de bienvenida.
           recursostitulo: [],
           interactivas: [],
           slider: [],
@@ -235,48 +236,48 @@ export default {
                       unidades: [],
                       recursos: [],
                   },
-                  p10: {
-                      nom: "10",
-                      color: "rgb(183,158,203)",
-                      subtitulo: {
-                          es: "PROYECTO 10",
-                          eu: "10 PROIEKTUA",
-                          ca: "PROJECTE 10",
-                          gl: "PROXECTO 10",
-                          ca_valencia: "PROJECTE 10",
-                          en: "PROJECT 10",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  p11: {
-                      nom: "11",
-                      color: "rgb(74,157,215)",
-                      subtitulo: {
-                          es: "PROYECTO 11",
-                          eu: "11 PROIEKTUA",
-                          ca: "PROJECTE 11",
-                          gl: "PROXECTO 11",
-                          ca_valencia: "PROJECTE 11",
-                          en: "PROJECT 11",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  p12: {
-                      nom: "12",
-                      color: "rgb(43,58,140)",
-                      subtitulo: {
-                          es: "PROYECTO 12",
-                          eu: "12 PROIEKTUA",
-                          ca: "PROJECTE 12",
-                          gl: "PROXECTO 12",
-                          ca_valencia: "PROJECTE 12",
-                          en: "PROJECT 12",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
+//                  p10: {
+//                      nom: "10",
+//                      color: "rgb(183,158,203)",
+//                      subtitulo: {
+//                          es: "PROYECTO 10",
+//                          eu: "10 PROIEKTUA",
+//                          ca: "PROJECTE 10",
+//                          gl: "PROXECTO 10",
+//                          ca_valencia: "PROJECTE 10",
+//                          en: "PROJECT 10",
+//                      },
+//                      unidades: [],
+//                      recursos: [],
+//                  },
+//                  p11: {
+//                      nom: "11",
+//                      color: "rgb(74,157,215)",
+//                      subtitulo: {
+//                          es: "PROYECTO 11",
+//                          eu: "11 PROIEKTUA",
+//                          ca: "PROJECTE 11",
+//                          gl: "PROXECTO 11",
+//                          ca_valencia: "PROJECTE 11",
+//                          en: "PROJECT 11",
+//                      },
+//                      unidades: [],
+//                      recursos: [],
+//                  },
+//                  p12: {
+//                      nom: "12",
+//                      color: "rgb(43,58,140)",
+//                      subtitulo: {
+//                          es: "PROYECTO 12",
+//                          eu: "12 PROIEKTUA",
+//                          ca: "PROJECTE 12",
+//                          gl: "PROXECTO 12",
+//                          ca_valencia: "PROJECTE 12",
+//                          en: "PROJECT 12",
+//                      },
+//                      unidades: [],
+//                      recursos: [],
+//                  },
               }
           },
           sem: {
@@ -518,21 +519,21 @@ export default {
                       recursos: [],
                   },
                   // Educación en valores, visible en Andalucía
-                  evl: {
-                      nom: "EVL",
-                      color: "rgb(117,97,87)",
-                      ccaa: ["1"],
-                      subtitulo: {
-                          es: "EDUC. VALORES",
-                          eu: "EDUC. VALORES",
-                          ca: "EDUC. VALORES",
-                          gl: "EDUC. VALORES",
-                          ca_valencia: "EDUC. VALORES",
-                          en: "EDUC. VALORES",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
+//                  evl: {
+//                      nom: "EVL",
+//                      color: "rgb(117,97,87)",
+//                      ccaa: ["1"],
+//                      subtitulo: {
+//                          es: "EDUC. VALORES",
+//                          eu: "EDUC. VALORES",
+//                          ca: "EDUC. VALORES",
+//                          gl: "EDUC. VALORES",
+//                          ca_valencia: "EDUC. VALORES",
+//                          en: "EDUC. VALORES",
+//                      },
+//                      unidades: [],
+//                      recursos: [],
+//                  },
                   efe: {
                       nom: "EF",
                       color: "rgb(0,159,227)",
@@ -825,11 +826,19 @@ export default {
           //}
           });
         //datosusuario.ccaa = "13"
+        console.log('el número de ccaa es ');
+        console.log(this.datosusuario.ccaa);
 
         // Obtenemos el dato de idioma.;
         if (document.querySelector('[lang]').getAttribute('lang')) {
           this.datosusuario.lang = document.querySelector('[lang]').getAttribute('lang');
         }
+        // Corrección del idioma valenciano
+        if (this.datosusuario.lang == "ca-valencia") {
+          this.datosusuario.lang = "ca_valencia";
+        }
+        console.log('el idioma del usuario es ');
+        console.log(this.datosusuario.lang);
 
         // Obtenemos el rol del usuario;
         //datosusuario.rol = "error";
@@ -839,13 +848,14 @@ export default {
           .then(function (response) {
             // handle success
             let roles = response.data;
-            if (roles.indexOf( "siteadmin" ) == -1 && roles.indexOf( "student" ) > -1 && roles.indexOf( "editingteacher" ) == -1 && roles.indexOf( "teacher" ) == -1 ){
-                datosusuario.rol = "student";
-            }
-            if (roles.indexOf( "siteadmin" ) == -1 && roles.indexOf( "editingteacher" ) == -1 && roles.indexOf( "teacher" ) > -1 ){
+            // por defecto, lo pone como estudiante
+            datosusuario.rol = "student";
+            // si es profesor sin permiso de edición, lo pone como profesor sin permiso de edición.
+            if (roles.indexOf( "teacher" ) > -1 ){
                 datosusuario.rol = "teacher";
             }
-            if (roles.indexOf( "siteadmin" ) > -1 || roles.indexOf( "editingteacher" ) > -1){
+            // si es profesor editor, administrador, manager, lo pone como profesor editor.
+            if (roles.indexOf( "siteadmin" ) > -1 || roles.indexOf( "editingteacher" ) > -1 || roles.indexOf( "manager" ) > -1){
                 datosusuario.rol = "editingteacher";
             }
             console.log(datosusuario.rol);
@@ -973,6 +983,7 @@ export default {
     cargarecursos(urldestino) {
       // definimos variables para usar globalmente
       let datos = this.datos;
+      let recursosglobales = this.datosusuario.recursosglobales;
       // hacemos la consulta para actualizar los valores del slider y lo guardamos en el explorador
       axios.get(urldestino)
       .then(function (response) {
@@ -987,6 +998,7 @@ export default {
           var temp5Int;
           var temp6Int;
           var temp7Int;
+          var temp8Int;
 
           // Rescatamos datos
           eInt.id = "fooInt";
@@ -1008,6 +1020,7 @@ export default {
                   // comparamos los datos con la estructura de datos y rellenamos sus elementos unidad
                   if (temp2Int.split("-")[0].split(".").length == 3) {
                       temp5Int = temp2Int.split("-")[0].split(".")[2].toLowerCase();
+                      // aqui se meten los recursos específicos de cada grupo de seminarios, talleres, etc.
                       if (temp4Int && Object.keys(datos).indexOf(temp4Int) !== -1) {
                           temp6Int = datos[temp4Int];
                           if (temp5Int && Object.keys(temp6Int.hijos).indexOf(temp5Int) !== -1) {
@@ -1015,6 +1028,15 @@ export default {
                           temp7Int.recursos.push({ texto: temp3Int, url: temp1Int });
                           console.log('texto: ' + temp3Int + ', y la url es ' + temp1Int);
                           }
+                      }
+                  }
+                  // aqui se meten los recursos globales para mostrar en la pantalla de bienvenida
+                  if (temp4Int == "nca" && temp2Int.split("-").length > 4) {
+                      if (temp2Int.split("-")[4].split(".")[0] == "RECGEN") {
+                      temp8Int = temp2Int.split("-")[4].split(".")[1];
+                      recursosglobales.push({ texto: temp3Int, url: temp1Int, tipo: temp8Int});
+                      console.log('texto: ' + temp3Int + ', y la url es ' + temp1Int + ', y el tipo es ' + temp8Int);
+                      console.log(recursosglobales);
                       }
                   }
                   // en el caso de que ese nivel de jerarquía sólo tenga 2 elems, los guarda en todos los elems hijos de ese
@@ -1037,7 +1059,7 @@ export default {
         console.log(error)
       }) //handle error
       .then(function () {}); // always executed
-        console.log('carga recursos')
+        console.log('carga recursos');
     },
     activatipo(tip) {
       if (this.tipos.indexOf(tip) > -1) {
@@ -1189,179 +1211,8 @@ export default {
           titulo = codigounidad + ' ' + titulo;
         }
       }
-      // creamos el objeto jsPDF (no podemos crearlo dentro de la función porque no tenemos la librería en ella)
-      var doc = new jsPDF({ putOnlyUsedFonts: true, orientation: "portrait" });
       // invocamos la función externa
-      this.jsonToPdf(json, titulo, doc, this.datosusuario.lang)
-    },
-    jsonToPdf(json, titulotema, jsPDFelem, idiomaUsuario) {
-
-        // Creamos el objeto que contiene los textos traducidos de elementos de plantilla
-        let textos = [];
-        textos.push({id: 'tablaContenidos', textos: {es:'TABLA DE CONTENIDOS', en:'TABLE OF CONTENTS', eu:'EDUKIEN TAULA', ca:'TAULA DE CONTINGUTS', ca_valencia:'TAULA DE CONTINGUTS', gl:'TÁBOA DE CONTIDOS'}});
-        textos.push({id: 'sesion', textos: {es:'Sesión', en:'Session', eu:'Saioa', ca:'Sessió', ca_valencia:'Sessió', gl:'Sesión'}});
-        textos.push({id: 'actividad', textos: {es:'Actividad', en:'Activity', eu:'Jarduera', ca:'Activitat', ca_valencia:'Activitat', gl:'Actividade'}});
-        textos.push({id: 'secuenciaDeActividades', textos: {es:'SECUENCIA DE ACTIVIDADES', en:'SEQUENCE OF ACTIVITIES', eu:'JARDUEREN HURRENKERA', ca:'SEQÜÈNCIA D\'ACTIVITATS', ca_valencia:'SEQÜÈNCIA D\'ACTIVITATS', gl:'SECUENCIA DE ACTIVIDADES'}});
-        textos.push({id: 'de', textos: {es:'de', en:'of', eu:'/', ca:'de', ca_valencia:'de', gl:'de'}});
-        textos.push({id: 'descripcion', textos: {es:'Descripción', en:'Description', eu:'Deskribapena', ca:'Descripció', ca_valencia:'Descripció', gl:'Descrición'}});
-        textos.push({id: 'recursos', textos: {es:'Recursos', en:'Resources', eu:'Baliabideak', ca:'Recursos', ca_valencia:'Recursos', gl:'Recursos'}});
-        
-        // Creamos la función extractora de textos
-        function textoMul(id,lang) {
-        let textoTraducido = 'identificador no encontrado'
-            for (let i=0; i<textos.length; i++) {
-                let textoActual = textos[i];
-                if (textoActual.id == id) {
-                  if (textoActual.textos[lang] && textoActual.textos[lang] !== '') {
-                      textoTraducido = textoActual.textos[lang];
-                      return textoTraducido;
-                  } else {
-                      textoTraducido = 'traduccion no encontrada'
-                      return textoTraducido;
-                  }
-                }
-            }
-        }
-        
-        // Iniciamos el contenedor del pdf
-        //var doc = new jsPDF({ putOnlyUsedFonts: true, orientation: "portrait" });
-        var doc = jsPDFelem
-        // Ponemos el título
-        let titulo = titulotema
-        //let titulo = document.querySelector('#nca13-mnu-titulo').textContent
-        doc.setFontSize(20)
-        doc.setTextColor(40)
-        doc.text(titulo, 14, 22)
-        doc.setFontSize(15)
-        
-        // Obtenemos los datos para la tabla de contenidos
-        var finalY = 10
-        doc.text(textoMul('tablaContenidos',idiomaUsuario), 14, finalY + 25)
-        let numactividad = 0;
-        let tablaactividad = [];
-        let estiloactividad = 'normal';
-        for (let i = 0; i < json.sesiones.length; i++) {
-            let sesion = '00' + (i + 1);
-            sesion = sesion.substring(sesion.length-2,sesion.length);
-            let numactividades = json.sesiones[i].numactividades;
-            let actividades = ""
-            for (let j = 0; j < numactividades; j++) {
-              actividades = json.actividades[numactividad].titulo;
-              // Ajustamos el estilo de fuente en el caso de que sea una actividad evaluable
-              if (json.actividades[numactividad].evaluable == true) {
-                estiloactividad = 'bold';
-              } else {
-                estiloactividad = 'normal';
-              }
-              // Generamos los elementos de la tabla
-              if (j == 0) {
-                //tablaactividad.push([ textoMul('sesion',idiomaUsuario) + ' ' + sesion, actividades]);
-                tablaactividad.push([
-                  { content: textoMul('sesion',idiomaUsuario) + ' ' + sesion, colSpan: 1, rowSpan: numactividades, styles: { fontStyle: 'normal'} },
-                  { content: actividades, colSpan: 1, rowSpan: 1, styles: { fontStyle: estiloactividad} }
-                ]);
-              } else {
-                tablaactividad.push([
-                  //{ content: '', colSpan: 1, rowSpan: 1, styles: { fontStyle: estiloactividad} },
-                  { content: actividades, colSpan: 1, rowSpan: 1, styles: { fontStyle: estiloactividad} }
-                ]);
-              }
-              // actualizamos el número de actividad
-              numactividad++;
-            }
-            // Insertamos una fila vacía para separar sesiones
-            tablaactividad.push(['','']);
-        }
-        
-        // Insertamos la tabla de contenidos
-        doc.autoTable({
-          startY: finalY + 30,
-          head: [[textoMul('sesion',idiomaUsuario), textoMul('actividad',idiomaUsuario)]],
-          body: tablaactividad,
-          headStyles: {
-              fillColor: [200, 200, 200],
-              fontSize: 15,
-          },
-          bodyStyles: {
-              fillColor: [245, 245, 245],
-              textColor: 50,
-              rowHeight: 0, 
-              cellPadding: 1,
-              fontSize: 9,
-          },
-              alternateRowStyles: {
-              fillColor: [245, 245, 245],
-              textColor: 50,
-          },
-        })
-        doc.addPage();
-        
-        // titulo de lista de actividades
-        finalY = 10
-        doc.text(textoMul('secuenciaDeActividades',idiomaUsuario), 14, 20)
-        
-        // Recorremos el documento entero para generar las tablas de actividades
-        let actividadprimera = 31;
-        numactividad = 0;
-        for (let i = 0; i < json.sesiones.length; i++) {
-            // Añadimos el número de sesion
-            let sesion = '00' + (i + 1);
-            sesion = sesion.substring(sesion.length-2,sesion.length);
-            // Por cada actividad en esta sesión metemos su tabla de actividad
-            let numactividades = json.sesiones[i].numactividades;
-            for (let j = 0; j < numactividades; j++) {
-            // Para configurar la altura del autotable, vemos si es la primera del grupo
-            if (j == 0) {
-                actividadprimera = 31
-            } else {
-                actividadprimera = null;
-            }
-            // Definimos el contenido de la tabla
-            let temp1 = json.actividades[numactividad]
-            let temp2 = '00' + (numactividad + 1);
-            temp2 = temp2.substring(temp2.length-2,temp2.length);
-            // Metemos el titulo
-            doc.text(textoMul('sesion',idiomaUsuario) + ' ' + sesion + '   '+ textoMul('actividad',idiomaUsuario) + ' ' + (j + 1) + ' ' + textoMul('de',idiomaUsuario) + ' ' + numactividades, 14, 28)
-            let temp3 = temp1.titulo;
-            let temp4 = '\n' + temp1.descripcion;
-                // Limpiamos el html del string de la descripcion
-                temp4 = temp4.replace(/<style([\s\S]*?)<\/style>/gi, '');
-                temp4 = temp4.replace(/<script([\s\S]*?)<\/script>/gi, '');
-                temp4 = temp4.replace(/<\/div>/ig, '\n\n');
-                temp4 = temp4.replace(/<\/li>/ig, '\n\n');
-                temp4 = temp4.replace(/<li>/ig, '  *  ');
-                temp4 = temp4.replace(/<\/ul>/ig, '\n\n');
-                temp4 = temp4.replace(/<\/p>/ig, '\n\n');
-                temp4 = temp4.replace(/<br\s*?>/gi, "\n\n");
-                temp4 = temp4.replace(/<[^>]+>/ig, '');
-            let recursos = "\n"
-            temp1.recursos.forEach((element) => recursos = recursos + element.titulo + '\n\n' )
-            doc.autoTable({
-                startY: actividadprimera,
-                head: [[temp2, temp3]],
-                body: [
-                    ['\n' + textoMul('descripcion',idiomaUsuario), temp4],
-                    ['\n' + textoMul('recursos',idiomaUsuario), recursos],
-                ],
-                headStyles: {
-                    fillColor: [200, 200, 200],
-                    fontSize: 15,
-                },
-                bodyStyles: {
-                    fillColor: [245, 245, 245],
-                    textColor: 50,
-                },
-                alternateRowStyles: {
-                    fillColor: [245, 245, 245],
-                    textColor: 50,
-                },
-            })
-            doc.addPage();
-            // actualizamos el numero de actividad
-            numactividad++;
-            }
-        }
-        doc.save(titulotema + '.pdf');
+      jsonToPdf(json, titulo, this.datosusuario.lang)
     },
   },
 }

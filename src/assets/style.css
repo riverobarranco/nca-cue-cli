@@ -1,7 +1,8 @@
 /* CONFIGURACIONES DE ESTILO PARA EL SLIDER -----------------------------------------------------------*/
 
 .nca_carousel_sesiones_hija.col {
-    font-family: Arial black;
+    font-family: Arial;
+    font-weight: 700;
     text-align: center;
     border-right: 2px solid white;
     border-left: 2px solid white;
@@ -28,6 +29,7 @@
     margin-left: 0px;
     margin-right: 0px;
     margin-bottom: 4px;
+    font-size: 1vw;
 }
 
 .carousel-indicators {

@@ -1,6 +1,6 @@
 <template>
     <div id="nca13_mnu_intro" class="container" v-if="centralusuario.estado == 0">     
-        <div class="centrador">
+        <div class="centrador" style="top:40%;">
             <div class="parte1">
                 <div class="itemGroup itemGroup">
                     <div class="item">
@@ -71,6 +71,16 @@
                 {{ centralusuario.intromensaje[centralusuario.lang] }}
                 </p>
             </div>
+            <div class="parte3 row">
+                <div class="col" style="text-align:center; margin-top:60px; font-weight:700; color:lightgray;" v-for="(recgen, index) in centralusuario.recursosglobales" v-bind:key="recgen">
+                    <a class="nca13-mnu-ctrl-recgen-icon" v-bind:href="centralusuario.recursosglobales[index].url" target="_blank">
+                        <i v-bind:class="classicono(index)" aria-hidden="true" style="color:lightgray; font-size:1.5vw"></i>
+                    </a>
+                    <p>
+                        {{ recgen.texto }}
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -139,10 +149,10 @@ export default {
         guiatraducida: {
           es: "Guía actividades",
           eu: "Jarduera gida",
-          ca: "Guia activitats català",
-          gl: "Guía activdiades galego",
-          ca_valencia: "Guía actividades valenciá",
-          en: "Guía de actividades english",
+          ca: "Guia d'activitats",
+          gl: "Guía actividades",
+          ca_valencia: "Guia d'activitats",
+          en: "Teacher's Guide",
         },
         tipoactivoFijo : this.centralusuario.tipoactivo,
         sliderdatos: {jsonvisible: false, tipo: null, datos:''},
@@ -230,6 +240,14 @@ export default {
             this.$emit('genera-pdf', item);
             console.log(item);
         },
+        classicono(index) {
+            let temp1 = '';
+            let temp2 = this.centralusuario.recursosglobales[index].tipo
+            temp2 = temp2.split(' ')[0];
+            if (temp2 == 'RC') {temp1 = "fa fa-folder-open"}
+            if (temp2 == 'T1' || temp2 == 'T2' || temp2 == 'T3' || temp2 == 'T4') {temp1 = "fa fa-hourglass-half"}
+            return temp1;
+        },
     },
     computed: {
         centralstyleint() {
@@ -316,7 +334,8 @@ export default {
         },
         centralsliderfiltrado () {
             var temp0 = this.centralusuario.slider;
-            console.log('slider inicial es: ' + temp0);
+            console.log('slider inicial es: ');
+            console.log(temp0);
             // Filtro por rol. Ocultamos los slider de profesor;
             if (this.centralusuario.rol == "student") {
                 temp0 = temp0.filter(elem => elem.indice !== "PF")
@@ -324,7 +343,8 @@ export default {
             } else {
                 temp0 = temp0.filter(elem => elem.indice !== "AL")
             }
-            console.log('slider filtro por rol queda: ' + temp0);
+            console.log('slider filtro por rol queda: ');
+            console.log(temp0);
             // Filtro por ccaa 1. Eliminamos los elementos de ccaa ajenas al usuario;
             if (this.centralusuario.ccaa && this.centralusuario.ccaa !== "") {
                 temp0 = temp0.filter(elem => elem.titulo.split("-")[2] == "0" || elem.titulo.split("-")[2] == this.centralusuario.ccaa);
