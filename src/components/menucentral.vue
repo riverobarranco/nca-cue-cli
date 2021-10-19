@@ -166,7 +166,12 @@ export default {
         innerfiltroccaa(elem, index, array) {
             let temp1 = true;
             for (let i=0; i < array.length; i++) {
-                if (elem.titulo.split("-")[4] == array[i].titulo.split("-")[4] && elem.titulo.split("-")[1] == array[i].titulo.split("-")[1] && elem.titulo.split("-")[2] == "0" && i !== index) {
+                if (    elem.titulo.split("-")[4] == array[i].titulo.split("-")[4] &&
+                        elem.titulo.split("-")[2] !== array[i].titulo.split("-")[2] && // Añadimos esta linea por si hay un slider duplicado con el mismo nombre
+                        elem.titulo.split("-")[1] == array[i].titulo.split("-")[1] &&
+                        elem.titulo.split("-")[2] == "0" &&
+                        i !== index
+                    ) {
                     temp1 = false;
                 }
             }
@@ -180,6 +185,7 @@ export default {
                             elem.titulo.split("-")[2] == array[i].titulo.split("-")[2] && 
                             elem.titulo.split("-")[1] !== array[i].titulo.split("-")[1] &&
                             elem.titulo.split("-")[1] !== innerlang &&
+                            !(elem.titulo.split("-")[1] == "MUL" && array[i].titulo.split("-")[1] !== innerlang) &&  // Si comparamos un MUL con un idioma distinto al usuario no se borra el MUL
                             i !== index
                         ) {
                             temp1 = false;
@@ -324,7 +330,7 @@ export default {
             // Filtro por idioma. Si hay dos elementos de igual indice y ccaa pero idioma distinto eliminamos la que tiene idioma distinto al usuario;
             var langtrad = {es: "CAS", en:"ENG", eu:"EUS", ca:"CAT", ca_valencia:"VAL", gl:"GAL"};
             var langactivo = langtrad[this.centralusuario.lang];
-            if (this.centralusuario.lang && this.centralusuario.lang !== "" && langtrad[this.centralusuario.lang]) {
+            if (this.centralusuario.lang && this.centralusuario.lang !== "" && langtrad[this.centralusuario.lang]) { // AÑADIR LA OPCIÓN "||" A QUE LANGTRAD SEA MUL!!!
                 temp0 = temp0.filter(this.innerfiltrolang(langactivo), temp0);
                 console.log('interactivas filtro por idioma queda: ')
                 console.log(temp0);

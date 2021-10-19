@@ -871,6 +871,8 @@ export default {
             //}
           });
         //datosusuario.rol = "teacher"
+        console.log('el rol del usuario es ');
+        console.log( this.datosusuario.rol)
     },
     cargaPrincipal() {
       // Tras el page load;
