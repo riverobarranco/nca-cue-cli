@@ -1,14 +1,18 @@
 <template>
-  <div id="app-ltrl">
-    <logo v-bind:logousuario="datosusuario"></logo>
-    <iconos v-bind:iconosurl="datosusuario.urlmenulateral" v-bind:iconostipos="tipos" v-bind:iconoslang="datosusuario.lang" @activa-tipo="activatipo"></iconos>
-    <botones v-bind:botonestipo="datosusuario.tipoactivo" v-bind:botonessubtipos="tipoactivosubtipos" v-bind:botonestitulo="tipoactivotitulo" v-bind:botonesccaa="datosusuario.ccaa" @activa-subtipo="activasubtipo"></botones>
-    <lista @activa-seccion="cargaseccion" v-bind:listasubtipo="datosusuario.subtipoactivo" v-bind:listatitulo="subtipoactivotitulo" v-bind:listaunidades="subtipoactivounidades" v-bind:listarecursos="subtipoactivorecursos" v-bind:listacolor="subtipoactivocolor"></lista>
+  <botoncolapsa v-bind:lateralvisible="datosusuario.lateralvisible" @toglea-estado="togleaestadolateral"></botoncolapsa>
+  <div id="app-content">
+    <div id="app-ltrl">
+      <logo v-bind:logousuario="datosusuario"></logo>
+      <iconos v-bind:iconosurl="datosusuario.urlmenulateral" v-bind:iconostipos="tipos" v-bind:iconoslang="datosusuario.lang" @activa-tipo="activatipo"></iconos>
+      <botones v-bind:botonestipo="datosusuario.tipoactivo" v-bind:botonessubtipos="tipoactivosubtipos" v-bind:botonestitulo="tipoactivotitulo" v-bind:botonesccaa="datosusuario.ccaa" @activa-subtipo="activasubtipo"></botones>
+      <lista @activa-seccion="cargaseccion" v-bind:listasubtipo="datosusuario.subtipoactivo" v-bind:listatitulo="subtipoactivotitulo" v-bind:listaunidades="subtipoactivounidades" v-bind:listarecursos="subtipoactivorecursos" v-bind:listacolor="subtipoactivocolor"></lista>
+    </div>
+    <menucentral @genera-pdf="generapdf" v-bind:centralusuario="datosusuario"></menucentral>
   </div>
-  <menucentral @genera-pdf="generapdf" v-bind:centralusuario="datosusuario"></menucentral>
 </template>
 
 <script>
+import botoncolapsa from './components/botoncolapsa.vue'
 import logo from './components/logo.vue'
 import iconos from './components/iconos.vue'
 import botones from './components/botones.vue'
@@ -22,6 +26,7 @@ import { jsonToPdf } from './assets/jsonToPdf2/sliderpdf';
 export default {
   name: 'App',
   components: {
+    botoncolapsa,
     logo,
     iconos,
     botones,
@@ -31,6 +36,7 @@ export default {
   data() {
       return {
         datosusuario: {
+          lateralvisible: true,
           tipoactivo: "",
           subtipoactivo: "",
           subtipoactivorotulo: "",
@@ -783,6 +789,9 @@ export default {
 
   },
   methods: {
+    togleaestadolateral() {
+      this.datosusuario.lateralvisible = !this.datosusuario.lateralvisible
+    },
     cargaelemento(urlcarga, funcionexito) {
 
       var xhttp = new XMLHttpRequest();
