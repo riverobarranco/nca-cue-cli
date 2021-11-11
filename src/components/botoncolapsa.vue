@@ -1,5 +1,13 @@
 <template>
-    <div id="nca13_mnu_tglbtn" class="row" v-on:click="togleaestado()">
+    <div id="nca13_mnu_tglbtn" class="row" v-if="lateralvisible" v-on:click="$emit('toglea-estado')">
+      <button type="button" class="btn nav-link float-sm-left mr-1 btn-secondary">
+        <i class="icon fa fa-angle-double-left" ></i>
+      </button>
+    </div>
+    <div id="nca13_mnu_tglbtn" class="row" v-if="!lateralvisible" v-on:click="$emit('toglea-estado')">
+      <button type="button" class="btn nav-link float-sm-left mr-1 btn-secondary">
+        <i class="icon fa fa-angle-double-right" ></i>
+      </button>
     </div>
 </template>
 
@@ -7,29 +15,18 @@
 export default {
   name: 'botoncolapsa',
   emits: ['toglea-estado'],
-  props: {
-    lateralvisible: {
-        type: Boolean,
-        default: true
-    },
-  },
+  props: ['lateralvisible'],
   computed: {
-    botonstyle() {
-        if (this.lateralvisible == true) {
-        return 'width: ' + (100 / this.botonessubtipos.length) + '%' + '; background-color: ';
-        } else {
-        return 'background-color: ';
-        }
-    },
   },
   methods: {
-    togleaestado() {
-        this.$emit('toglea-estado');
-    }
+    //togleaestado() {
+    //    this.$emit('toglea-estado');
+    //}
   },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+
 </style>

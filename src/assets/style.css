@@ -726,7 +726,7 @@
     top: 38px;
     height: calc(100% - 38px);
     background: lightgray;
-    z-index: 1;
+    z-index: 998;
     padding: 20px;
     color: white;
     box-shadow: 3px 1px 5px rgb(0 0 0 / 40%);
@@ -735,7 +735,20 @@
 #page {
     position: absolute;
     width: calc(100% - 285px);
+    /*padding-left: 285px;*/
     right: 0px;
+    transition: all 0.5s ease;  /*se anima el cambio de anchura del elemento page al ocultar el menú lateral*/
+}
+#page[data-lateralvisible="false"] {
+    width: 100%;
+}
+
+#app-ltrl {
+    transform: translateX(0px);
+    transition: all 0.5s ease;
+}
+#app-ltrl[data-lateralvisible="false"] {
+    transform: translateX(-285px);
 }
 
 .blockpanelbtn {
@@ -746,6 +759,10 @@
     display: none;
 }
 
+#back-to-top{
+    display: none;
+}
+
 #region-main-box {
     margin-top: -42px;
 }
@@ -753,6 +770,27 @@
 .single-section .sectionname, #page-header .mr-auto {
     display: none;
 }
+
+/* CONFIGURACIONES DE ESTILO PARA LOS BOTONES DE COLAPSO DE BARRA LATERAL -----------------------------------------------------------*/
+
+#nca13_mnu_tglbtn button {
+    position: fixed;
+    top: 0px;
+    left: 110px;
+    background-color: rgba(0,0,0,0);
+    color: white;
+    border: none;
+    z-index: 9999;
+}
+
+.fixed-top button.btn.nav-link, .editingbutton {
+  background-color: rgba(0,0,0,0);
+  color: white;
+  border: none;
+  margin-top: 3px;  
+}
+
+
 
 /* CONFIGURACIONES DE ESTILO PARA LA NUEVA VERSIÓN DE MOODLE -----------------------------------------------------------*/
 
@@ -800,8 +838,8 @@
 
 #nca13_mnu_logo div {
     text-align: center;
-    margin-top: 40px;
-    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 15px;
 }
 
 .nca13_mnu_ltrl {
@@ -999,10 +1037,10 @@
 
 #nca13_mnu_intro {
     position: fixed;
-    z-index: 999;
+    z-index: 997;
     background-color: white;
     right: 0px;
-    width: calc(100% - 291px);
+    width: calc(100% - 285px);
     top: 38px;
     height: calc(100% - 38px);
     max-width: unset;

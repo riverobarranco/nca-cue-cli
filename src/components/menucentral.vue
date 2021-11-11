@@ -84,7 +84,7 @@
         </div>
     </div>
 
-    <div id="nca13_mnu_ctrl" class="container">
+    <div id="nca13_mnu_ctrl" class="container" v-if="centralusuario.estado !== 0">
         <div class="row">
             <div class="col nca13-mnu-ctrl-mas" v-bind:style="centralstylemas" v-on:click="actualizarecursoactivo">
             <h2>+</h2>
@@ -123,7 +123,7 @@
         </div>
     </div>
 
-    <slider v-bind:sliderusuario="centralusuario" v-bind:slider="sliderdatos"></slider>
+    <slider v-bind:sliderusuario="centralusuario" v-bind:slider="sliderdatos" v-if="centralusuario.estado == !0"></slider>
 
 </template>
 

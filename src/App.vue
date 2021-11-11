@@ -1,14 +1,12 @@
 <template>
-  <botoncolapsa v-bind:lateralvisible="datosusuario.lateralvisible" @toglea-estado="togleaestadolateral"></botoncolapsa>
-  <div id="app-content">
-    <div id="app-ltrl">
-      <logo v-bind:logousuario="datosusuario"></logo>
-      <iconos v-bind:iconosurl="datosusuario.urlmenulateral" v-bind:iconostipos="tipos" v-bind:iconoslang="datosusuario.lang" @activa-tipo="activatipo"></iconos>
-      <botones v-bind:botonestipo="datosusuario.tipoactivo" v-bind:botonessubtipos="tipoactivosubtipos" v-bind:botonestitulo="tipoactivotitulo" v-bind:botonesccaa="datosusuario.ccaa" @activa-subtipo="activasubtipo"></botones>
-      <lista @activa-seccion="cargaseccion" v-bind:listasubtipo="datosusuario.subtipoactivo" v-bind:listatitulo="subtipoactivotitulo" v-bind:listaunidades="subtipoactivounidades" v-bind:listarecursos="subtipoactivorecursos" v-bind:listacolor="subtipoactivocolor"></lista>
-    </div>
-    <menucentral @genera-pdf="generapdf" v-bind:centralusuario="datosusuario"></menucentral>
+  <botoncolapsa v-bind:lateralvisible="datosusuario.lateralvisible" @toglea-estado="togleaestadolateral()"></botoncolapsa>
+  <div id="app-ltrl">
+    <logo v-bind:logousuario="datosusuario"></logo>
+    <iconos v-bind:iconosurl="datosusuario.urlmenulateral" v-bind:iconostipos="tipos" v-bind:iconoslang="datosusuario.lang" @activa-tipo="activatipo"></iconos>
+    <botones v-bind:botonestipo="datosusuario.tipoactivo" v-bind:botonessubtipos="tipoactivosubtipos" v-bind:botonestitulo="tipoactivotitulo" v-bind:botonesccaa="datosusuario.ccaa" @activa-subtipo="activasubtipo"></botones>
+    <lista @activa-seccion="cargaseccion" v-bind:listasubtipo="datosusuario.subtipoactivo" v-bind:listatitulo="subtipoactivotitulo" v-bind:listaunidades="subtipoactivounidades" v-bind:listarecursos="subtipoactivorecursos" v-bind:listacolor="subtipoactivocolor"></lista>
   </div>
+  <menucentral @genera-pdf="generapdf" v-bind:centralusuario="datosusuario"></menucentral>
 </template>
 
 <script>
@@ -19,8 +17,6 @@ import botones from './components/botones.vue'
 import lista from './components/lista.vue'
 import menucentral from './components/menucentral.vue'
 import axios from 'axios';
-//import { jsPDF } from "jspdf";
-//import 'jspdf-autotable';
 import { jsonToPdf } from './assets/jsonToPdf2/sliderpdf';
 
 export default {
@@ -36,7 +32,7 @@ export default {
   data() {
       return {
         datosusuario: {
-          lateralvisible: true,
+          lateralvisible: true,  //esto es el elemento que marca la visibilidad o no del menú lateral
           tipoactivo: "",
           subtipoactivo: "",
           subtipoactivorotulo: "",
@@ -790,7 +786,14 @@ export default {
   },
   methods: {
     togleaestadolateral() {
-      this.datosusuario.lateralvisible = !this.datosusuario.lateralvisible
+      this.datosusuario.lateralvisible = !this.datosusuario.lateralvisible;
+      if (this.datosusuario.lateralvisible) {
+        document.querySelector("#page").dataset.lateralvisible = 'true';
+        document.querySelector("#app-ltrl").dataset.lateralvisible = 'true';
+      } else {
+        document.querySelector("#page").dataset.lateralvisible = 'false';
+        document.querySelector("#app-ltrl").dataset.lateralvisible = 'false';
+      }
     },
     cargaelemento(urlcarga, funcionexito) {
 
@@ -1229,5 +1232,19 @@ export default {
 }
 </script>
 
-<style>
+<style >
+
+  .show-enter-active,
+  .show-leave-active {
+    transition: all 0.5s ease-out;
+  }
+
+  .show-enter-to {
+    transform: translateX(-285px);
+  }
+
+  .show-leave-to {
+    transform: translateX(0px);
+  }
+
 </style>
