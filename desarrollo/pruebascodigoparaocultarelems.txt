@@ -1,0 +1,25 @@
+https://proyectonca.sallenet.org/course/mod.php?sesskey=QMrmBmtsj8&sr=0&hide=69244
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+axios.get('https://proyectonca.sallenet.org/course/mod.php?sesskey=QMrmBmtsj8&sr=0&hide=69244')
+  .then(function (response) {
+    // handle success
+    console.log('exito');
+  })
+  .catch(function (error) {
+    // handle error
+    console.log('error');
+  })
+  .then(function () {
+    // always executed
+  });
+  
+  
+  
+  
+<div data-region="drawer-toggle" class="d-inline-block mr-3">
+  <button aria-expanded="false" aria-controls="nav-drawer" type="button" class="btn nav-link float-sm-left mr-1 btn-secondary" data-action="toggle-drawer" data-side="left" data-preference="drawer-open-nav"><i class="icon fa fa-angle-double-left fa-fw " aria-hidden="true"></i><span class="sr-only">Panel lateral</span></button>
+</div>

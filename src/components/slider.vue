@@ -1,62 +1,64 @@
 <template>
-    <div v-if="slider.jsonvisible" class="carousel slide carousel-fade">
+    <div>
+        <div v-if="slider.jsonvisible" class="carousel slide carousel-fade">
 
-        <div class="carousel-sesiones row" style="position:relative">
-            <div v-for="(sesion, index) in sliderjson.sesiones" class="nca_carousel_sesiones_hija col" v-bind:style="stylesesion(sesion.numactividades)" v-bind:key="sesion">
-                S-{{ index + 1 }}
+            <div class="carousel-sesiones row" style="position:relative">
+                <div v-for="(sesion, index) in sliderjson.sesiones" class="nca_carousel_sesiones_hija col" v-bind:style="stylesesion(sesion.numactividades)" v-bind:key="sesion">
+                    S-{{ index + 1 }}
+                </div>
             </div>
-        </div>
 
-        <div style="position:relative" class="carousel-indicators row">
-            <div v-for="(activ, index) in sliderjson.actividades" v-bind:style="styleactividad(index)" v-bind:class="classactividad(index)" v-on:click="actualizarslider(index)" v-bind:key="activ">
-                {{ contentactividad(index) }}
+            <div style="position:relative" class="carousel-indicators row">
+                <div v-for="(activ, index) in sliderjson.actividades" v-bind:style="styleactividad(index)" v-bind:class="classactividad(index)" v-on:click="actualizarslider(index)" v-bind:key="activ">
+                    {{ contentactividad(index) }}
+                </div>
             </div>
-        </div>
 
-        <div class="carousel-inner">
-            <div class="slider-vue carousel-item row">
+            <div class="carousel-inner">
+                <div class="slider-vue carousel-item row">
 
-                <div class="nca_book_slide_vue row">
-                    <div class="col-md-1 title nca_book_orden" v-bind:style="styleorden()">
-                        <div class="row align-items-center" style="text-align:center;">
-                            <div class="col-md-3"><span class="carousel-control-prev-icon" aria-hidden="true" v-on:click="actualizarslider(activatras())"></span></div>
-                            <div class="col-md-6"><h2>{{ contentactividad(activactivofiltrada) }}</h2></div>
-                            <div class="col-md-3"><span class="carousel-control-next-icon" aria-hidden="true" v-on:click="actualizarslider(activdelante())"></span></div>
+                    <div class="nca_book_slide_vue row">
+                        <div class="col-md-1 title nca_book_orden" v-bind:style="styleorden()">
+                            <div class="row align-items-center" style="text-align:center;">
+                                <div class="col-md-3"><span class="carousel-control-prev-icon" aria-hidden="true" v-on:click="actualizarslider(activatras())"></span></div>
+                                <div class="col-md-6"><h2>{{ contentactividad(activactivofiltrada) }}</h2></div>
+                                <div class="col-md-3"><span class="carousel-control-next-icon" aria-hidden="true" v-on:click="actualizarslider(activdelante())"></span></div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-md-7">
-                        <div class="col-md-12 nca_book_titulo">
-                            <h2>{{ sliderjson.actividades[activactivofiltrada].titulo }}</h2>
+                        <div class="col-md-7">
+                            <div class="col-md-12 nca_book_titulo">
+                                <h2>{{ sliderjson.actividades[activactivofiltrada].titulo }}</h2>
+                            </div>
+                            <div class="col-md-12 left nca_book_descripcion" v-html="sliderjson.actividades[activactivofiltrada].descripcion"></div>
                         </div>
-                        <div class="col-md-12 left nca_book_descripcion" v-html="sliderjson.actividades[activactivofiltrada].descripcion"></div>
-                    </div>
 
-                    <div class="col-md-4">
-                        <div class="nca_book_recursos" v-bind:style="'background-color:' + slidercolorAclarado(slidercolorFijo)">
-                            <div class="row" v-for="(recur, index) in sliderjson.actividades[activactivofiltrada].recursos" v-bind:key="recur"> 
-                                <div class="nca_book_recursos_col_long">
-                                    {{ sliderjson.actividades[activactivofiltrada].recursos[index].titulo }}
-                                </div>
-                                <div v-if="(sliderjson.actividades[activactivofiltrada].recursos[index].tipo !== 'mat')" class="nca_book_recursos_col_short">
-                                    <a class="nca_book_recursos_icon" v-bind:href="sliderjson.actividades[activactivofiltrada].recursos[index].url" target="_blank">
-                                        <i v-bind:class="classicono(index)" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                                <div v-if="sliderjson.actividades[activactivofiltrada].recursos[index].tipo == 'vid' && recursourlvideo(sliderjson.actividades[activactivofiltrada].recursos[index].url) !== ''" class="nca_book_recursos_col_long" style="height:0; width:100%; margin-top:20px; position:relative; padding-bottom:56.25%">
-                                    <iframe v-bind:src="recursourlvideo(sliderjson.actividades[activactivofiltrada].recursos[index].url)" style="position: absolute; top: 0; left: 0; height:100%; width: 100%; padding-left: 20px; padding-right:20px; padding-bottom:20px; border: 0;"></iframe>
+                        <div class="col-md-4">
+                            <div class="nca_book_recursos" v-bind:style="'background-color:' + slidercolorAclarado(slidercolorFijo)">
+                                <div class="row" v-for="(recur, index) in sliderjson.actividades[activactivofiltrada].recursos" v-bind:key="recur"> 
+                                    <div class="nca_book_recursos_col_long">
+                                        {{ sliderjson.actividades[activactivofiltrada].recursos[index].titulo }}
+                                    </div>
+                                    <div v-if="(sliderjson.actividades[activactivofiltrada].recursos[index].tipo !== 'mat')" class="nca_book_recursos_col_short">
+                                        <a class="nca_book_recursos_icon" v-bind:data-name="sliderjson.actividades[activactivofiltrada].recursos[index].titulo" v-bind:data-lang="sliderusuario.lang" v-bind:href="sliderjson.actividades[activactivofiltrada].recursos[index].url" target="_blank">
+                                            <i v-bind:class="classicono(index)" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                    <div v-if="sliderjson.actividades[activactivofiltrada].recursos[index].tipo == 'vid' && recursourlvideo(sliderjson.actividades[activactivofiltrada].recursos[index].url) !== ''" class="nca_book_recursos_col_long" style="height:0; width:100%; margin-top:20px; position:relative; padding-bottom:56.25%">
+                                        <iframe v-bind:src="recursourlvideo(sliderjson.actividades[activactivofiltrada].recursos[index].url)" style="position: absolute; top: 0; left: 0; height:100%; width: 100%; padding-left: 20px; padding-right:20px; padding-bottom:20px; border: 0;"></iframe>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div v-if="!slider.jsonvisible" v-html="slider.datos" class="carousel slide carousel-fade"> </div>
+
     </div>
-
-    <div v-if="!slider.jsonvisible" v-html="slider.datos" class="carousel slide carousel-fade"> </div>
-
 </template>
 
 <script>
@@ -115,8 +117,14 @@ export default {
                 var vinculonuevo = textfinder(vinculohref,arrayunida).url;
                 //console.log(vinculonuevo);
                 if (vinculonuevo) {
-                    vinculoslista[j].setAttribute("href",vinculonuevo);
+                    // esto es una prueba para ver si puedo pasar los atributos a la url como parametros, si no pasa la url sin parametros
+                    if (vinculoslista[j].dataset.name && vinculoslista[j].dataset.lang) {
+                        vinculoslista[j].setAttribute("href",vinculonuevo + '&lang=' + vinculoslista[j].dataset.lang + '&name=' + vinculoslista[j].dataset.name);
+                    } else {
+                        vinculoslista[j].setAttribute("href",vinculonuevo);
+                    }
                 }
+                
             }
         }
     },
@@ -241,6 +249,23 @@ export default {
             }
             return temp1
         },
+        //ESTA FUNCIÓN SOBRA!!!!
+        nombrearchivo(idioma, nombre, url) {
+            // esta función es para guardar el nombre de un recurso para utilizarlo como nombre de archivo en LTI de recurso archivo con varios archivos dentro.
+            let idiomadef = 'error_idioma';
+            if (idioma !== null & idioma !== '') {
+                idiomadef = idioma;
+            }
+            let nombredef = 'error_nombre';
+            if ( nombre !== null && nombre !== '') {
+                nombredef = nombre;
+            }
+            let urldef = 'error_url';
+            if (url !== null && url !=='') {
+                urldef = url + '&lang=' + idiomadef + '&name=' + nombredef
+            }
+            return urldef
+        }
     },
 }
 </script>

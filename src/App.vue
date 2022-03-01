@@ -1,12 +1,14 @@
 <template>
-  <botoncolapsa v-bind:lateralvisible="datosusuario.lateralvisible" @toglea-estado="togleaestadolateral()"></botoncolapsa>
-  <div id="app-ltrl">
-    <logo v-bind:logousuario="datosusuario"></logo>
-    <iconos v-bind:iconosurl="datosusuario.urlmenulateral" v-bind:iconostipos="tipos" v-bind:iconoslang="datosusuario.lang" @activa-tipo="activatipo"></iconos>
-    <botones v-bind:botonestipo="datosusuario.tipoactivo" v-bind:botonessubtipos="tipoactivosubtipos" v-bind:botonestitulo="tipoactivotitulo" v-bind:botonesccaa="datosusuario.ccaa" @activa-subtipo="activasubtipo"></botones>
-    <lista @activa-seccion="cargaseccion" v-bind:listasubtipo="datosusuario.subtipoactivo" v-bind:listatitulo="subtipoactivotitulo" v-bind:listaunidades="subtipoactivounidades" v-bind:listarecursos="subtipoactivorecursos" v-bind:listacolor="subtipoactivocolor"></lista>
+  <div>
+    <botoncolapsa v-bind:lateralvisible="datosusuario.lateralvisible" @toglea-estado="togleaestadolateral()"></botoncolapsa>
+    <div id="app-ltrl">
+      <logo v-bind:logousuario="datosusuario"></logo>
+      <iconos v-bind:iconosurl="datosusuario.urlmenulateral" v-bind:iconostipos="tipos" v-bind:iconoslang="datosusuario.lang" @activa-tipo="activatipo"></iconos>
+      <botones v-bind:botonestipo="datosusuario.tipoactivo" v-bind:botonessubtipos="tipoactivosubtipos" v-bind:botonestitulo="tipoactivotitulo" v-bind:botonesccaa="datosusuario.ccaa" @activa-subtipo="activasubtipo"></botones>
+      <lista @activa-seccion="cargaseccion" v-bind:listasubtipo="datosusuario.subtipoactivo" v-bind:listatitulo="subtipoactivotitulo" v-bind:listaunidades="subtipoactivounidades" v-bind:listarecursos="subtipoactivorecursos" v-bind:listacolor="datosusuario.color"></lista>
+    </div>
+    <menucentral @genera-pdf="generapdf" v-bind:centralusuario="datosusuario"></menucentral>
   </div>
-  <menucentral @genera-pdf="generapdf" v-bind:centralusuario="datosusuario"></menucentral>
 </template>
 
 <script>
@@ -42,8 +44,8 @@ export default {
           //slideractivactivo: 0, // esto es la actividad activa en el slider
           urlmenulateral: "",
           urlseccionactiva:"",
-          ccaa: "datoccaa",
-          lang: "datolang",
+          ccaa: "0",
+          lang: "es",
           rol: "datorol",
           recursosglobales: [], // esto es el array con los recursos relativos al NCA al completo, aparecerán botones en la portada de bienvenida.
           recursostitulo: [],
@@ -52,7 +54,7 @@ export default {
           evaluaciones: [],
           urliconoinsertado: "",
           urlsliderfiltrado: "",
-          color: "lightgray",
+          color: "",
           estado: 0,
           introbienvenida: {
               es: "Bienvenido",
@@ -70,6 +72,28 @@ export default {
               ca_valencia: "Premi sobre un tipus de contingut per començar",
               en: "Click on any content type to begin", 
           },
+          ccaalang: {   //estos son los idiomas que aparecerán disponibles para el selector de idiomas de la interfaz, en funcion de la ccaa
+              0: ["es"],
+              1: ["es","en"],
+              2: ["es","en"],
+              3: ["es","en"],
+              4: ["es","en","ca"],
+              5: ["es","en"],
+              6: ["es","en"],
+              7: ["es","en"],
+              8: ["es","en"],
+              9: ["es","en","ca"],
+              10: ["es","en","va"],
+              11: ["es","en"],
+              12: ["es","en"],
+              13: ["es","en"],
+              14: ["es","en"],
+              15: ["es","en"],
+              16: ["es","en","eu"],
+              17: ["es","en"],
+              18: ["es","en"],
+              19: ["es","en"],
+          }
         },
         sliderjson : {  // esto es para el slider dinámico
         },
@@ -978,16 +1002,16 @@ export default {
              localStorage.getItem("seccionactiva")
              //localStorage.getItem("color")
             ) {
-          //this.datosusuario.tipoactivo = localStorage.getItem("tipoactivo");
-          this.activatipo(localStorage.getItem("tipoactivo"));
-          this.activasubtipo(localStorage.getItem("subtipoactivo"));
-          this.cargaseccion(localStorage.getItem("seccionactiva"));
-          //this.datosusuario.color = localStorage.getItem("color");
-          this.datosusuario.subtipoactivo = localStorage.getItem("subtipoactivo");
-          localStorage.setItem("tipoactivo", null);
-          localStorage.setItem("subtipoactivo", null);
-          localStorage.setItem("seccionactiva", null);
-          //localStorage.setItem("color", null)
+              //this.datosusuario.tipoactivo = localStorage.getItem("tipoactivo");
+              this.activatipo(localStorage.getItem("tipoactivo"));
+              this.activasubtipo(localStorage.getItem("subtipoactivo"));
+              this.cargaseccion(localStorage.getItem("seccionactiva"));
+              this.datosusuario.color = localStorage.getItem("color");
+              this.datosusuario.subtipoactivo = localStorage.getItem("subtipoactivo");
+              localStorage.setItem("tipoactivo", null);
+              localStorage.setItem("subtipoactivo", null);
+              localStorage.setItem("seccionactiva", null);
+              //localStorage.setItem("color", null)
         }
       }
 
@@ -1083,6 +1107,8 @@ export default {
     activasubtipo(subtip) {
       if (this.subtipos.indexOf(subtip) > -1) {
         this.datosusuario.subtipoactivo = subtip;
+        this.datosusuario.color = this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].color;
+        console.log('el color activo es ' + this.datosusuario.color)
         console.log('el valor de datosusuario es ' + this.datosusuario.subtipoactivo)
         console.log(this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo])
         //if (localStorage.getItem('color') && localStorage.getItem('color') !== 'null') {
@@ -1093,7 +1119,7 @@ export default {
     cargaseccion (urldestino) {
       let datosusuario = this.datosusuario;
       let subtipoactivotitulo = this.subtipoactivotitulo;
-      let subtipoactivocolor = this.subtipoactivocolor;
+      //let subtipoactivocolor = this.subtipoactivocolor;
 
       // Actualizamos el valor de la sección activa para permitir el aceso si es profesor
       datosusuario.urlseccionactiva = urldestino;
@@ -1202,7 +1228,7 @@ export default {
           datosusuario.slider = sldr;
           datosusuario.subtipoactivorotulo = tit3;
           datosusuario.subtipoactivorotulito = subtipoactivotitulo;
-          datosusuario.color = subtipoactivocolor;
+          //datosusuario.color = subtipoactivocolor;
           datosusuario.urliconoinsertado = null
           if (icn) {
             datosusuario.urliconoinsertado = icn.url;
@@ -1233,18 +1259,5 @@ export default {
 </script>
 
 <style >
-
-  .show-enter-active,
-  .show-leave-active {
-    transition: all 0.5s ease-out;
-  }
-
-  .show-enter-to {
-    transform: translateX(-285px);
-  }
-
-  .show-leave-to {
-    transform: translateX(0px);
-  }
 
 </style>

@@ -1,140 +1,145 @@
-<template>
-    <div id="nca13_mnu_intro" class="container" v-if="centralusuario.estado == 0">     
-        <div class="centrador" style="top:40%;">
-            <div class="parte1">
-                <div class="itemGroup itemGroup">
-                    <div class="item">
-                        <p></p>
-                        <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-1.png'" width="100" height="100" /></p>
-                        <p></p>
-                        <p></p>
-                        <p></p>
-                        <p></p>
-                        <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-1.png'" width="100" height="100" /></p>
-                        <p></p>
+<template> 
+    <div>
+        <div id="nca13_mnu_intro" class="container" v-if="centralusuario.estado == 0">     
+            <div class="centrador" style="top:40%;">
+                <div class="parte1">
+                    <div class="itemGroup itemGroup">
+                        <div class="item">
+                            <p></p>
+                            <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-1.png'" width="100" height="100" /></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-1.png'" width="100" height="100" /></p>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="itemGroup itemGroup">
+                        <div class="item">
+                            <p></p>
+                            <p></p>
+                            <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-2.png'" width="100" height="100" /></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-2.png'" width="100" height="100" /></p>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="itemGroup itemGroup">
+                        <div class="item">
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-3.png'" width="100" height="100" /></p>
+                            <p></p>
+                            <p></p>
+                            <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-3.png'" width="100" height="100" /></p>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="itemGroup itemGroup">
+                        <div class="item">
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-4.png'" width="100" height="100" /></p>
+                            <p></p>
+                            <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-4.png'" width="100" height="100" /></p>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="itemGroup itemGroup">
+                        <div class="item">
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-5.png'" width="100" height="100" /></p>
+                            <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-5.png'" width="100" height="100" /></p>
+                            <p></p>
+                        </div>
                     </div>
                 </div>
-                <div class="itemGroup itemGroup">
-                    <div class="item">
-                        <p></p>
-                        <p></p>
-                        <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-2.png'" width="100" height="100" /></p>
-                        <p></p>
-                        <p></p>
-                        <p></p>
-                        <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-2.png'" width="100" height="100" /></p>
-                        <p></p>
-                    </div>
-                </div>
-                <div class="itemGroup itemGroup">
-                    <div class="item">
-                        <p></p>
-                        <p></p>
-                        <p></p>
-                        <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-3.png'" width="100" height="100" /></p>
-                        <p></p>
-                        <p></p>
-                        <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-3.png'" width="100" height="100" /></p>
-                        <p></p>
-                    </div>
-                </div>
-                <div class="itemGroup itemGroup">
-                    <div class="item">
-                        <p></p>
-                        <p></p>
-                        <p></p>
-                        <p></p>
-                        <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-4.png'" width="100" height="100" /></p>
-                        <p></p>
-                        <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-4.png'" width="100" height="100" /></p>
-                        <p></p>
-                    </div>
-                </div>
-                <div class="itemGroup itemGroup">
-                    <div class="item">
-                        <p></p>
-                        <p></p>
-                        <p></p>
-                        <p></p>
-                        <p></p>
-                        <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-5.png'" width="100" height="100" /></p>
-                        <p><img v-if="centralusuario.urlmenulateral !== ''" v-bind:src="centralusuario.urlmenulateral + 'Loader-5.png'" width="100" height="100" /></p>
-                        <p></p>
-                    </div>
-                </div>
-            </div>
-            <div class="parte2">
-                <h1>
-                {{ centralusuario.introbienvenida[centralusuario.lang] }}
-                </h1>
-                <p>
-                {{ centralusuario.intromensaje[centralusuario.lang] }}
-                </p>
-            </div>
-            <div class="parte3 row">
-                <div class="col" style="text-align:center; margin-top:60px; font-weight:700; color:lightgray;" v-for="(recgen, index) in centralusuario.recursosglobales" v-bind:key="recgen">
-                    <a class="nca13-mnu-ctrl-recgen-icon" v-bind:href="centralusuario.recursosglobales[index].url" target="_blank">
-                        <i v-bind:class="classicono(index)" aria-hidden="true" style="color:lightgray; font-size:1.5vw"></i>
-                    </a>
+                <div class="parte2">
+                    <h1>
+                    {{ centralusuario.introbienvenida[centralusuario.lang] }}
+                    </h1>
                     <p>
-                        {{ recgen.texto }}
+                    {{ centralusuario.intromensaje[centralusuario.lang] }}
                     </p>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="nca13_mnu_ctrl" class="container" v-if="centralusuario.estado !== 0">
-        <div class="row">
-            <div class="col nca13-mnu-ctrl-mas" v-bind:style="centralstylemas" v-on:click="actualizarecursoactivo">
-            <h2>+</h2>
-            </div>
-            <div class="col nca13-mnu-ctrl-tit">
-                <div class="titulo">
-                    <p id="nca13-mnu-subtitulo">{{ centralusuario.subtipoactivorotulito }}</p>
-                    <p id="nca13-mnu-titulo">{{ centralusuario.subtipoactivorotulo }}</p>
+                <div class="parte3 row">
+                    <div class="col" style="text-align:center; margin-top:60px; font-weight:700; color:lightgray;" v-for="(recgen, index) in centralusuario.recursosglobales" v-bind:key="recgen">
+                        <a class="nca13-mnu-ctrl-recgen-icon" v-bind:href="centralusuario.recursosglobales[index].url" target="_blank">
+                            <i v-bind:class="classicono(index)" aria-hidden="true" style="color:lightgray; font-size:1.5vw"></i>
+                        </a>
+                        <p>
+                            {{ recgen.texto }}
+                        </p>
+                    </div>
                 </div>
             </div>
-            <div class="col nca13-mnu-ctrl-icon">
-                <img v-if="centralurllogo !== 'vacio' && centralusuario.rol !== 'editingteacher'" id="nca13-mnu-imagen" v-bind:src="centralurllogo" style="width:100%">
-                <a v-if="centralurllogo !== 'vacio' && centralusuario.rol == 'editingteacher'" v-bind:href="centralurleditarslider" target="_blank">
-                    <img id="nca13-mnu-imagen" v-bind:src="centralurllogo" style="width:100%">
+        </div>
+
+        <div id="nca13_mnu_ctrl" class="container" v-if="centralusuario.estado !== 0">
+            <div class="row">
+                <div class="col nca13-mnu-ctrl-mas" v-bind:style="centralstylemas">
+                    <selectoridioma v-bind:idiomaactual="centralusuario.lang" v-bind:idiomasdisponibles="centralusuario.ccaalang[centralusuario.ccaa]" v-bind:idiomausuario="centralusuario"></selectoridioma>
+                    <div v-on:click="actualizarecursoactivo"><h2>+</h2></div>
+                </div>
+                <div class="col nca13-mnu-ctrl-tit">
+                    <div class="titulo">
+                        <p id="nca13-mnu-subtitulo">{{ centralusuario.subtipoactivorotulito }}</p>
+                        <p id="nca13-mnu-titulo">{{ centralusuario.subtipoactivorotulo }}</p>
+                    </div>
+                </div>
+                <div class="col nca13-mnu-ctrl-icon">
+                    <img v-if="centralurllogo !== 'vacio' && centralusuario.rol !== 'editingteacher'" id="nca13-mnu-imagen" v-bind:src="centralurllogo" style="width:100%">
+                    <a v-if="centralurllogo !== 'vacio' && centralusuario.rol == 'editingteacher'" v-bind:href="centralurleditarslider" target="_blank">
+                        <img id="nca13-mnu-imagen" v-bind:src="centralurllogo" style="width:100%">
+                    </a>
+                </div>
+            </div>
+
+            <div id="nca13-mnu-ctrl-recursos" class="row justify-content-start" v-if="centralrecursosactivo">
+                <div class="col-auto" v-if="sliderdatos.tipo == 'json'">
+                    <div v-bind:style="centralstylerec" style="cursor:pointer;" class="nca13-mnu-ctrl-recursos-elem" v-on:click="generapdf(sliderdatos.datos)">{{ guiatraducida[centralusuario.lang] }}</div>
+                </div>
+                <div class="col-auto" v-for="recurso in centralrecursostitulofiltrado" v-bind:key="recurso">
+                    <a target="_blank" v-bind:href="recurso.url" v-bind:style="centralstylerec">
+                        <div class="nca13-mnu-ctrl-recursos-elem">{{ recurso.texto }}</div>
+                    </a>
+                </div>
+            </div>
+
+            <div id="nca13-mnu-ctrl-interactivas" class="row justify-content-end" v-bind:data-slider="centralsliderfiltrado">
+                <a target="_blank" v-for="interactiva in centralinteractivasfiltrado" v-bind:key="interactiva"  v-bind:href="interactiva.url">
+                    <div class="col-auto" v-bind:style="centralstyleint">
+                        {{ interactiva.indice }}
+                    </div>
                 </a>
             </div>
         </div>
 
-        <div id="nca13-mnu-ctrl-recursos" class="row justify-content-start" v-if="centralrecursosactivo">
-            <div class="col-auto" v-if="sliderdatos.tipo == 'json'">
-                <div v-bind:style="centralstylerec" style="cursor:pointer;" class="nca13-mnu-ctrl-recursos-elem" v-on:click="generapdf(sliderdatos.datos)">{{ guiatraducida[centralusuario.lang] }}</div>
-            </div>
-            <div class="col-auto" v-for="recurso in centralrecursostitulofiltrado" v-bind:key="recurso">
-                <a target="_blank" v-bind:href="recurso.url" v-bind:style="centralstylerec">
-                    <div class="nca13-mnu-ctrl-recursos-elem">{{ recurso.texto }}</div>
-                </a>
-            </div>
-        </div>
-
-        <div id="nca13-mnu-ctrl-interactivas" class="row justify-content-end" v-bind:data-slider="centralsliderfiltrado">
-            <a target="_blank" v-for="interactiva in centralinteractivasfiltrado" v-bind:key="interactiva"  v-bind:href="interactiva.url">
-                <div class="col-auto" v-bind:style="centralstyleint">
-                    {{ interactiva.indice }}
-                </div>
-            </a>
-        </div>
+        <slider v-bind:sliderusuario="centralusuario" v-bind:slider="sliderdatos" v-if="centralusuario.estado == !0"></slider>
+    
     </div>
-
-    <slider v-bind:sliderusuario="centralusuario" v-bind:slider="sliderdatos" v-if="centralusuario.estado == !0"></slider>
-
 </template>
 
 <script>
 import slider from './slider.vue'
 import axios from 'axios';
+import selectoridioma from './selectoridioma.vue';
 
 export default {
     name: 'menucentral',
     components: {
         slider,
+        selectoridioma,
     },
     emits: ['genera-pdf'],
     props: {
@@ -182,7 +187,7 @@ export default {
                 let temp1 = true;
                 for (let i=0; i < array.length; i++) {
                     if (  elem.titulo.split("-")[4] == array[i].titulo.split("-")[4] &&
-                            elem.titulo.split("-")[2] == array[i].titulo.split("-")[2] && 
+                            (elem.titulo.split("-")[2] == array[i].titulo.split("-")[2] || elem.titulo.split("-")[2] == "0") && // Si la ccaa es igual o es la global "0"
                             elem.titulo.split("-")[1] !== array[i].titulo.split("-")[1] &&
                             elem.titulo.split("-")[1] !== innerlang &&
                             !(elem.titulo.split("-")[1] == "MUL" && array[i].titulo.split("-")[1] !== innerlang) &&  // Si comparamos un MUL con un idioma distinto al usuario no se borra el MUL
@@ -293,7 +298,7 @@ export default {
                 console.log('recursos filtro por ccaa-2 queda: ');
                 console.log(temp0);
             }
-            // Filtro por idioma. Si hay dos elementos de igual indice y ccaa pero idioma distinto eliminamos la que tiene idioma distinto al usuario;
+            // Filtro por idioma 2. Si hay dos elementos de igual indice y ccaa (o ccaa global) pero idioma distinto eliminamos la que tiene idioma distinto al usuario;
             var langtrad = {es: "CAS", en:"ENG", eu:"EUS", ca:"CAT", ca_valencia:"VAL", gl:"GAL"};
             var langactivo = langtrad[this.centralusuario.lang];
             if (this.centralusuario.lang && this.centralusuario.lang !== "" && langtrad[this.centralusuario.lang]) {

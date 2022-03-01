@@ -791,6 +791,33 @@
 }
 
 
+/* CONFIGURACIONES DE ESTILO PARA LOS BOTONES DE SELECTOR DE IDIOMAS -----------------------------------------------------------*/
+
+#nca13_mnu_selectoridioma {
+    margin-top: 10px;
+}
+
+.selectoridiomaboton {
+    background-color: white;
+    border-radius: 18px;
+    color: black;
+    margin-top: 5px;
+    border: none;
+    cursor: pointer;
+    margin-left: 2px;
+}
+
+.selectoridiomasecun {
+    z-index: 999;
+    position: absolute;
+    top: 44px;
+    left: 20px;
+    width: 40px;
+    will-change: transform;
+    color: red; 
+    display: block;
+}
+
 
 /* CONFIGURACIONES DE ESTILO PARA LA NUEVA VERSIÓN DE MOODLE -----------------------------------------------------------*/
 
@@ -924,9 +951,39 @@
   }
 
 .nca13_mnu_list_rec .list-group-item {
-    background-color: lightgray;
+    background-color: rgba(255,255,255,0.5);
     border: none;
     border-bottom: 2px solid white;
+    padding: 0.75rem;
+    cursor:pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    min-height: 3rem;
+}
+
+.list-group-item-unid {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid white;
+    padding: 0.75rem;
+    cursor:pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    min-height: 3rem;
+}
+
+.list-group-item-pill {
+    border-radius:5px;
+    margin-right:10px;
+    background-color:rgba(255,255,255,0.5);
+    min-width:2em;
+}
+
+.list-group-item-tit {
+    font-weight: bold;
+    border: none; 
     padding: 0.75rem;
     cursor:pointer;
     overflow: hidden;
@@ -972,7 +1029,10 @@
 .nca13-mnu-ctrl-mas h2 {
     font-weight: bolder;
     font-size: 3em;
-    padding-top: 150%;
+    /* padding-top: 150%; */
+    position: absolute;
+    bottom: 0px;
+    left: 27px;
     -webkit-touch-callout: none;
     /* iOS Safari */
     -webkit-user-select: none;
