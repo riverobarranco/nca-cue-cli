@@ -45,6 +45,7 @@ export default {
           urlmenulateral: "",
           urlseccionactiva:"",
           ccaa: "0",
+          curso: "1EP",
           lang: "es",
           rol: "datorol",
           recursosglobales: [], // esto es el array con los recursos relativos al NCA al completo, aparecerán botones en la portada de bienvenida.
@@ -53,6 +54,7 @@ export default {
           slider: [],
           evaluaciones: [],
           urliconoinsertado: "",
+          urliconoinsertadosrc: "",
           urlsliderfiltrado: "",
           color: "",
           estado: 0,
@@ -98,611 +100,644 @@ export default {
         sliderjson : {  // esto es para el slider dinámico
         },
         datos: {
-          acg: {
-              nom: "ACG",
-              titulo: {
-                  es: "Acogidas",
-                  eu: "Harrera",
-                  ca: "Acollides",
-                  gl: "Acollidas",
-                  ca_valencia: "Acollides",
-                  en: "Welcome",
-              },
-              hijos: {
-                  acg: {
-                      nom: "ACG",
-                      color: "rgb(166,202,236)",
-                      subtitulo: {
-                          es: "REC. ACOGIDAS",
-                          eu: "HARRERA",
-                          ca: "ACOLLIDA",
-                          gl: "ACOLLIDA",
-                          ca_valencia: "ACOLLIDA",
-                          en: "WELCOME",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  }
-              }
-          },
-          pro: {
-              nom: "PRO",
-              titulo: {
-                  es: "Proyectos",
-                  eu: "Proiektua",
-                  ca: "Projectes",
-                  gl: "Proxectos",
-                  ca_valencia: "Projectes",
-                  en: "Projects",
-              },
-              hijos: {
-                  p01: {
-                      nom: "01",
-                      color: "rgb(231,18,124)",
-                      subtitulo: {
-                          es: "PROYECTO 01",
-                          eu: "01 PROIEKTUA",
-                          ca: "PROJECTE 01",
-                          gl: "PROXECTO 01",
-                          ca_valencia: "PROJECTE 01",
-                          en: "PROJECT 01",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  p02: {
-                      nom: "02",
-                      color: "rgb(81,175,65)",
-                      subtitulo: {
-                          es: "PROYECTO 02",
-                          eu: "02 PROIEKTUA",
-                          ca: "PROJECTE 02",
-                          gl: "PROXECTO 02",
-                          ca_valencia: "PROJECTE 02",
-                          en: "PROJECT 02",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  p03: {
-                      nom: "03",
-                      color: "rgb(241,133,28)",
-                      subtitulo: {
-                          es: "PROYECTO 03",
-                          eu: "03 PROIEKTUA",
-                          ca: "PROJECTE 03",
-                          gl: "PROXECTO 03",
-                          ca_valencia: "PROJECTE 03",
-                          en: "PROJECT 03",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  p04: {
-                      nom: "04",
-                      color: "rgb(110,67,35)",
-                      subtitulo: {
-                          es: "PROYECTO 04",
-                          eu: "04 PROIEKTUA",
-                          ca: "PROJECTE 04",
-                          gl: "PROXECTO 04",
-                          ca_valencia: "PROJECTE 04",
-                          en: "PROJECT 04",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  p05: {
-                      nom: "05",
-                      color: "rgb(90,43,134)",
-                      subtitulo: {
-                          es: "PROYECTO 05",
-                          eu: "05 PROIEKTUA",
-                          ca: "PROJECTE 05",
-                          gl: "PROXECTO 05",
-                          ca_valencia: "PROJECTE 05",
-                          en: "PROJECT 05",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  p06: {
-                      nom: "06",
-                      color: "rgb(143,146,144)",
-                      subtitulo: {
-                          es: "PROYECTO 06",
-                          eu: "06 PROIEKTUA",
-                          ca: "PROJECTE 06",
-                          gl: "PROXECTO 06",
-                          ca_valencia: "PROJECTE 06",
-                          en: "PROJECT 06",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  p07: {
-                      nom: "07",
-                      color: "rgb(192,211,80)",
-                      subtitulo: {
-                          es: "PROYECTO 07",
-                          eu: "07 PROIEKTUA",
-                          ca: "PROJECTE 07",
-                          gl: "PROXECTO 07",
-                          ca_valencia: "PROJECTE 07",
-                          en: "PROJECT 07",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  p08: {
-                      nom: "08",
-                      color: "rgb(32,103,54)",
-                      subtitulo: {
-                          es: "PROYECTO 08",
-                          eu: "08 PROIEKTUA",
-                          ca: "PROJECTE 08",
-                          gl: "PROXECTO 08",
-                          ca_valencia: "PROJECTE 08",
-                          en: "PROJECT 08",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  p09: {
-                      nom: "09",
-                      color: "rgb(194,27,45)",
-                      subtitulo: {
-                          es: "PROYECTO 09",
-                          eu: "09 PROIEKTUA",
-                          ca: "PROJECTE 09",
-                          gl: "PROXECTO 09",
-                          ca_valencia: "PROJECTE 09",
-                          en: "PROJECT 09",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-//                  p10: {
-//                      nom: "10",
-//                      color: "rgb(183,158,203)",
-//                      subtitulo: {
-//                          es: "PROYECTO 10",
-//                          eu: "10 PROIEKTUA",
-//                          ca: "PROJECTE 10",
-//                          gl: "PROXECTO 10",
-//                          ca_valencia: "PROJECTE 10",
-//                          en: "PROJECT 10",
-//                      },
-//                      unidades: [],
-//                      recursos: [],
-//                  },
-//                  p11: {
-//                      nom: "11",
-//                      color: "rgb(74,157,215)",
-//                      subtitulo: {
-//                          es: "PROYECTO 11",
-//                          eu: "11 PROIEKTUA",
-//                          ca: "PROJECTE 11",
-//                          gl: "PROXECTO 11",
-//                          ca_valencia: "PROJECTE 11",
-//                          en: "PROJECT 11",
-//                      },
-//                      unidades: [],
-//                      recursos: [],
-//                  },
-//                  p12: {
-//                      nom: "12",
-//                      color: "rgb(43,58,140)",
-//                      subtitulo: {
-//                          es: "PROYECTO 12",
-//                          eu: "12 PROIEKTUA",
-//                          ca: "PROJECTE 12",
-//                          gl: "PROXECTO 12",
-//                          ca_valencia: "PROJECTE 12",
-//                          en: "PROJECT 12",
-//                      },
-//                      unidades: [],
-//                      recursos: [],
-//                  },
-              }
-          },
-          sem: {
-              nom: "SEM",
-              titulo: {
-                  es: "Seminarios",
-                  eu: "Mintegia",
-                  ca: "Seminaris",
-                  gl: "Seminarios",
-                  ca_valencia: "Seminaris",
-                  en: "Seminars",
-              },
-              hijos: {
-                  mat: {
-                      nom: "MAT",
-                      color: "rgb(243,146,0)",
-                      subtitulo: {
-                          es: "MATEMÁTICAS",
-                          eu: "MATEMATIKA",
-                          ca: "MATEMÀTIQUES",
-                          gl: "MATEMÁTICAS",
-                          ca_valencia: "MATEMÀTIQUES",
-                          en: "MATHS",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  soc: {
-                      nom: "SOC",
-                      color: "rgb(40,53,131)",
-                      subtitulo: {
-                          es: "C. SOCIALES",
-                          eu: "GIZARTE ZIENTZIAK",
-                          ca: "C.S.C.M. SOCIAL",
-                          gl: "CIENCIAS SOCIAIS",
-                          ca_valencia: "CIÈNCIES SOCIALS",
-                          en: "SOCIAL SCIENCE",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  nat: {
-                      nom: "NAT",
-                      color: "rgb(63,165,53)",
-                      subtitulo: {
-                          es: "C. NATURALES",
-                          eu: "NATUR ZIENTZIAK",
-                          ca: "C.N.C.M. NATURAL",
-                          gl: "CIENCIAS NATURAIS",
-                          ca_valencia: "CIÈNCIES NATURALS",
-                          en: "NATURAL SCIENCE",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  // Inglés para toda España salvo para Cataluña
-                  eng: {
-                      nom: "ENG",
-                      color: "rgb(183,20,82)",
-                      ccaa: ["1","2","3","4","5","6","7","8","10","11","12","13","14","15","16","17","18","19"],  //Cataluña no tiene este inglés
-                      subtitulo: {
-                          es: "ENGLISH LANGUAGE",
-                          eu: "ENGLISH LANGUAGE",
-                          ca: "ENGLISH LANGUAGE",
-                          gl: "ENGLISH LANGUAGE",
-                          ca_valencia: "ENGLISH LANGUAGE",
-                          en: "ENGLISH LANGUAGE",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  // Inglés para Cataluña
-                  enc: {
-                      nom: "ENG",
-                      color: "rgb(183,20,82)",
-                      ccaa: ["9"],  //Cataluña tiene este inglés
-                      subtitulo: {
-                          es: "ENGLISH LANGUAGE CAT",
-                          eu: "ENGLISH LANGUAGE CAT",
-                          ca: "ENGLISH LANGUAGE CAT",
-                          gl: "ENGLISH LANGUAGE CAT",
-                          ca_valencia: "ENGLISH LANGUAGE CAT",
-                          en: "ENGLISH LANGUAGE CAT",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  // Castellano en general, salvo Cataluña
-                  cas: {
-                      nom: "CAS",
-                      color: "rgb(236,179,127)",
-                      ccaa: ["1","2","3","4","5","6","7","8","10","11","12","13","14","15","16","17","18","19"], //Cataluña no tiene este castellano
-                      subtitulo: {
-                          es: "LENGUA CASTELLANA",
-                          eu: "LENGUA CASTELLANA",
-                          ca: "LENGUA CASTELLANA",
-                          gl: "LENGUA CASTELLANA",
-                          ca_valencia: "LENGUA CASTELLANA",
-                          en: "LENGUA CASTELLANA",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  // Castellano de Euskadi
-                  cse: {
-                      nom: "CAS",
-                      color: "rgb(236,179,127)",
-                      ccaa: ["16"], 
-                      subtitulo: {
-                          es: "LENGUA CASTELLANA EUS",
-                          eu: "LENGUA CASTELLANA EUS",
-                          ca: "LENGUA CASTELLANA EUS",
-                          gl: "LENGUA CASTELLANA EUS",
-                          ca_valencia: "LENGUA CASTELLANA EUS",
-                          en: "LENGUA CASTELLANA EUS",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  // Castellano de Cataluña
-                  csc: {
-                      nom: "CAS",
-                      color: "rgb(236,179,127)",
-                      ccaa: ["9"], 
-                      subtitulo: {
-                          es: "LENGUA CASTELLANA CAT",
-                          eu: "LENGUA CASTELLANA CAT",
-                          ca: "LENGUA CASTELLANA CAT",
-                          gl: "LENGUA CASTELLANA CAT",
-                          ca_valencia: "LENGUA CASTELLANA CAT",
-                          en: "LENGUA CASTELLANA CAT",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  eus: {
-                      nom: "EUS",
-                      color: "rgb(202,158,103)",
-                      ccaa: ["16"],
-                      subtitulo: {
-                          es: "EUSKARA",
-                          eu: "EUSKARA",
-                          ca: "EUSKARA",
-                          gl: "EUSKARA",
-                          ca_valencia: "EUSKARA",
-                          en: "EUSKARA",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  // catalán en Baleares
-                  cat: {
-                      nom: "CAT",
-                      color: "rgb(202,158,103)",
-                      ccaa: ["4"],
-                      subtitulo: {
-                          es: "LLENGUA CATALANA (BAL)",
-                          eu: "LLENGUA CATALANA (BAL)",
-                          ca: "LLENGUA CATALANA (BAL)",
-                          gl: "LLENGUA CATALANA (BAL)",
-                          ca_valencia: "LLENGUA CATALANA (BAL)",
-                          en: "LLENGUA CATALANA (BAL)",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  // Catalán en Cataluña
-                  ctc: {
-                      nom: "CAT",
-                      color: "rgb(202,158,103)",
-                      ccaa: ["9"],
-                      subtitulo: {
-                          es: "LLENGUA CATALANA",
-                          eu: "LLENGUA CATALANA",
-                          ca: "LLENGUA CATALANA",
-                          gl: "LLENGUA CATALANA",
-                          ca_valencia: "LLENGUA CATALANA",
-                          en: "LLENGUA CATALANA",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  gal: {
-                      nom: "GAL",
-                      color: "rgb(202,158,103)",
-                      ccaa: ["12"],
-                      subtitulo: {
-                          es: "LINGUA GALEGA",
-                          eu: "LINGUA GALEGA",
-                          ca: "LINGUA GALEGA",
-                          gl: "LINGUA GALEGA",
-                          ca_valencia: "LINGUA GALEGA",
-                          en: "LINGUA GALEGA",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  val: {
-                      nom: "VAL",
-                      color: "rgb(202,158,103)",
-                      ccaa: ["10"],
-                      subtitulo: {
-                          es: "VALENCIÀ",
-                          eu: "VALENCIÀ",
-                          ca: "VALENCIÀ",
-                          gl: "VALENCIÀ",
-                          ca_valencia: "VALENCIÀ",
-                          en: "VALENCIÀ",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-              }
-          },
-          tll: {
-              nom: "TLL",
-              titulo: {
-                  es: "Talleres",
-                  eu: "Tailerra",
-                  ca: "Tallers",
-                  gl: "Obradoiros",
-                  ca_valencia: "Tallers",
-                  en: "Workshops",
-              },
-              hijos: {
-                  // Educación Religiosa Escolar
-                  ere: {
-                      nom: "ERE",
-                      color: "rgb(239,179,175)",
-                      subtitulo: {
-                          es: "ERE",
-                          eu: "ERLIJIOA",
-                          ca: "ERE",
-                          gl: "ERE",
-                          ca_valencia: "ERE",
-                          en: "ERE",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  // Educación en valores, visible en Andalucía
-//                  evl: {
-//                      nom: "EVL",
-//                      color: "rgb(117,97,87)",
-//                      ccaa: ["1"],
-//                      subtitulo: {
-//                          es: "EDUC. VALORES",
-//                          eu: "EDUC. VALORES",
-//                          ca: "EDUC. VALORES",
-//                          gl: "EDUC. VALORES",
-//                          ca_valencia: "EDUC. VALORES",
-//                          en: "EDUC. VALORES",
-//                      },
-//                      unidades: [],
-//                      recursos: [],
-//                  },
-                  efe: {
-                      nom: "EF",
-                      color: "rgb(0,159,227)",
-                      subtitulo: {
-                          es: "EDUCACIÓN FÍSICA",
-                          eu: "GORPUTZ HEZKUNTZA",
-                          ca: "EDUCACIÓ FÍSICA",
-                          gl: "EDUCACIÓN FÍSICA",
-                          ca_valencia: "EDUCACIÓ FÍSICA",
-                          en: "PHYSICAL EDUCATION",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  pla: {
-                      nom: "PLA",
-                      color: "rgb(250,186,74)",
-                      subtitulo: {
-                          es: "PLÁSTICA",
-                          eu: "PLASTIKA",
-                          ca: "PLÀSTICA",
-                          gl: "PLÁSTICA",
-                          ca_valencia: "PLÀSTICA",
-                          en: "ARTS AND CRAFTS",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  // Música para todas las ccaa salvo cataluña
-                  mus: {
-                      nom: "MUS",
-                      color: "rgb(120,62,144)",
-                      ccaa: ["1","2","3","4","5","6","7","8","10","11","12","13","14","15","16","17","18","19"],  //Cataluña no tiene esta música
-                      subtitulo: {
-                          es: "MÚSICA",
-                          eu: "MUSIKA",
-                          ca: "MÚSICA",
-                          gl: "MÚSICA",
-                          ca_valencia: "MÚSICA",
-                          en: "MUSIC",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  // Música para cataluña
-                  msc: {
-                      nom: "MSC",
-                      color: "rgb(120,62,144)",
-                      ccaa: ["9"],
-                      subtitulo: {
-                          es: "MÚSICA CAT",
-                          eu: "MUSIKA CAT",
-                          ca: "MÚSICA CAT",
-                          gl: "MÚSICA CAT",
-                          ca_valencia: "MÚSICA CAT",
-                          en: "MUSIC CAT",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  wkp: {
-                      nom: "WKP",
-                      color: "rgb(83,165,73)",
-                      subtitulo: {
-                          es: "WAKE UP",
-                          eu: "WAKE UP",
-                          ca: "WAKE UP",
-                          gl: "WAKE UP",
-                          ca_valencia: "WAKE UP",
-                          en: "WAKE UP",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-                  int: {
-                      nom: "INT",
-                      color: "rgb(202,23,23)",
-                      subtitulo: {
-                          es: "T. INTERDISCIPLINARES",
-                          eu: "DIZIPLINARTEKO T.",
-                          ca: "T. INTERDISCIPLINARIS",
-                          gl: "O. INTERDISCIPLINARES",
-                          ca_valencia: "T. INTERDISCIPLINARIS",
-                          en: "INTERDISCIPLINARY W.",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  },
-              },
-          },
-          crr: {
-              nom: "CRR",
-              titulo: {
-                  es: "Cierres",
-                  eu: "Itxiera",
-                  ca: "Tancaments",
-                  gl: "Peches",
-                  ca_valencia: "Tancaments",
-                  en: "Enclosures",
-              },
-              hijos: {
-                  crr: {
-                      nom: "CRR",
-                      color: "rgb(0,161,154)",
-                      subtitulo: {
-                          es: "REC. CIERRES",
-                          eu: "ITXIERA",
-                          ca: "TANCAMENTS",
-                          gl: "PECHES",
-                          ca_valencia: "TANCAMENTS",
-                          en: "ENCLOSURE RES.",
-                      },
-                      unidades: [],
-                      recursos: [],
-                  }
-              }
-          },
-        }
+//           acg: {
+//               nom: "ACG",
+//               titulo: {
+//                   es: "Acogidas",
+//                   eu: "Harrera",
+//                   ca: "Acollides",
+//                   gl: "Acollidas",
+//                   ca_valencia: "Acollides",
+//                   en: "Welcome",
+//               },
+//               hijos: {
+//                   acg: {
+//                       nom: "ACG",
+//                       color: "rgb(166,202,236)",
+//                       subtitulo: {
+//                           es: "REC. ACOGIDAS",
+//                           eu: "HARRERA",
+//                           ca: "ACOLLIDA",
+//                           gl: "ACOLLIDA",
+//                           ca_valencia: "ACOLLIDA",
+//                           en: "WELCOME",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   }
+//               }
+//           },
+//           pro: {
+//               nom: "PRO",
+//               titulo: {
+//                   es: "Proyectos",
+//                   eu: "Proiektua",
+//                   ca: "Projectes",
+//                   gl: "Proxectos",
+//                   ca_valencia: "Projectes",
+//                   en: "Projects",
+//               },
+//               hijos: {
+//                   p01: {
+//                       nom: "01",
+//                       color: "rgb(231,18,124)",
+//                       subtitulo: {
+//                           es: "PROYECTO 01",
+//                           eu: "01 PROIEKTUA",
+//                           ca: "PROJECTE 01",
+//                           gl: "PROXECTO 01",
+//                           ca_valencia: "PROJECTE 01",
+//                           en: "PROJECT 01",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   p02: {
+//                       nom: "02",
+//                       color: "rgb(81,175,65)",
+//                       subtitulo: {
+//                           es: "PROYECTO 02",
+//                           eu: "02 PROIEKTUA",
+//                           ca: "PROJECTE 02",
+//                           gl: "PROXECTO 02",
+//                           ca_valencia: "PROJECTE 02",
+//                           en: "PROJECT 02",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   p03: {
+//                       nom: "03",
+//                       color: "rgb(241,133,28)",
+//                       subtitulo: {
+//                           es: "PROYECTO 03",
+//                           eu: "03 PROIEKTUA",
+//                           ca: "PROJECTE 03",
+//                           gl: "PROXECTO 03",
+//                           ca_valencia: "PROJECTE 03",
+//                           en: "PROJECT 03",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   p04: {
+//                       nom: "04",
+//                       color: "rgb(110,67,35)",
+//                       subtitulo: {
+//                           es: "PROYECTO 04",
+//                           eu: "04 PROIEKTUA",
+//                           ca: "PROJECTE 04",
+//                           gl: "PROXECTO 04",
+//                           ca_valencia: "PROJECTE 04",
+//                           en: "PROJECT 04",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   p05: {
+//                       nom: "05",
+//                       color: "rgb(90,43,134)",
+//                       subtitulo: {
+//                           es: "PROYECTO 05",
+//                           eu: "05 PROIEKTUA",
+//                           ca: "PROJECTE 05",
+//                           gl: "PROXECTO 05",
+//                           ca_valencia: "PROJECTE 05",
+//                           en: "PROJECT 05",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   p06: {
+//                       nom: "06",
+//                       color: "rgb(143,146,144)",
+//                       subtitulo: {
+//                           es: "PROYECTO 06",
+//                           eu: "06 PROIEKTUA",
+//                           ca: "PROJECTE 06",
+//                           gl: "PROXECTO 06",
+//                           ca_valencia: "PROJECTE 06",
+//                           en: "PROJECT 06",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   p07: {
+//                       nom: "07",
+//                       color: "rgb(192,211,80)",
+//                       subtitulo: {
+//                           es: "PROYECTO 07",
+//                           eu: "07 PROIEKTUA",
+//                           ca: "PROJECTE 07",
+//                           gl: "PROXECTO 07",
+//                           ca_valencia: "PROJECTE 07",
+//                           en: "PROJECT 07",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   p08: {
+//                       nom: "08",
+//                       color: "rgb(32,103,54)",
+//                       subtitulo: {
+//                           es: "PROYECTO 08",
+//                           eu: "08 PROIEKTUA",
+//                           ca: "PROJECTE 08",
+//                           gl: "PROXECTO 08",
+//                           ca_valencia: "PROJECTE 08",
+//                           en: "PROJECT 08",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   p09: {
+//                       nom: "09",
+//                       color: "rgb(194,27,45)",
+//                       subtitulo: {
+//                           es: "PROYECTO 09",
+//                           eu: "09 PROIEKTUA",
+//                           ca: "PROJECTE 09",
+//                           gl: "PROXECTO 09",
+//                           ca_valencia: "PROJECTE 09",
+//                           en: "PROJECT 09",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+// //                  p10: {
+// //                      nom: "10",
+// //                      color: "rgb(183,158,203)",
+// //                      subtitulo: {
+// //                          es: "PROYECTO 10",
+// //                          eu: "10 PROIEKTUA",
+// //                          ca: "PROJECTE 10",
+// //                          gl: "PROXECTO 10",
+// //                          ca_valencia: "PROJECTE 10",
+// //                          en: "PROJECT 10",
+// //                      },
+// //                      unidades: [],
+// //                      recursos: [],
+// //                  },
+// //                  p11: {
+// //                      nom: "11",
+// //                      color: "rgb(74,157,215)",
+// //                      subtitulo: {
+// //                          es: "PROYECTO 11",
+// //                          eu: "11 PROIEKTUA",
+// //                          ca: "PROJECTE 11",
+// //                          gl: "PROXECTO 11",
+// //                          ca_valencia: "PROJECTE 11",
+// //                          en: "PROJECT 11",
+// //                      },
+// //                      unidades: [],
+// //                      recursos: [],
+// //                  },
+// //                  p12: {
+// //                      nom: "12",
+// //                      color: "rgb(43,58,140)",
+// //                      subtitulo: {
+// //                          es: "PROYECTO 12",
+// //                          eu: "12 PROIEKTUA",
+// //                          ca: "PROJECTE 12",
+// //                          gl: "PROXECTO 12",
+// //                          ca_valencia: "PROJECTE 12",
+// //                          en: "PROJECT 12",
+// //                      },
+// //                      unidades: [],
+// //                      recursos: [],
+// //                  },
+//               }
+//           },
+//           sem: {
+//               nom: "SEM",
+//               titulo: {
+//                   es: "Seminarios",
+//                   eu: "Mintegia",
+//                   ca: "Seminaris",
+//                   gl: "Seminarios",
+//                   ca_valencia: "Seminaris",
+//                   en: "Seminars",
+//               },
+//               hijos: {
+//                   mat: {
+//                       nom: "MAT",
+//                       color: "rgb(243,146,0)",
+//                       subtitulo: {
+//                           es: "MATEMÁTICAS",
+//                           eu: "MATEMATIKA",
+//                           ca: "MATEMÀTIQUES",
+//                           gl: "MATEMÁTICAS",
+//                           ca_valencia: "MATEMÀTIQUES",
+//                           en: "MATHS",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   soc: {
+//                       nom: "SOC",
+//                       color: "rgb(40,53,131)",
+//                       subtitulo: {
+//                           es: "C. SOCIALES",
+//                           eu: "GIZARTE ZIENTZIAK",
+//                           ca: "C.S.C.M. SOCIAL",
+//                           gl: "CIENCIAS SOCIAIS",
+//                           ca_valencia: "CIÈNCIES SOCIALS",
+//                           en: "SOCIAL SCIENCE",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   nat: {
+//                       nom: "NAT",
+//                       color: "rgb(63,165,53)",
+//                       subtitulo: {
+//                           es: "C. NATURALES",
+//                           eu: "NATUR ZIENTZIAK",
+//                           ca: "C.N.C.M. NATURAL",
+//                           gl: "CIENCIAS NATURAIS",
+//                           ca_valencia: "CIÈNCIES NATURALS",
+//                           en: "NATURAL SCIENCE",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   // Inglés para toda España salvo para Cataluña
+//                   eng: {
+//                       nom: "ENG",
+//                       color: "rgb(183,20,82)",
+//                       ccaa: ["1","2","3","4","5","6","7","8","10","11","12","13","14","15","16","17","18","19"],  //Cataluña no tiene este inglés
+//                       subtitulo: {
+//                           es: "ENGLISH LANGUAGE",
+//                           eu: "ENGLISH LANGUAGE",
+//                           ca: "ENGLISH LANGUAGE",
+//                           gl: "ENGLISH LANGUAGE",
+//                           ca_valencia: "ENGLISH LANGUAGE",
+//                           en: "ENGLISH LANGUAGE",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   // Inglés para Cataluña
+//                   enc: {
+//                       nom: "ENG",
+//                       color: "rgb(183,20,82)",
+//                       ccaa: ["9"],  //Cataluña tiene este inglés
+//                       subtitulo: {
+//                           es: "ENGLISH LANGUAGE CAT",
+//                           eu: "ENGLISH LANGUAGE CAT",
+//                           ca: "ENGLISH LANGUAGE CAT",
+//                           gl: "ENGLISH LANGUAGE CAT",
+//                           ca_valencia: "ENGLISH LANGUAGE CAT",
+//                           en: "ENGLISH LANGUAGE CAT",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   // Castellano en general, salvo Cataluña
+//                   cas: {
+//                       nom: "CAS",
+//                       color: "rgb(236,179,127)",
+//                       ccaa: ["1","2","3","4","5","6","7","8","10","11","12","13","14","15","16","17","18","19"], //Cataluña no tiene este castellano
+//                       subtitulo: {
+//                           es: "LENGUA CASTELLANA",
+//                           eu: "LENGUA CASTELLANA",
+//                           ca: "LENGUA CASTELLANA",
+//                           gl: "LENGUA CASTELLANA",
+//                           ca_valencia: "LENGUA CASTELLANA",
+//                           en: "LENGUA CASTELLANA",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   // Castellano de Euskadi
+//                   cse: {
+//                       nom: "CAS",
+//                       color: "rgb(236,179,127)",
+//                       ccaa: ["16"], 
+//                       subtitulo: {
+//                           es: "LENGUA CASTELLANA EUS",
+//                           eu: "LENGUA CASTELLANA EUS",
+//                           ca: "LENGUA CASTELLANA EUS",
+//                           gl: "LENGUA CASTELLANA EUS",
+//                           ca_valencia: "LENGUA CASTELLANA EUS",
+//                           en: "LENGUA CASTELLANA EUS",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   // Castellano de Cataluña
+//                   csc: {
+//                       nom: "CAS",
+//                       color: "rgb(236,179,127)",
+//                       ccaa: ["9"], 
+//                       subtitulo: {
+//                           es: "LENGUA CASTELLANA CAT",
+//                           eu: "LENGUA CASTELLANA CAT",
+//                           ca: "LENGUA CASTELLANA CAT",
+//                           gl: "LENGUA CASTELLANA CAT",
+//                           ca_valencia: "LENGUA CASTELLANA CAT",
+//                           en: "LENGUA CASTELLANA CAT",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   eus: {
+//                       nom: "EUS",
+//                       color: "rgb(202,158,103)",
+//                       ccaa: ["16"],
+//                       subtitulo: {
+//                           es: "EUSKARA",
+//                           eu: "EUSKARA",
+//                           ca: "EUSKARA",
+//                           gl: "EUSKARA",
+//                           ca_valencia: "EUSKARA",
+//                           en: "EUSKARA",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   // catalán en Baleares
+//                   cat: {
+//                       nom: "CAT",
+//                       color: "rgb(202,158,103)",
+//                       ccaa: ["4"],
+//                       subtitulo: {
+//                           es: "LLENGUA CATALANA (BAL)",
+//                           eu: "LLENGUA CATALANA (BAL)",
+//                           ca: "LLENGUA CATALANA (BAL)",
+//                           gl: "LLENGUA CATALANA (BAL)",
+//                           ca_valencia: "LLENGUA CATALANA (BAL)",
+//                           en: "LLENGUA CATALANA (BAL)",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   // Catalán en Cataluña
+//                   ctc: {
+//                       nom: "CAT",
+//                       color: "rgb(202,158,103)",
+//                       ccaa: ["9"],
+//                       subtitulo: {
+//                           es: "LLENGUA CATALANA",
+//                           eu: "LLENGUA CATALANA",
+//                           ca: "LLENGUA CATALANA",
+//                           gl: "LLENGUA CATALANA",
+//                           ca_valencia: "LLENGUA CATALANA",
+//                           en: "LLENGUA CATALANA",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   gal: {
+//                       nom: "GAL",
+//                       color: "rgb(202,158,103)",
+//                       ccaa: ["12"],
+//                       subtitulo: {
+//                           es: "LINGUA GALEGA",
+//                           eu: "LINGUA GALEGA",
+//                           ca: "LINGUA GALEGA",
+//                           gl: "LINGUA GALEGA",
+//                           ca_valencia: "LINGUA GALEGA",
+//                           en: "LINGUA GALEGA",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   val: {
+//                       nom: "VAL",
+//                       color: "rgb(202,158,103)",
+//                       ccaa: ["10"],
+//                       subtitulo: {
+//                           es: "VALENCIÀ",
+//                           eu: "VALENCIÀ",
+//                           ca: "VALENCIÀ",
+//                           gl: "VALENCIÀ",
+//                           ca_valencia: "VALENCIÀ",
+//                           en: "VALENCIÀ",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//               }
+//           },
+//           tll: {
+//               nom: "TLL",
+//               titulo: {
+//                   es: "Talleres",
+//                   eu: "Tailerra",
+//                   ca: "Tallers",
+//                   gl: "Obradoiros",
+//                   ca_valencia: "Tallers",
+//                   en: "Workshops",
+//               },
+//               hijos: {
+//                   // Educación Religiosa Escolar
+//                   ere: {
+//                       nom: "ERE",
+//                       color: "rgb(239,179,175)",
+//                       subtitulo: {
+//                           es: "ERE",
+//                           eu: "ERLIJIOA",
+//                           ca: "ERE",
+//                           gl: "ERE",
+//                           ca_valencia: "ERE",
+//                           en: "ERE",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   // Educación en valores, visible en Andalucía
+// //                  evl: {
+// //                      nom: "EVL",
+// //                      color: "rgb(117,97,87)",
+// //                      ccaa: ["1"],
+// //                      subtitulo: {
+// //                          es: "EDUC. VALORES",
+// //                          eu: "EDUC. VALORES",
+// //                          ca: "EDUC. VALORES",
+// //                          gl: "EDUC. VALORES",
+// //                          ca_valencia: "EDUC. VALORES",
+// //                          en: "EDUC. VALORES",
+// //                      },
+// //                      unidades: [],
+// //                      recursos: [],
+// //                  },
+//                   efe: {
+//                       nom: "EF",
+//                       color: "rgb(0,159,227)",
+//                       subtitulo: {
+//                           es: "EDUCACIÓN FÍSICA",
+//                           eu: "GORPUTZ HEZKUNTZA",
+//                           ca: "EDUCACIÓ FÍSICA",
+//                           gl: "EDUCACIÓN FÍSICA",
+//                           ca_valencia: "EDUCACIÓ FÍSICA",
+//                           en: "PHYSICAL EDUCATION",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   pla: {
+//                       nom: "PLA",
+//                       color: "rgb(250,186,74)",
+//                       subtitulo: {
+//                           es: "PLÁSTICA",
+//                           eu: "PLASTIKA",
+//                           ca: "PLÀSTICA",
+//                           gl: "PLÁSTICA",
+//                           ca_valencia: "PLÀSTICA",
+//                           en: "ARTS AND CRAFTS",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   // Música para todas las ccaa salvo cataluña
+//                   mus: {
+//                       nom: "MUS",
+//                       color: "rgb(120,62,144)",
+//                       ccaa: ["1","2","3","4","5","6","7","8","10","11","12","13","14","15","16","17","18","19"],  //Cataluña no tiene esta música
+//                       subtitulo: {
+//                           es: "MÚSICA",
+//                           eu: "MUSIKA",
+//                           ca: "MÚSICA",
+//                           gl: "MÚSICA",
+//                           ca_valencia: "MÚSICA",
+//                           en: "MUSIC",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   // Música para cataluña
+//                   msc: {
+//                       nom: "MSC",
+//                       color: "rgb(120,62,144)",
+//                       ccaa: ["9"],
+//                       subtitulo: {
+//                           es: "MÚSICA CAT",
+//                           eu: "MUSIKA CAT",
+//                           ca: "MÚSICA CAT",
+//                           gl: "MÚSICA CAT",
+//                           ca_valencia: "MÚSICA CAT",
+//                           en: "MUSIC CAT",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   wkp: {
+//                       nom: "WKP",
+//                       color: "rgb(83,165,73)",
+//                       subtitulo: {
+//                           es: "WAKE UP",
+//                           eu: "WAKE UP",
+//                           ca: "WAKE UP",
+//                           gl: "WAKE UP",
+//                           ca_valencia: "WAKE UP",
+//                           en: "WAKE UP",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//                   int: {
+//                       nom: "INT",
+//                       color: "rgb(202,23,23)",
+//                       subtitulo: {
+//                           es: "T. INTERDISCIPLINARES",
+//                           eu: "DIZIPLINARTEKO T.",
+//                           ca: "T. INTERDISCIPLINARIS",
+//                           gl: "O. INTERDISCIPLINARES",
+//                           ca_valencia: "T. INTERDISCIPLINARIS",
+//                           en: "INTERDISCIPLINARY W.",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   },
+//               },
+//           },
+//           crr: {
+//               nom: "CRR",
+//               titulo: {
+//                   es: "Cierres",
+//                   eu: "Itxiera",
+//                   ca: "Tancaments",
+//                   gl: "Peches",
+//                   ca_valencia: "Tancaments",
+//                   en: "Enclosures",
+//               },
+//               hijos: {
+//                   crr: {
+//                       nom: "CRR",
+//                       color: "rgb(0,161,154)",
+//                       subtitulo: {
+//                           es: "REC. CIERRES",
+//                           eu: "ITXIERA",
+//                           ca: "TANCAMENTS",
+//                           gl: "PECHES",
+//                           ca_valencia: "TANCAMENTS",
+//                           en: "ENCLOSURE RES.",
+//                       },
+//                       unidades: [],
+//                       recursos: [],
+//                   }
+//               }
+//           },
+         }
       }
   },
   beforeCreate() {
+
     // esto es para corregir un problema con los estilos de la página nueva
     let encabezado = document.querySelector('#page-header');
+    let rutaImagen1 = "error";
     if (encabezado) {
       encabezado.style.height = 'unset'
     }
-    // cargamos el css del filtro de sallenet. Allí hay que dejar el archivo style.css de la carpeta assets
-    // ANULADO PORQUE TARDA UN POCO Y SE VEN LOS ELEMENTOS DESCOLOCADOS AL PRINCIPIO
-    //var cssId = 'myCss';  // you could encode the css path itself to generate id..
-    //if (!document.getElementById(cssId))
-    //{
-    //    var head  = document.getElementsByTagName('head')[0];
-    //    var link  = document.createElement('link');
-    //    link.id   = cssId;
-    //    link.rel  = 'stylesheet';
-    //    link.type = 'text/css';
-    //    link.href = '../filter/sallenet/_styles.css';
-    //    link.media = 'all';
-    //    head.appendChild(link);
-    //}
+
+    // Obtenemos la url base para las imagenes;
+    if (document.querySelector("#app")) {
+      rutaImagen1 = document.querySelector("#app").dataset.url;
+      //this.datosusuario.urlmenulateral = rutaImagen1;
+    }
+
+    // Obtenemos el curso usando el nombre del curso moodle como referencia, que se guarda en el head y obtenemos de ahí el curso
+    var NombreCurso = document.head.querySelector('title').innerText;
+    var ListadoNombresCurso = ['1EP', '2EP', '3EP', '4EP', '5EP', '6EP'];
+    var NivelCurso = "Error";
+    for (var i=0; i<ListadoNombresCurso.length; i++) {
+      if (NombreCurso.indexOf(ListadoNombresCurso[i])>0) {
+        NivelCurso = ListadoNombresCurso[i]}
+    }
+    console.log('el nivel del curso detectado es' + NivelCurso)
+    
+    // Cuando tenemos el curso llamamos a la función cargaMenu que obtiene el txt con la estructura del menú y la incorpora a los datos
+    if (NivelCurso != "Error") {
+      //this.datosusuario.curso = NivelCurso;
+      var rutaAchivoMenu = rutaImagen1 + NivelCurso + '.txt';
+      console.log(rutaAchivoMenu);
+        
+        // Obtener los datos del fichero TXT y los guardamos en la sessionStorage
+        var rawFile = new XMLHttpRequest(); 
+        rawFile.open("GET", rutaAchivoMenu, false); 
+        rawFile.onreadystatechange = function () 
+          { 
+              if(rawFile.readyState === 4) 
+              { 
+                  if(rawFile.status === 200 || rawFile.status == 0) 
+                  { 
+                      var allText = rawFile.responseText; 
+                      console.log('estos son los datos del modelo');
+                      console.log(allText);
+                      sessionStorage.setItem('ncaMenu', allText)
+                  } 
+              } 
+          };
+        rawFile.send(null);
+
+    }
+
   },
   mounted() {
     window.addEventListener('DOMContentLoaded', () => {
+      // Carga de la estructura de datos del menú
+      this.datos = JSON.parse(sessionStorage.getItem('ncaMenu'))
       // carga principal por defecto
       this.cargaUsuario();
       this.cargaPrincipal();
@@ -834,14 +869,15 @@ export default {
       xhttp.send();
     },
     cargaUsuario() {
+      
+        // Cargamos los datos de usuario como variable para poder editarlos en la función
+        let datosusuario = this.datosusuario;
+
         // Obtenemos la url base para las imagenes;
         if (document.querySelector("#app")) {
           let rutaImagen1 = document.querySelector("#app").dataset.url;
           this.datosusuario.urlmenulateral = rutaImagen1;
         }
-        
-        // Cargamos los datos de usuario como variable para poder editarlos en la función
-        let datosusuario = this.datosusuario;
 
         // Obtenemos el dato de CCAA. Ojo, esta llamada no es relativa, sino absoluta al estar dentro el htmlrequest;
         //datosusuario.ccaa = "error" // Ponemos un valor por defecto en caso de que no funcione el get

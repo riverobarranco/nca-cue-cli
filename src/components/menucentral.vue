@@ -99,7 +99,7 @@
                 </div>
                 <div class="col nca13-mnu-ctrl-icon">
                     <img v-if="centralurllogo !== 'vacio' && centralusuario.rol !== 'editingteacher'" id="nca13-mnu-imagen" v-bind:src="centralurllogo" style="width:100%">
-                    <a v-if="centralurllogo !== 'vacio' && centralusuario.rol == 'editingteacher'" v-bind:href="centralurleditarslider" target="_blank">
+                    <a v-if="centralurllogo !== 'vacio' && centralusuario.rol == 'editingteacher'" v-bind:href="centralurleditarslider" target="_blank" v-bind:data-url="customlogourl">
                         <img id="nca13-mnu-imagen" v-bind:src="centralurllogo" style="width:100%">
                     </a>
                 </div>
@@ -161,6 +161,7 @@ export default {
         },
         tipoactivoFijo : this.centralusuario.tipoactivo,
         sliderdatos: {jsonvisible: false, tipo: null, datos:''},
+        customlogourl : ""
       }
     },
     updated() {
@@ -259,6 +260,34 @@ export default {
             if (temp2 == 'T1' || temp2 == 'T2' || temp2 == 'T3' || temp2 == 'T4') {temp1 = "fa fa-hourglass-half"}
             return temp1;
         },
+        centralcustomlogo(url) {
+            // Definimos la variable de respuesta de la función
+            let urlcustomlogolistaimagenes = "";
+            let pasadatos = this.customlogourl;
+            // hacemos la consulta a la url para obtener la url de la image nueva del logo
+            axios.get(url)
+            .then(function (response) {
+            // handle success
+                if (url !== '') {
+                    var e = document.createElement("div");
+                    e.innerHTML = response.data;
+                    urlcustomlogolistaimagenes = e.querySelectorAll('#region-main .card .generalbox img');
+                    // si hay imágenes dentro del recurso html coge la url de la primera que aparece y la mete en el DOM
+                    if (urlcustomlogolistaimagenes.length > 0) {
+                         pasadatos = urlcustomlogolistaimagenes[0].src;
+                         document.querySelector('.nca13-mnu-ctrl-icon img').src = pasadatos;
+                    }
+                }
+                console.log('esto es la respuesta de la consulta de logo personalizado');
+                console.log(response.data);
+                console.log('esto es el objeto pasadatos');
+                console.log(pasadatos);
+            })
+            .catch(function (error) {
+                console.log(error)
+            }) //handle error
+            .then(function () {}); // always executed
+        }
     },
     computed: {
         centralstyleint() {
@@ -271,7 +300,10 @@ export default {
             return 'font-weight: bold; color: ' + this.centralusuario.color;
         },
         centralurllogo() {
-            if (this.centralusuario.subtipoactivoimagen !== "") {
+            if (this.centralusuario.urliconoinsertado !== null) {
+                this.centralcustomlogo(this.centralusuario.urliconoinsertado);
+            }
+            if (this.centralusuario.subtipoactivoimagen !== '') {
                 return this.centralusuario.urlmenulateral + this.centralusuario.subtipoactivoimagen;
             } else {
                 return 'vacio';

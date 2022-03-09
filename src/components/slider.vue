@@ -40,7 +40,7 @@
                                         {{ sliderjson.actividades[activactivofiltrada].recursos[index].titulo }}
                                     </div>
                                     <div v-if="(sliderjson.actividades[activactivofiltrada].recursos[index].tipo !== 'mat')" class="nca_book_recursos_col_short">
-                                        <a class="nca_book_recursos_icon" v-bind:data-name="sliderjson.actividades[activactivofiltrada].recursos[index].titulo" v-bind:data-lang="sliderusuario.lang" v-bind:href="sliderjson.actividades[activactivofiltrada].recursos[index].url" target="_blank">
+                                        <a class="nca_book_recursos_icon" v-bind:data-name="sliderjson.actividades[activactivofiltrada].recursos[index].titulo" v-bind:data-lang="sliderusuario.lang" v-bind:data-class="classicono(index)" v-bind:href="sliderjson.actividades[activactivofiltrada].recursos[index].url" target="_blank">
                                             <i v-bind:class="classicono(index)" aria-hidden="true"></i>
                                         </a>
                                     </div>
@@ -118,7 +118,14 @@ export default {
                 //console.log(vinculonuevo);
                 if (vinculonuevo) {
                     // esto es una prueba para ver si puedo pasar los atributos a la url como parametros, si no pasa la url sin parametros
-                    if (vinculoslista[j].dataset.name && vinculoslista[j].dataset.lang) {
+                    // para pasar los datos, el recurso debe ser tipo recurso didactico, recurso alumno o cuaderno alumno y tener un nombre codificado bien
+                    if (vinculoslista[j].dataset.name && 
+                        vinculoslista[j].dataset.lang &&
+                        vinculoslista[j].dataset.name.split('.').length > 4 && 
+                        (   vinculoslista[j].dataset.class == 'fa fa-briefcase' || 
+                            vinculoslista[j].dataset.class == 'fa fa-book' || 
+                            vinculoslista[j].dataset.class == 'fa fa-address-card'
+                        )) {
                         vinculoslista[j].setAttribute("href",vinculonuevo + '&lang=' + vinculoslista[j].dataset.lang + '&name=' + vinculoslista[j].dataset.name);
                     } else {
                         vinculoslista[j].setAttribute("href",vinculonuevo);
