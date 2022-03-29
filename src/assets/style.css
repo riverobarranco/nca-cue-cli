@@ -1078,7 +1078,7 @@
     margin: 10px;
 }
 
-#nca13-mnu-ctrl-interactivas div {
+#nca13-mnu-ctrl-interactivas div div a div {
     background-size: 100% 100%;
     width: 4rem;
     height: 4rem;
@@ -1090,6 +1090,11 @@
 
 #nca13-mnu-ctrl-interactivas {
     min-height: 64px;
+}
+
+#nca13-mnu-ctrl-interactivas div div a {
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 

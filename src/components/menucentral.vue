@@ -116,13 +116,32 @@
                 </div>
             </div>
 
-            <div id="nca13-mnu-ctrl-interactivas" class="row justify-content-end" v-bind:data-slider="centralsliderfiltrado">
-                <a target="_blank" v-for="interactiva in centralinteractivasfiltrado" v-bind:key="interactiva"  v-bind:href="interactiva.url">
-                    <div class="col-auto" v-bind:style="centralstyleint">
-                        {{ interactiva.indice }}
+            <div class="row" id="nca13-mnu-ctrl-interactivas" v-bind:data-slider="centralsliderfiltrado">
+
+                <div class="col-md-auto">
+                    <div class="row justify-content-start">
+                        <a class="col" target="_blank" v-for="evaluacion in centralevaluacionesfiltrado" v-bind:key="evaluacion" v-bind:href="evaluacion.url">
+                            <div v-bind:style="centralstyleeva">
+                                {{ evaluacion.indice }}
+                            </div>
+                        </a>
                     </div>
-                </a>
+                </div>
+
+                <div class="col"></div>
+                
+                <div class="col-md-auto">
+                    <div class="row justify-content-end">
+                        <a class="col" target="_blank"  v-for="interactiva in centralinteractivasfiltrado" v-bind:key="interactiva" v-bind:href="interactiva.url">
+                            <div v-bind:style="centralstyleint">
+                                {{ interactiva.indice }}
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
             </div>
+
         </div>
 
         <slider v-bind:sliderusuario="centralusuario" v-bind:slider="sliderdatos" v-if="centralusuario.estado == !0"></slider>
@@ -293,6 +312,9 @@ export default {
         centralstyleint() {
             return "background-color:" + this.centralusuario.color + "; background-image:url('" + this.centralusuario.urlmenulateral + this.tipoactivoFijo.toUpperCase() + ".png')";
         },
+        centralstyleeva() {
+            return "background-color:" + this.centralusuario.color + "; color:" + this.centralusuario.color + "; background-image:url('" + this.centralusuario.urlmenulateral + this.tipoactivoFijo.toUpperCase() + "-eval.png')";
+        },
         centralstylemas() {
             return 'background-color: ' + this.centralusuario.color;
         },
@@ -370,6 +392,35 @@ export default {
             if (this.centralusuario.lang && this.centralusuario.lang !== "" && langtrad[this.centralusuario.lang]) { // AÑADIR LA OPCIÓN "||" A QUE LANGTRAD SEA MUL!!!
                 temp0 = temp0.filter(this.innerfiltrolang(langactivo), temp0);
                 console.log('interactivas filtro por idioma queda: ')
+                console.log(temp0);
+            }
+            // Fin de filtros. 
+            return temp0;
+        },
+        centralevaluacionesfiltrado () {
+            let temp0 = this.centralusuario.evaluaciones;
+            console.log('evaluaciones inicial es: ');
+            console.log(temp0);
+            // Filtro por calificación. Ninguno (todas las evaluables generan calificacion)
+            // Filtro por rol. Ninguno; Si se quiere una interactiva oculta al alumno hacer el elemento moodle oculto.
+            // Filtro por ccaa 1. Eliminamos los elementos de ccaa ajenas al usuario;
+            if (this.centralusuario.ccaa && this.centralusuario.ccaa !== "") {
+                temp0 = temp0.filter(elem => elem.titulo.split("-")[2] == "0" || elem.titulo.split("-")[2] == this.centralusuario.ccaa);
+                console.log('evaluaciones filtro por ccaa-1 queda: ');
+                console.log(temp0);
+            }
+            // Filtro por ccaa 2. Si hay dos elementos de igual indice e idioma pero ccaa estatal y autonomica eliminamos la estatal;
+            if (this.centralusuario.ccaa && this.centralusuario.ccaa !== "") {
+                temp0 = temp0.filter(this.innerfiltroccaa, temp0);
+                console.log('evaluaciones filtro por ccaa-2 queda: ');
+                console.log(temp0);
+            }
+            // Filtro por idioma. Si hay dos elementos de igual indice y ccaa pero idioma distinto eliminamos la que tiene idioma distinto al usuario;
+            var langtrad = {es: "CAS", en:"ENG", eu:"EUS", ca:"CAT", ca_valencia:"VAL", gl:"GAL"};
+            var langactivo = langtrad[this.centralusuario.lang];
+            if (this.centralusuario.lang && this.centralusuario.lang !== "" && langtrad[this.centralusuario.lang]) { // AÑADIR LA OPCIÓN "||" A QUE LANGTRAD SEA MUL!!!
+                temp0 = temp0.filter(this.innerfiltrolang(langactivo), temp0);
+                console.log('evaluaciones filtro por idioma queda: ')
                 console.log(temp0);
             }
             // Fin de filtros. 
