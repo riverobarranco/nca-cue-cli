@@ -1,11 +1,9 @@
 <template>
-    <div id="nca13_mnu_tglbtn" class="row" v-if="lateralvisible" v-on:click="$emit('toglea-estado')">
-      <button type="button" class="btn nav-link float-sm-left mr-1 btn-secondary">
+    <div id="nca13_mnu_tglbtn" class="row" v-on:click="$emit('toglea-estado')">
+      <button v-if="lateralvisible" type="button" class="btn nav-link float-sm-left mr-1 btn-secondary">
         <i class="icon fa fa-angle-double-left" ></i>
       </button>
-    </div>
-    <div id="nca13_mnu_tglbtn" class="row" v-if="!lateralvisible" v-on:click="$emit('toglea-estado')">
-      <button type="button" class="btn nav-link float-sm-left mr-1 btn-secondary">
+      <button v-if="!lateralvisible" type="button" class="btn nav-link float-sm-left mr-1 btn-secondary">
         <i class="icon fa fa-angle-double-right" ></i>
       </button>
     </div>

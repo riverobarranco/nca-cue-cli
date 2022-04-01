@@ -15,7 +15,7 @@
             </div>
 
             <div class="carousel-inner">
-                <div class="slider-vue carousel-item row">
+                <div class="slider-vue row">
 
                     <div class="nca_book_slide_vue row">
                         <div class="col-md-1 title nca_book_orden" v-bind:style="styleorden()">

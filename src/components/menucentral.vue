@@ -87,7 +87,7 @@
 
         <div id="nca13_mnu_ctrl" class="container" v-if="centralusuario.estado !== 0">
             <div class="row">
-                <div class="col nca13-mnu-ctrl-mas" v-bind:style="centralstylemas">
+                <div class="col nca13-mnu-ctrl-mas" v-bind:style="centralstylemas()">
                     <selectoridioma v-bind:idiomaactual="centralusuario.lang" v-bind:idiomasdisponibles="centralusuario.ccaalang[centralusuario.ccaa]" v-bind:idiomausuario="centralusuario"></selectoridioma>
                     <div v-on:click="actualizarecursoactivo"><h2>+</h2></div>
                 </div>
@@ -110,7 +110,7 @@
                     <div v-bind:style="centralstylerec" style="cursor:pointer;" class="nca13-mnu-ctrl-recursos-elem" v-on:click="generapdf(sliderdatos.datos)">{{ guiatraducida[centralusuario.lang] }}</div>
                 </div>
                 <div class="col-auto" v-for="recurso in centralrecursostitulofiltrado" v-bind:key="recurso">
-                    <a target="_blank" v-bind:href="recurso.url" v-bind:style="centralstylerec">
+                    <a target="_blank" v-bind:href="recurso.url" v-bind:style="centralstylerec()">
                         <div class="nca13-mnu-ctrl-recursos-elem">{{ recurso.texto }}</div>
                     </a>
                 </div>
@@ -121,7 +121,7 @@
                 <div class="col-md-auto">
                     <div class="row justify-content-start">
                         <a class="col" target="_blank" v-for="evaluacion in centralevaluacionesfiltrado" v-bind:key="evaluacion" v-bind:href="evaluacion.url">
-                            <div v-bind:style="centralstyleeva">
+                            <div v-bind:style="centralstyleeva()">
                                 {{ evaluacion.indice }}
                             </div>
                         </a>
@@ -133,7 +133,7 @@
                 <div class="col-md-auto">
                     <div class="row justify-content-end">
                         <a class="col" target="_blank"  v-for="interactiva in centralinteractivasfiltrado" v-bind:key="interactiva" v-bind:href="interactiva.url">
-                            <div v-bind:style="centralstyleint">
+                            <div v-bind:style="centralstyleint()">
                                 {{ interactiva.indice }}
                             </div>
                         </a>
@@ -306,21 +306,21 @@ export default {
                 console.log(error)
             }) //handle error
             .then(function () {}); // always executed
-        }
-    },
-    computed: {
+        },
         centralstyleint() {
-            return "background-color:" + this.centralusuario.color + "; background-image:url('" + this.centralusuario.urlmenulateral + this.tipoactivoFijo.toUpperCase() + ".png')";
+            return "background-color:" + this.centralusuario.colormenucentral + "; background-image:url('" + this.centralusuario.urlmenulateral + this.tipoactivoFijo.toUpperCase() + ".png')";
         },
         centralstyleeva() {
-            return "background-color:" + this.centralusuario.color + "; color:" + this.centralusuario.color + "; background-image:url('" + this.centralusuario.urlmenulateral + this.tipoactivoFijo.toUpperCase() + "-eval.png')";
+            return "background-color:" + this.centralusuario.colormenucentral + "; color:" + this.centralusuario.colormenucentral + "; background-image:url('" + this.centralusuario.urlmenulateral + this.tipoactivoFijo.toUpperCase() + "-eval.png')";
         },
         centralstylemas() {
-            return 'background-color: ' + this.centralusuario.color;
+            return 'background-color: ' + this.centralusuario.colormenucentral;
         },
         centralstylerec() {
-            return 'font-weight: bold; color: ' + this.centralusuario.color;
+            return 'font-weight: bold; color: ' + this.centralusuario.colormenucentral;
         },
+    },
+    computed: {
         centralurllogo() {
             if (this.centralusuario.urliconoinsertado !== null) {
                 this.centralcustomlogo(this.centralusuario.urliconoinsertado);

@@ -59,11 +59,7 @@
             return 'color:' + this.listacolor
         },
         listastyletit() {
-            let colortitulo = this.listacolor;
-            if (localStorage.getItem('color') && localStorage.getItem('color') !== 'null') {
-                colortitulo = localStorage.getItem('color');
-            }
-            return 'background-color: ' + colortitulo;
+            return 'background-color: ' + this.listacolor;
         }
     },
     methods: {

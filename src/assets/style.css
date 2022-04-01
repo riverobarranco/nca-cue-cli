@@ -774,13 +774,30 @@
 /* CONFIGURACIONES DE ESTILO PARA LOS BOTONES DE COLAPSO DE BARRA LATERAL -----------------------------------------------------------*/
 
 #nca13_mnu_tglbtn button {
-    position: fixed;
-    top: 0px;
-    left: 110px;
-    background-color: rgba(0,0,0,0);
-    color: white;
+    color: rgba(0,0,0,.6);
+}
+
+.context-header-settings-menu a {
+    color: darkgray;
+}
+
+.fixed-top .singlebutton {
+    padding-left: 20px;
+    padding-top: 5px;
+}
+
+.fixed-top .singlebutton button {
+    background-color: #e9ecef;
+    color: #a4a4a4;
     border: none;
-    z-index: 9999;
+}
+
+.context-header-settings-menu .dropdown-toggle>.icon {
+    height: 20px;
+    font-size: 20px;
+    width: auto;
+    padding-top: 3px;
+    padding-left: 10px;
 }
 
 .fixed-top button.btn.nav-link, .editingbutton {

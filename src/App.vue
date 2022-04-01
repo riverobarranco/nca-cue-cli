@@ -57,6 +57,7 @@ export default {
           urliconoinsertadosrc: "",
           urlsliderfiltrado: "",
           color: "",
+          colormenucentral: "",
           estado: 0,
           introbienvenida: {
               es: "Bienvenido",
@@ -701,6 +702,13 @@ export default {
     var NombreCurso = document.head.querySelector('title').innerText;
     var ListadoNombresCurso = ['1EP', '2EP', '3EP', '4EP', '5EP', '6EP'];
     var NivelCurso = "Error";
+    // Lo busca también en el shortname que está en el breadcrumb si no lo encuentra en el nombre largo
+    if (NivelCurso === "Error" && document.querySelector(".breadcrumb .breadcrumb-item")) {
+      if (document.querySelector(".breadcrumb .breadcrumb-item a[title]")) {
+        NivelCurso = document.querySelector(".breadcrumb .breadcrumb-item a[title]").innerText
+      }
+    }
+    // Obtenemos el curso
     for (var i=0; i<ListadoNombresCurso.length; i++) {
       if (NombreCurso.indexOf(ListadoNombresCurso[i])>0) {
         NivelCurso = ListadoNombresCurso[i]}
@@ -741,6 +749,23 @@ export default {
       // carga principal por defecto
       this.cargaUsuario();
       this.cargaPrincipal();
+      // Colocamos el boton de colapsado en su sitio para la versión moodle 3.9
+      if (document.querySelector('#page-wrapper nav')) {
+        document.querySelector('#page-wrapper nav').insertBefore(document.querySelector('#nca13_mnu_tglbtn'), document.querySelector('#page-wrapper nav').children[1]);
+      }
+      // Colocamos el boton de ajustes del curso en la barra de nav para la versión moodle 3.9, en el caso de que exista
+      if (document.querySelector('.context-header-settings-menu')) {
+        document.querySelector('#page-wrapper nav').insertBefore(document.querySelector('.context-header-settings-menu'), document.querySelector('#page-wrapper nav').children[document.querySelector('#page-wrapper nav').children.length-1]);
+      }
+      // Colocamos el boton de activar edición en la barra de nav para la versión moodle 3.9, en el caso de que exista
+      if (document.querySelector('#page-header .ml-auto .singlebutton')) {
+        document.querySelector('#page-wrapper nav').insertBefore(document.querySelector('#page-header .ml-auto .singlebutton'), document.querySelector('#page-wrapper nav').children[document.querySelector('#page-wrapper nav').children.length-1]);
+      }
+      // Ocultamos la barra page-header porque la hemos vacíado de cosas
+      if (document.querySelector('#page-header')) {
+        document.querySelector('#page-header').style.display = "none";
+      }
+
     });
   },
   computed: {
@@ -958,7 +983,7 @@ export default {
       let tempIndex;
 
       // Oculta la intro si la edición está desactivada. Modificaciones de estilo en función de si está o no la edición activa.
-      let estaeditando = document.querySelectorAll('.editing_move').length;
+      let estaeditando = document.querySelectorAll('.editing_move').length;  // correcto para moodle 3.9
       if (estaeditando > 0) {
           this.datosusuario.estado = 1;
           if (document.querySelector("#blockslider")) {
@@ -966,7 +991,7 @@ export default {
           }
       } else if ( document.querySelector("#section-0") && document.querySelectorAll('.topics li[id^=section-]').length > 0 && document.querySelector("#section-0")) {
           document.querySelector("#section-0").style.borderBottom = "none"; // Ocultamos el borde inferior de la sección 0
-          document.querySelectorAll('.topics li[id^=section-]').forEach((elem) => elem.style.display = "none"); // Ocultamos las unidades si no está editando
+          document.querySelectorAll('.topics li[id^=section-]').forEach((elem) => elem.style.display = "none"); // Ocultamos las unidades si no está editando Correcto para moodle 3.9
           document.querySelector("#section-0").style.display = "block";
       } else {
           console.log('no ha encontrado elementos html como la sección 0 o similares en el DOM')
@@ -1155,7 +1180,7 @@ export default {
     cargaseccion (urldestino) {
       let datosusuario = this.datosusuario;
       let subtipoactivotitulo = this.subtipoactivotitulo;
-      //let subtipoactivocolor = this.subtipoactivocolor;
+      datosusuario.colormenucentral = this.subtipoactivocolor;
 
       // Actualizamos el valor de la sección activa para permitir el aceso si es profesor
       datosusuario.urlseccionactiva = urldestino;
