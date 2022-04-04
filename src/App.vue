@@ -693,10 +693,11 @@ export default {
     }
 
     // Obtenemos la url base para las imagenes;
-    if (document.querySelector("#app")) {
-      rutaImagen1 = document.querySelector("#app").dataset.url;
-      //this.datosusuario.urlmenulateral = rutaImagen1;
-    }
+    rutaImagen1 = "../filter/sallenet/js/primaria16/";  // ahora los archivos de esquema de menú están en el filtro
+    //if (document.querySelector("#app")) {
+    //  rutaImagen1 = document.querySelector("#app").dataset.url;
+    //}
+    
 
     // Obtenemos el curso usando el nombre del curso moodle como referencia, que se guarda en el head y obtenemos de ahí el curso
     var NombreCurso = document.head.querySelector('title').innerText;
