@@ -308,7 +308,7 @@ export default {
             .then(function () {}); // always executed
         },
         centralstyleint() {
-            return "background-color:" + this.centralusuario.colormenucentral + "; background-image:url('" + this.centralusuario.urlmenulateral + this.tipoactivoFijo.toUpperCase() + ".png')";
+            return "background-color:" + this.centralusuario.colormenucentral + "; background-image:url('" + this.centralusuario.urlmenulateral + this.tipoactivoFijo.toUpperCase() + "-inte.png')";
         },
         centralstyleeva() {
             return "background-color:" + this.centralusuario.colormenucentral + "; color:" + this.centralusuario.colormenucentral + "; background-image:url('" + this.centralusuario.urlmenulateral + this.tipoactivoFijo.toUpperCase() + "-eval.png')";

@@ -1,10 +1,10 @@
 <template>
     <div v-if="logourl" id="nca13_mnu_logo" class="row">
         <div v-if="this.rol == 'student' || this.rol == 'teacher'" v-on:click="irpaginainicio" style="cursor:pointer;" class="col">
-            <img v-bind:src="logourl + logotipofiltrado + '.png'" style="width: 75%;">
+            <img v-bind:src="logourl + logotipofiltrado + '-logo.png'" style="width: 75%;">
         </div>
         <div v-if="this.rol !== 'student' && this.rol !== 'teacher'" v-on:click="editaSeccion" style="cursor:pointer;" class="col">
-            <img v-bind:src="logourl + logotipofiltrado + '.png'"  style="width: 75%;">
+            <img v-bind:src="logourl + logotipofiltrado + '-logo.png'"  style="width: 75%;">
         </div>
     </div>
 </template>

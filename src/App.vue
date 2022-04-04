@@ -718,7 +718,7 @@ export default {
     // Cuando tenemos el curso llamamos a la función cargaMenu que obtiene el txt con la estructura del menú y la incorpora a los datos
     if (NivelCurso != "Error") {
       //this.datosusuario.curso = NivelCurso;
-      var rutaAchivoMenu = rutaImagen1 + NivelCurso + '.txt';
+      var rutaAchivoMenu = rutaImagen1 + NivelCurso + '.json';
       console.log(rutaAchivoMenu);
         
         // Obtener los datos del fichero TXT y los guardamos en la sessionStorage
@@ -899,10 +899,12 @@ export default {
         let datosusuario = this.datosusuario;
 
         // Obtenemos la url base para las imagenes;
-        if (document.querySelector("#app")) {
-          let rutaImagen1 = document.querySelector("#app").dataset.url;
-          this.datosusuario.urlmenulateral = rutaImagen1;
-        }
+        this.datosusuario.urlmenulateral = "../filter/sallenet/js/primaria16/"  //ahora las imágenes se almacenan en el filtro
+        //if (document.querySelector("#app")) {
+        //  let rutaImagen1 = document.querySelector("#app").dataset.url;
+        //  this.datosusuario.urlmenulateral = rutaImagen1;
+        //}
+        
 
         // Obtenemos el dato de CCAA. Ojo, esta llamada no es relativa, sino absoluta al estar dentro el htmlrequest;
         //datosusuario.ccaa = "error" // Ponemos un valor por defecto en caso de que no funcione el get
