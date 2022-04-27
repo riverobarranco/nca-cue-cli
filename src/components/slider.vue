@@ -40,7 +40,7 @@
                                         {{ sliderjson.actividades[activactivofiltrada].recursos[index].titulo }}
                                     </div>
                                     <div v-if="(sliderjson.actividades[activactivofiltrada].recursos[index].tipo !== 'mat')" class="nca_book_recursos_col_short">
-                                        <a class="nca_book_recursos_icon" v-bind:data-name="sliderjson.actividades[activactivofiltrada].recursos[index].titulo" v-bind:data-lang="sliderusuario.lang" v-bind:data-class="classicono(index)" v-bind:href="sliderjson.actividades[activactivofiltrada].recursos[index].url" target="_blank">
+                                        <a class="nca_book_recursos_icon" v-bind:data-name="sliderjson.actividades[activactivofiltrada].recursos[index].titulo" v-bind:data-lang="sliderusuario.lang" v-bind:data-ccaa="sliderusuario.ccaa" v-bind:data-class="classicono(index)" v-bind:href="sliderjson.actividades[activactivofiltrada].recursos[index].url" target="_blank">
                                             <i v-bind:class="classicono(index)" aria-hidden="true"></i>
                                         </a>
                                     </div>
@@ -126,7 +126,7 @@ export default {
                             vinculoslista[j].dataset.class == 'fa fa-book' || 
                             vinculoslista[j].dataset.class == 'fa fa-address-card'
                         )) {
-                        vinculoslista[j].setAttribute("href",vinculonuevo + '&lang=' + vinculoslista[j].dataset.lang + '&name=' + vinculoslista[j].dataset.name);
+                        vinculoslista[j].setAttribute("href",vinculonuevo + '&lang=' + vinculoslista[j].dataset.lang + '&name=' + vinculoslista[j].dataset.name + '&ccaa=' + vinculoslista[j].dataset.ccaa);
                     } else {
                         vinculoslista[j].setAttribute("href",vinculonuevo);
                     }

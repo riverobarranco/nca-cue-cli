@@ -698,23 +698,46 @@ export default {
     //  rutaImagen1 = document.querySelector("#app").dataset.url;
     //}
     
-
     // Obtenemos el curso usando el nombre del curso moodle como referencia, que se guarda en el head y obtenemos de ahí el curso
-    var NombreCurso = document.head.querySelector('title').innerText;
     var ListadoNombresCurso = ['1EP', '2EP', '3EP', '4EP', '5EP', '6EP'];
-    var NivelCurso = "Error";
-    // Lo busca también en el shortname que está en el breadcrumb si no lo encuentra en el nombre largo
-    if (NivelCurso === "Error" && document.querySelector(".breadcrumb .breadcrumb-item")) {
-      if (document.querySelector(".breadcrumb .breadcrumb-item a[title]")) {
-        NivelCurso = document.querySelector(".breadcrumb .breadcrumb-item a[title]").innerText
-      }
+    var NombreCurso = "Error";
+    if (document.head.querySelector('title')) {
+      NombreCurso = document.head.querySelector('title').innerText;
+      console.log('el nombre largo del curso es ' + NombreCurso)
     }
-    // Obtenemos el curso
+    // Obtenemos el curso desde el nombre largo
+    var NivelCurso = "No encontrado";
     for (var i=0; i<ListadoNombresCurso.length; i++) {
       if (NombreCurso.indexOf(ListadoNombresCurso[i])>0) {
         NivelCurso = ListadoNombresCurso[i]}
     }
-    console.log('el nivel del curso detectado es' + NivelCurso)
+    console.log('el nivel del curso detectado desde el nombre largo es ' + NivelCurso)
+
+    // Lo busca también en el shortname que está en el breadcrumb si no lo encuentra en el nombre largo
+    if (NivelCurso == "No encontrado" && document.querySelector(".breadcrumb .breadcrumb-item")) {
+      if (document.querySelector(".breadcrumb .breadcrumb-item a[title]")) {
+        NombreCurso = document.querySelector(".breadcrumb .breadcrumb-item a[title]").innerText
+        // Obtenemos el curso desde el nombre corto
+        for (var j=0; j<ListadoNombresCurso.length; j++) {
+          if (NombreCurso.indexOf(ListadoNombresCurso[j])>0) {
+            NivelCurso = ListadoNombresCurso[j]}
+        }
+        console.log('el nivel del curso detectado desde el nombre corto es ' + NivelCurso)
+      }
+    }
+
+    // En el caso de que la edición esté activada la ruta de busqueda del curso es distinta
+    if (NivelCurso == "No encontrado" && document.querySelector('body title')) {
+      if (document.querySelector('body title')) {
+        NombreCurso = document.querySelector('body title').innerText;
+        // Obtenemos el curso desde el nombre corto
+        for (var k=0; k<ListadoNombresCurso.length; k++) {
+          if (NombreCurso.indexOf(ListadoNombresCurso[k])>0) {
+            NivelCurso = ListadoNombresCurso[k]}
+        }
+        console.log('el nivel del curso detectado desde el nombre largo en edicion es ' + NivelCurso)
+      }
+    }
     
     // Cuando tenemos el curso llamamos a la función cargaMenu que obtiene el txt con la estructura del menú y la incorpora a los datos
     if (NivelCurso != "Error") {
