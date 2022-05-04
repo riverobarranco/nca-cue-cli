@@ -88,7 +88,7 @@
         <div id="nca13_mnu_ctrl" class="container" v-if="centralusuario.estado !== 0">
             <div class="row">
                 <div class="col nca13-mnu-ctrl-mas" v-bind:style="centralstylemas()">
-                    <selectoridioma v-bind:idiomaactual="centralusuario.lang" v-bind:idiomasdisponibles="centralusuario.ccaalang[centralusuario.ccaa]" v-bind:idiomausuario="centralusuario"></selectoridioma>
+                    <!-- <selectoridioma v-bind:idiomaactual="centralusuario.lang" v-bind:idiomasdisponibles="centralusuario.ccaalang[centralusuario.ccaa]" v-bind:idiomausuario="centralusuario"></selectoridioma> -->
                     <div v-on:click="actualizarecursoactivo"><h2>+</h2></div>
                 </div>
                 <div class="col nca13-mnu-ctrl-tit">
@@ -107,7 +107,7 @@
 
             <div id="nca13-mnu-ctrl-recursos" class="row justify-content-start" v-if="centralrecursosactivo">
                 <div class="col-auto" v-if="sliderdatos.tipo == 'json'">
-                    <div v-bind:style="centralstylerec" style="cursor:pointer;" class="nca13-mnu-ctrl-recursos-elem" v-on:click="generapdf(sliderdatos.datos)">{{ guiatraducida[centralusuario.lang] }}</div>
+                    <div v-bind:style="centralstylerec()" style="cursor:pointer;" class="nca13-mnu-ctrl-recursos-elem" v-on:click="generapdf(sliderdatos.datos)">{{ guiatraducida[centralusuario.lang] }}</div>
                 </div>
                 <div class="col-auto" v-for="recurso in centralrecursostitulofiltrado" v-bind:key="recurso">
                     <a target="_blank" v-bind:href="recurso.url" v-bind:style="centralstylerec()">
@@ -119,21 +119,23 @@
             <div class="row" id="nca13-mnu-ctrl-interactivas" v-bind:data-slider="centralsliderfiltrado">
 
                 <div class="col-md-auto">
-                    <div class="row justify-content-start">
+                    <div class="row justify-content-start" id="lista-evaluaciones">
                         <a class="col" target="_blank" v-for="evaluacion in centralevaluacionesfiltrado" v-bind:key="evaluacion" v-bind:href="evaluacion.url">
-                            <div v-bind:style="centralstyleeva()">
+                            <div class="botonpopper" v-on:mouseover="centralstylepopshow(evaluacion.texto,'left')" v-on:mouseleave="centralstylepophide()" v-bind:style="centralstyleeva()" v-bind:id="'btn-eval-' + evaluacion.indice" >
                                 {{ evaluacion.indice }}
                             </div>
                         </a>
                     </div>
                 </div>
 
-                <div class="col"></div>
+                <div class="col" id="lista-descripcion">
+                    <p>{{ listatexto }}</p>
+                </div>
                 
                 <div class="col-md-auto">
-                    <div class="row justify-content-end">
+                    <div class="row justify-content-end" id="lista-interactivas">
                         <a class="col" target="_blank"  v-for="interactiva in centralinteractivasfiltrado" v-bind:key="interactiva" v-bind:href="interactiva.url">
-                            <div v-bind:style="centralstyleint()">
+                            <div v-bind:style="centralstyleint()" v-on:mouseover="centralstylepopshow(interactiva.texto,'right')" v-on:mouseleave="centralstylepophide()">
                                 {{ interactiva.indice }}
                             </div>
                         </a>
@@ -150,15 +152,15 @@
 </template>
 
 <script>
-import slider from './slider.vue'
+import slider from './slider.vue';
 import axios from 'axios';
-import selectoridioma from './selectoridioma.vue';
+// import selectoridioma from './selectoridioma.vue';
 
 export default {
     name: 'menucentral',
     components: {
         slider,
-        selectoridioma,
+        // selectoridioma,
     },
     emits: ['genera-pdf'],
     props: {
@@ -169,6 +171,7 @@ export default {
     },
     data() {
       return {
+        listatexto: '',
         centralrecursosactivo: false,
         guiatraducida: {
           es: "Guía actividades",
@@ -206,12 +209,65 @@ export default {
             return function(elem, index, array) {
                 let temp1 = true;
                 for (let i=0; i < array.length; i++) {
-                    if (  elem.titulo.split("-")[4] == array[i].titulo.split("-")[4] &&
-                            (elem.titulo.split("-")[2] == array[i].titulo.split("-")[2] || elem.titulo.split("-")[2] == "0") && // Si la ccaa es igual o es la global "0"
-                            elem.titulo.split("-")[1] !== array[i].titulo.split("-")[1] &&
-                            elem.titulo.split("-")[1] !== innerlang &&
-                            !(elem.titulo.split("-")[1] == "MUL" && array[i].titulo.split("-")[1] !== innerlang) &&  // Si comparamos un MUL con un idioma distinto al usuario no se borra el MUL
-                            i !== index
+                    // if (  elem.titulo.split("-")[4] == array[i].titulo.split("-")[4] && // los elementos tienen el mismo indice final
+                    //         (elem.titulo.split("-")[2] == array[i].titulo.split("-")[2] || elem.titulo.split("-")[2] == "0") && // Si la ccaa es igual o es la global "0"
+                    //         elem.titulo.split("-")[1] !== array[i].titulo.split("-")[1] &&
+                    //         elem.titulo.split("-")[1] !== innerlang &&
+                    //         !(elem.titulo.split("-")[1] == "MUL" && array[i].titulo.split("-")[1] !== innerlang) &&  // Si comparamos un MUL con un idioma distinto al usuario no se borra el MUL
+                    //         i !== index
+                    //     ) {
+                    //         temp1 = false;
+                    // }
+                    if (    // elimina si el idioma del elemento origen es distinto al del usuario y distinto a MUL
+                            ( elem.titulo.split("-")[1] !== innerlang && elem.titulo.split("-")[1] !== 'MUL')
+                            ||
+                            // o elimina al comparar dos elementos, uno de idioma MUL y otro de idioma local, con la misma ccaa
+                            ( 
+                                // No se está comparando consigo mismo
+                                i !== index 
+                                &&
+                                elem.titulo.split("-")[4] == array[i].titulo.split("-")[4] // los elementos tienen el mismo indice final
+                                &&
+                                elem.titulo.split("-")[2] == array[i].titulo.split("-")[2] // los dos elementos tienen la misma ccaa
+                                &&
+                                elem.titulo.split("-")[1] !== array[i].titulo.split("-")[1] // los idiomas comparados no coinciden
+                                &&  
+                                elem.titulo.split("-")[1] == 'MUL' // el idioma del elemento origen es MUL (se queda el local)
+                                &&
+                                array[i].titulo.split("-")[1] == innerlang // el idioma del elemento comparado es el local
+                            )
+                            ||
+                            // o elimina al comparar dos elementos, uno de ccaa global y otro de ccaa local, con el mismo idioma
+                            ( 
+                                // No se está comparando consigo mismo
+                                i !== index 
+                                &&
+                                elem.titulo.split("-")[4] == array[i].titulo.split("-")[4] // los elementos tienen el mismo indice final
+                                &&
+                                elem.titulo.split("-")[1] == array[i].titulo.split("-")[1] // los elementos tienen el mismo idioma
+                                &&    
+                                elem.titulo.split("-")[2] !== array[i].titulo.split("-")[2] // los dos elementos tienen distinta ccaa
+                                &&                            
+                                elem.titulo.split("-")[2] == '0' // la ccaa del elemento origen es la global (se queda la local)
+                                &&
+                                array[i].titulo.split("-")[2] !== '0' // la ccaa del elemento es local (distinta a 0, sólo puede ser la local por el filtro previo por ccaa)
+                            )
+                            ||
+                            // o elimina al comparar dos elementos, uno de ccaa global y otro de ccaa local, con distinto idioma (uno de ellos es mul)
+                            ( 
+                                // No se está comparando consigo mismo
+                                i !== index 
+                                &&
+                                elem.titulo.split("-")[4] == array[i].titulo.split("-")[4] // los elementos tienen el mismo indice final
+                                &&
+                                elem.titulo.split("-")[1] !== array[i].titulo.split("-")[1] // los elementos tienen distinto idioma
+                                &&
+                                (array[i].titulo.split("-")[1] == 'MUL' || array[i].titulo.split("-")[1] == innerlang) // el idioma del elemento comparado es MUL o local
+                                &&   
+                                elem.titulo.split("-")[2] !== array[i].titulo.split("-")[2] // los dos elementos tienen distinta ccaa
+                                &&                            
+                                elem.titulo.split("-")[2] == '0' // la ccaa del elemento origen es la global (se queda la local)
+                            )
                         ) {
                             temp1 = false;
                     }
@@ -318,6 +374,22 @@ export default {
         },
         centralstylerec() {
             return 'font-weight: bold; color: ' + this.centralusuario.colormenucentral;
+        },
+        centralstylepophide() {
+            this.listatexto = '';
+        },
+        centralstylepopshow(elem, align) {
+            if (elem) {
+                var styleleftright;
+                this.listatexto = elem;
+                if (align == 'right') {
+                    styleleftright = ['auto','0%'];
+                } else {
+                    styleleftright = ['0%','auto'];
+                }
+                document.querySelector('#lista-descripcion p').style.left = styleleftright[0];
+                document.querySelector('#lista-descripcion p').style.right = styleleftright[1];
+            }
         },
     },
     computed: {

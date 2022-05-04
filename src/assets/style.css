@@ -86,8 +86,8 @@
 }
 
 .nca_book_orden .row {
-    margin-left: 0px !important;
-    margin-right: 0px !important;
+    margin-left: 12px !important;
+    margin-right: -3px !important;
 }
 
 .nca_book_orden h2, .nca_book_orden h1 {
@@ -1036,6 +1036,7 @@
     padding-right: 10px;
     padding-left: 10px;
     overflow-x: hidden;
+    margin-top: 50px;
 }
 
 .nca13-mnu-ctrl-mas {
@@ -1114,6 +1115,18 @@
 #nca13-mnu-ctrl-interactivas div div a {
     padding-left: 0px;
     padding-right: 0px;
+}
+
+#nca13-mnu-ctrl-interactivas div div a:hover {
+    text-decoration: none;
+}
+
+#lista-descripcion p {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    /* left: 50%; */
+    transform: translate(0%, -50%);
 }
 
 

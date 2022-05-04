@@ -4,7 +4,8 @@
 
             <div class="carousel-sesiones row" style="position:relative">
                 <div v-for="(sesion, index) in sliderjson.sesiones" class="nca_carousel_sesiones_hija col" v-bind:style="stylesesion(sesion.numactividades)" v-bind:key="sesion">
-                    S-{{ index + 1 }}
+                    <span v-if="sesion.numactividades > 1">S-{{ index + 1 }}</span>
+                    <span v-if="sesion.numactividades == 1">{{ index + 1 }}</span> 
                 </div>
             </div>
 

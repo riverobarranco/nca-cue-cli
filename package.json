@@ -8,14 +8,15 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "@popperjs/core": "^2.11.5",
+    "axios": "^0.21.4",
     "core-js": "^3.6.5",
     "html-to-pdfmake": "^2.3.2",
     "jsontopdf": "file:src/assets/jsonToPdf",
     "jspdf": "^2.3.1",
     "jspdf-autotable": "^3.5.14",
     "pdfmake": "^0.2.0",
-    "vue": "^3.0.0",
+    "vue": "^3.2.13",
     "vue-axios": "^3.2.4"
   },
   "devDependencies": {

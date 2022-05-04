@@ -735,10 +735,13 @@ export default {
           if (NombreCurso.indexOf(ListadoNombresCurso[k])>0) {
             NivelCurso = ListadoNombresCurso[k]}
         }
-        console.log('el nivel del curso detectado desde el nombre largo en edicion es ' + NivelCurso)
+        console.log('el nivel del curso detectado desde el nombre largo en edicion es ' + NivelCurso);
       }
     }
     
+    // Guardamos el dato de curso en sessionstorage para usarlo en el método cargausuario para sacar la ruta de imágenes
+    sessionStorage.setItem('ncaCurso',NivelCurso); // No podemos guardar este dato aún como variable, así que lo guardamos en el sessionStorage
+
     // Cuando tenemos el curso llamamos a la función cargaMenu que obtiene el txt con la estructura del menú y la incorpora a los datos
     if (NivelCurso != "Error") {
       //this.datosusuario.curso = NivelCurso;
@@ -928,8 +931,13 @@ export default {
         //  let rutaImagen1 = document.querySelector("#app").dataset.url;
         //  this.datosusuario.urlmenulateral = rutaImagen1;
         //}
-        
 
+        // Recuperamos el curso para pintar correctamente las imágenes de iconos
+        if (sessionStorage.getItem('ncaCurso')) {
+          datosusuario.curso = sessionStorage.getItem('ncaCurso');
+          console.log('se ha actualizado el curso en variables de la app a ' + datosusuario.curso)
+        }
+        
         // Obtenemos el dato de CCAA. Ojo, esta llamada no es relativa, sino absoluta al estar dentro el htmlrequest;
         //datosusuario.ccaa = "error" // Ponemos un valor por defecto en caso de que no funcione el get
         axios.get("../filter/sallenet/getIdCCAA.php")
@@ -1014,6 +1022,18 @@ export default {
           this.datosusuario.estado = 1;
           if (document.querySelector("#blockslider")) {
             document.querySelector("#blockslider").style.display = "block";  // mostramos el div de bloques para tener a mano la bolsa de recursos
+          }
+          // aquí ocultamos los elementos que permiten la edición de la etiqueta de la app, para evitar borrados accidentales
+          if (document.querySelector('#app').closest('li')) {
+            var domapp = document.querySelector('#app').closest('li');
+            // quitamos la flecha para mover recursos
+            if (domapp.querySelector('span.editing_move')) {
+              domapp.querySelector('span.editing_move').style.display = 'none';
+            }
+            // quitamos el menu dropdown con las opciones de edición
+            if (domapp.querySelector('div.actions')) {
+              domapp.querySelector('div.actions').style.display = 'none';
+            }
           }
       } else if ( document.querySelector("#section-0") && document.querySelectorAll('.topics li[id^=section-]').length > 0 && document.querySelector("#section-0")) {
           document.querySelector("#section-0").style.borderBottom = "none"; // Ocultamos el borde inferior de la sección 0
@@ -1252,7 +1272,15 @@ export default {
           // obtenemos el nombre de la sección
           if (e.querySelector(".single-section ul.topics h3.sectionname a:first-child").innerText.replace(/(\r\n|\n|\r)/gm, "")){
               tit2 =  e.querySelector(".single-section ul.topics h3.sectionname a:first-child").innerText.replace(/(\r\n|\n|\r)/gm, "");
-              datosusuario.subtipoactivoimagen = tit2.split("-")[0].toLowerCase() + "-" + tit2.split("-")[1].toLowerCase() + "-" + tit2.split("-")[2] + ".png";
+              // En el caso de que encuentre nombre establecemos la imagen de icono de la sección y su url
+              // diferenciamos los iconos en función de si estamos en 1-3 o en 4-6, porque no son iguales
+              var ciclo = '13-';
+              if (sessionStorage.getItem('ncaCurso')) {
+                if (['4EP','5EP','6EP'].indexOf(sessionStorage.getItem('ncaCurso')) > -1 ) {
+                  ciclo = '46-';
+                }
+              }
+              datosusuario.subtipoactivoimagen = ciclo + tit2.split("-")[0].toLowerCase() + "-" + tit2.split("-")[1].toLowerCase() + "-" + tit2.split("-")[2] + ".png";
           } else {
               tit2 = "";
           }
