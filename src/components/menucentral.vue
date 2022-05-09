@@ -118,7 +118,7 @@
 
             <div class="row" id="nca13-mnu-ctrl-interactivas" v-bind:data-slider="centralsliderfiltrado">
 
-                <div class="col-md-auto">
+                <div class="col-md-auto" v-if="centralusuario.subtipoactivoevaluable == true">
                     <div class="row justify-content-start" id="lista-evaluaciones">
                         <a class="col" target="_blank" v-for="evaluacion in centralevaluacionesfiltrado" v-bind:key="evaluacion" v-bind:href="evaluacion.url">
                             <div class="botonpopper" v-on:mouseover="centralstylepopshow(evaluacion.texto,'left')" v-on:mouseleave="centralstylepophide()" v-bind:style="centralstyleeva()" v-bind:id="'btn-eval-' + evaluacion.indice" >

@@ -40,6 +40,7 @@ export default {
           subtipoactivorotulo: "",
           subtipoactivoimagen: "",
           subtipoactivorotulito: "",
+          subtipoactivoevaluable: true,
           sliderjsonvisible: false,  // esto es para marcar si se inyecta el slider desde html o desde el json. hay que añadir esa consulta a la orden.
           //slideractivactivo: 0, // esto es la actividad activa en el slider
           urlmenulateral: "",
@@ -1218,6 +1219,14 @@ export default {
         console.log('el color activo es ' + this.datosusuario.color)
         console.log('el valor de datosusuario es ' + this.datosusuario.subtipoactivo)
         console.log(this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo])
+        // obtenemos el dato de si es necesario mostrar o no los elementos de calificación
+        if (this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].muestraevaluable !== undefined) {
+          this.datosusuario.subtipoactivoevaluable = this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].muestraevaluable;
+          console.log('las evaluables de este ámbito no se muestran en botón:');
+        } else {
+          this.datosusuario.subtipoactivoevaluable = true;
+          console.log('las evaluables de este ámbito se muestran en botón:');
+        }
         //if (localStorage.getItem('color') && localStorage.getItem('color') !== 'null') {
         //  this.datosusuario.color = localStorage.getItem('color')
         //}
