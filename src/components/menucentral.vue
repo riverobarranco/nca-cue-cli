@@ -85,7 +85,13 @@
             </div>
         </div>
 
-        <div id="nca13_mnu_ctrl" class="container" v-if="centralusuario.estado !== 0">
+        <div id="app-carga" class="d-flex justify-content-center align-items-center" v-if="centralusuario.estado == 2">
+            <div class="spinner-border text-dark" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+        </div>
+
+        <div id="nca13_mnu_ctrl" class="container" v-if="centralusuario.estado == 1">
             <div class="row">
                 <div class="col nca13-mnu-ctrl-mas" v-bind:style="centralstylemas()">
                     <!-- <selectoridioma v-bind:idiomaactual="centralusuario.lang" v-bind:idiomasdisponibles="centralusuario.ccaalang[centralusuario.ccaa]" v-bind:idiomausuario="centralusuario"></selectoridioma> -->
@@ -146,7 +152,7 @@
 
         </div>
 
-        <slider v-bind:sliderusuario="centralusuario" v-bind:slider="sliderdatos" v-if="centralusuario.estado == !0"></slider>
+        <slider v-bind:sliderusuario="centralusuario" v-bind:slider="sliderdatos" v-if="centralusuario.estado == 1"></slider>
     
     </div>
 </template>

@@ -1032,6 +1032,11 @@
 									  supported by Chrome and Opera */
 }
 
+/* ESTILO DEL MENU CENTRAL -----------------------------------------------------------*/
+#app-carga {
+    margin-top: 100px;
+}
+
 #nca13_mnu_ctrl {
     padding-right: 10px;
     padding-left: 10px;

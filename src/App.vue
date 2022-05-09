@@ -59,7 +59,7 @@ export default {
           urlsliderfiltrado: "",
           color: "",
           colormenucentral: "",
-          estado: 0,
+          estado: 0,  // 0: bienvenida, 1: Ambito cargado, 2: Cargando
           introbienvenida: {
               es: "Bienvenido",
               eu: "Ongietorri",
@@ -1225,6 +1225,9 @@ export default {
       } 
     },
     cargaseccion (urldestino) {
+      // Cambiamos el valor de estado para mostrar el cargador
+      this.datosusuario.estado = 2;
+
       // valores locales para meter en el axios
       let datosusuario = this.datosusuario;
       let subtipoactivotitulo = this.subtipoactivotitulo;
