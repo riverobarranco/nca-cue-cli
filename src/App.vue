@@ -1219,23 +1219,25 @@ export default {
         console.log('el color activo es ' + this.datosusuario.color)
         console.log('el valor de datosusuario es ' + this.datosusuario.subtipoactivo)
         console.log(this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo])
-        // obtenemos el dato de si es necesario mostrar o no los elementos de calificación
-        if (this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].muestraevaluable !== undefined) {
-          this.datosusuario.subtipoactivoevaluable = this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].muestraevaluable;
-          console.log('las evaluables de este ámbito no se muestran en botón:');
-        } else {
-          this.datosusuario.subtipoactivoevaluable = true;
-          console.log('las evaluables de este ámbito se muestran en botón:');
-        }
         //if (localStorage.getItem('color') && localStorage.getItem('color') !== 'null') {
         //  this.datosusuario.color = localStorage.getItem('color')
         //}
       } 
     },
     cargaseccion (urldestino) {
+      // valores locales para meter en el axios
       let datosusuario = this.datosusuario;
       let subtipoactivotitulo = this.subtipoactivotitulo;
       datosusuario.colormenucentral = this.subtipoactivocolor;
+
+      // obtenemos el dato de si es necesario mostrar o no los elementos de calificación
+      if (this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].muestraevaluable !== undefined) {
+        this.datosusuario.subtipoactivoevaluable = this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].muestraevaluable;
+        console.log('las evaluables de este ámbito no se muestran en botón:');
+      } else {
+        this.datosusuario.subtipoactivoevaluable = true;
+        console.log('las evaluables de este ámbito se muestran en botón:');
+      }
 
       // Actualizamos el valor de la sección activa para permitir el aceso si es profesor
       datosusuario.urlseccionactiva = urldestino;
