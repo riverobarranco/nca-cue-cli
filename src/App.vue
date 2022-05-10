@@ -972,6 +972,9 @@ export default {
         console.log('el idioma del usuario es ');
         console.log(this.datosusuario.lang);
 
+        // Guardamos el idioma de usuario en el sessionstorage para guardarlo como idioma por defecto en el caso de forzar idioma en ámbitos concretos
+        sessionStorage.setItem('ncaLang', this.datosusuario.lang)
+
         // Obtenemos el rol del usuario;
         //datosusuario.rol = "error";
         let url = window.location.origin;
@@ -1228,11 +1231,6 @@ export default {
       // Cambiamos el valor de estado para mostrar el cargador
       this.datosusuario.estado = 2;
 
-      // valores locales para meter en el axios
-      let datosusuario = this.datosusuario;
-      let subtipoactivotitulo = this.subtipoactivotitulo;
-      datosusuario.colormenucentral = this.subtipoactivocolor;
-
       // obtenemos el dato de si es necesario mostrar o no los elementos de calificación
       if (this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].muestraevaluable !== undefined) {
         this.datosusuario.subtipoactivoevaluable = this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].muestraevaluable;
@@ -1242,10 +1240,25 @@ export default {
         console.log('las evaluables de este ámbito se muestran en botón:');
       }
 
+      // preparamos la variable para forzar idioma si es necesario. Actualizamos el idioma de los parámetros de la app para que el filtro funcione bien.
+      var urllang = "error";
+      if (this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].forzaridioma !== undefined) {
+        urllang = this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].forzaridioma;
+      } else {
+        urllang = sessionStorage.getItem('ncaLang');
+      }
+      console.log('el valor de idioma para la seccion activa es ' + urllang)
+      this.datosusuario.lang = urllang;
+
+      // valores locales para meter en el axios
+      let datosusuario = this.datosusuario;
+      let subtipoactivotitulo = this.subtipoactivotitulo;
+      datosusuario.colormenucentral = this.subtipoactivocolor;
+
       // Actualizamos el valor de la sección activa para permitir el aceso si es profesor
       datosusuario.urlseccionactiva = urldestino;
       // hacemos la consulta para actualizar los valores del slider y lo guardamos en el explorador
-      axios.get(urldestino)
+      axios.get(urldestino + '&lang=' + urllang) // se incorpora a la url el idioma forzado o el del usuario si no está forzado
       .then(function (response) {
       // handle success
           //Definimos variables
