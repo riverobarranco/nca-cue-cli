@@ -1231,15 +1231,24 @@ export default {
       // Cambiamos el valor de estado para mostrar el cargador
       this.datosusuario.estado = 2;
 
-      // obtenemos el dato de si es necesario mostrar o no los elementos de calificación
+      // EN ESTE BLOQUE SE DETERMINA SI SE MUESTRAN O NO LOS BOTONES DE ELEMENTOS DE EVALUACIÓN
+      // Existe en ese ámbito el valor de "muestraevaluable" en el json?
       if (this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].muestraevaluable !== undefined) {
-        this.datosusuario.subtipoactivoevaluable = this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].muestraevaluable;
-        console.log('las evaluables de este ámbito no se muestran en botón:');
+        // Existe valor para nuestra ccaa específica de "muestraevaluable"?
+        if (this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].muestraevaluable[this.datosusuario.ccaa] !== undefined) {
+          // si existe cogemos el valor asociado a la ccaa
+          this.datosusuario.subtipoactivoevaluable = this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].muestraevaluable[this.datosusuario.ccaa];
+          console.log('las evaluables de este ámbito no se muestran en botón:');
+        } else {
+          // si no existe valor específico de ccaa cogemos el valor de índice "0", que debe existir siempre, y que es el valor por defecto
+          this.datosusuario.subtipoactivoevaluable = this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].muestraevaluable['0'];
+        }
       } else {
         this.datosusuario.subtipoactivoevaluable = true;
         console.log('las evaluables de este ámbito se muestran en botón:');
       }
 
+      // EN ESTE BLOQUE SE METEN LOS ELEMENTOS NECESARIOS PARA FORZAR IDIOMA
       // preparamos la variable para forzar idioma si es necesario. Actualizamos el idioma de los parámetros de la app para que el filtro funcione bien.
       var urllang = "error";
       if (this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].forzaridioma !== undefined) {
@@ -1249,6 +1258,42 @@ export default {
       }
       console.log('el valor de idioma para la seccion activa es ' + urllang)
       this.datosusuario.lang = urllang;
+      // Variable que contiene las cadenas de los idiomas para sustituir del desplegable
+      var listaidiomas = [
+        {codigo: 'es', texto: 'Español - Internacional (es)', busqueda: 'Español'},
+        {codigo: 'en', texto: 'English (en)', busqueda: 'English'},
+        {codigo: 'eu', texto: 'Euskara (eu)', busqueda: 'Euskara'},
+        {codigo: 'ca', texto: 'Català (ca)', busqueda: 'Català'},
+        {codigo: 'gl', texto: 'Català (ca)', busqueda: 'Català'},
+        {codigo: 'ca_valencia', texto: 'Galego (gl)', busqueda: 'Galego'}
+      ]
+      // Definimos la funcion para reemplazar el texto del selector de idiomas si existe
+      function actualizaselector(listadom, listaidiomas, idioma) {
+        var elementodom
+        var elementoidioma
+        for (let i=0; i<listadom.length; i++) {
+          elementodom = listadom[i];
+          //console.log('el elemento del dom es ' + elementodom.innerText);
+          for (let j=0; j<listaidiomas.length; j++) {
+            elementoidioma = listaidiomas[j];
+            //console.log('el elemento de idioma es ' + elementoidioma.codigo);
+            if (elementodom.innerText.indexOf(elementoidioma.busqueda) > -1) {
+              //console.log('se ha encontrado coincidencia del elemento ');
+              listaidiomas.forEach(function(element) {
+                if (element.codigo == idioma) {
+                  console.log('se ha encontrado selector de idioma e idioma a sustituir, es ' + element.texto);
+                  elementodom.innerText = element.texto;
+                }
+              });
+            }
+          }
+        }
+      }
+      // Lanzamos la función para los elementos previsibles que sean el selector de idiomas en moodle 3.9
+      if (document.querySelectorAll('.navbar a.dropdown-toggle').length > 0) {
+        actualizaselector(document.querySelectorAll('.navbar a.dropdown-toggle'), listaidiomas, this.datosusuario.lang)
+      }
+      // FIN DEL BLOQUE DE MODIFICACIONES PARA FORZAR IDIOMA
 
       // valores locales para meter en el axios
       let datosusuario = this.datosusuario;

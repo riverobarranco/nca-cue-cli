@@ -57,6 +57,7 @@ export default {
         editaSeccion() {
             // obtenemos la url destino en función de si está o no editando y guardamos la sesión activa
             let urlSinSeccion = '';
+            var stringlang = '';
             if (window.location.href.indexOf('section=') > -1 && window.M.cfg.sesskey && window.location.href.split('&')) {
                 // aquí estamos editando un sección
                 urlSinSeccion = window.location.href.split('&')[0] + '&sesskey=' + window.M.cfg.sesskey + '&edit=off';
@@ -80,8 +81,13 @@ export default {
                     localStorage.setItem("subtipoactivo", this.logousuario.subtipoactivo);
                     localStorage.setItem("seccionactiva", this.logousuario.urlseccionactiva);
                     localStorage.setItem("color", this.logousuario.color);
+                    // En el caso de haber forzado idioma, recuperamos el idioma del usuario por defecto
+                    if (sessionStorage.getItem('ncaLang') !== null) {
+                        var urllang = sessionStorage.getItem('ncaLang');
+                        stringlang = '&lang=' + urllang;
+                    }
                     // Vamos a la url indicada en la misma pestaña
-                    window.open(urlSinSeccion, "_self");
+                    window.open(urlSinSeccion + stringlang, "_self");
                 }
             }
         },
