@@ -772,27 +772,12 @@ export default {
   },
   mounted() {
     window.addEventListener('DOMContentLoaded', () => {
-      // Carga de la estructura de datos del menú
-      this.datos = JSON.parse(sessionStorage.getItem('ncaMenu'))
+
       // carga principal por defecto
       this.cargaUsuario();
-      this.cargaPrincipal();
-      // Colocamos el boton de colapsado en su sitio para la versión moodle 3.9
-      if (document.querySelector('#page-wrapper nav')) {
-        document.querySelector('#page-wrapper nav').insertBefore(document.querySelector('#nca13_mnu_tglbtn'), document.querySelector('#page-wrapper nav').children[1]);
-      }
-      // Colocamos el boton de ajustes del curso en la barra de nav para la versión moodle 3.9, en el caso de que exista
-      if (document.querySelector('.context-header-settings-menu')) {
-        document.querySelector('#page-wrapper nav').insertBefore(document.querySelector('.context-header-settings-menu'), document.querySelector('#page-wrapper nav').children[document.querySelector('#page-wrapper nav').children.length-1]);
-      }
-      // Colocamos el boton de activar edición en la barra de nav para la versión moodle 3.9, en el caso de que exista
-      if (document.querySelector('#page-header .ml-auto .singlebutton')) {
-        document.querySelector('#page-wrapper nav').insertBefore(document.querySelector('#page-header .ml-auto .singlebutton'), document.querySelector('#page-wrapper nav').children[document.querySelector('#page-wrapper nav').children.length-1]);
-      }
-      // Ocultamos la barra page-header porque la hemos vacíado de cosas
-      if (document.querySelector('#page-header')) {
-        document.querySelector('#page-header').style.display = "none";
-      }
+      this.cargaMenu();
+      this.cargaEstilos();
+      this.cargaRevisita();
 
     });
   },
@@ -1009,16 +994,24 @@ export default {
         console.log('el rol del usuario es ');
         console.log( this.datosusuario.rol)
     },
-    cargaPrincipal() {
-      // Tras el page load;
-      let culo;
-      let temp1;
-      let temp2;
-      let temp3;
-      let temp4;
-      let temp5;
-      let temp6;
-      let tempIndex;
+    cargaEstilos() {
+
+      // Colocamos el boton de colapsado en su sitio para la versión moodle 3.9
+      if (document.querySelector('#page-wrapper nav')) {
+        document.querySelector('#page-wrapper nav').insertBefore(document.querySelector('#nca13_mnu_tglbtn'), document.querySelector('#page-wrapper nav').children[1]);
+      }
+      // Colocamos el boton de ajustes del curso en la barra de nav para la versión moodle 3.9, en el caso de que exista
+      if (document.querySelector('.context-header-settings-menu')) {
+        document.querySelector('#page-wrapper nav').insertBefore(document.querySelector('.context-header-settings-menu'), document.querySelector('#page-wrapper nav').children[document.querySelector('#page-wrapper nav').children.length-1]);
+      }
+      // Colocamos el boton de activar edición en la barra de nav para la versión moodle 3.9, en el caso de que exista
+      if (document.querySelector('#page-header .ml-auto .singlebutton')) {
+        document.querySelector('#page-wrapper nav').insertBefore(document.querySelector('#page-header .ml-auto .singlebutton'), document.querySelector('#page-wrapper nav').children[document.querySelector('#page-wrapper nav').children.length-1]);
+      }
+      // Ocultamos la barra page-header porque la hemos vacíado de cosas
+      if (document.querySelector('#page-header')) {
+        document.querySelector('#page-header').style.display = "none";
+      }
 
       // Oculta la intro si la edición está desactivada. Modificaciones de estilo en función de si está o no la edición activa.
       let estaeditando = document.querySelectorAll('.editing_move').length;  // correcto para moodle 3.9
@@ -1047,65 +1040,9 @@ export default {
           console.log('no ha encontrado elementos html como la sección 0 o similares en el DOM')
       }
 
-      // sacamos la url inicial
-      let urlinic = window.location.href
-      if (urlinic.includes("course/view.php")) {
-        while ( urlinic.includes("&")) {
-          urlinic = urlinic.substr( 0, urlinic.lastIndexOf( "&" ) );
-        }
-      }
-        
-      // barremos el curso para sacar las secciones
-      culo = document.querySelectorAll('.course-content .topics li.section');
-      console.log(culo);
+    },
+    cargaRevisita() {
 
-      // barremos el curso sin sección para sacar el número de elementos y generar el menu;
-      for (let i=1; i<culo.length; i++) {
-        
-        console.log('interpolación ' + i);
-        if (culo[i].querySelector('.section-title a')) {
-          // sacamos el titulo, la descripción y la url del elemento;
-          temp1 = culo[i].querySelector('.section-title a').href;
-          temp2 = culo[i].querySelector('.section-title a').innerText;
-          temp2 = temp2.split(" ")[0]; // por si acaso eliminamos texto tras el espacio
-          // sacamos los elementos titulo y subtitulo si existen
-          if (temp2.split("-")[0] && temp2.split("-")[1]) {
-            temp3 = temp2.split("-")[0].toLowerCase();
-            temp4 = temp2.split("-")[1].toLowerCase();
-            tempIndex = temp2.split("-")[2];
-            tempIndex = tempIndex.substring(0, 2); // dejamos sólo los dos primeros caracteres
-          } else {
-            console.log('el título de una sección no está bien escrito ' + temp2)
-            continue;
-          }
-          console.log(temp1 + ' ' + temp2 + ' ' + temp3 + ' ' + temp4)
-          // sacamos el nombre convencional si existe en la descripción
-          if (culo[i].querySelector('.summary div')) {
-            temp2 = culo[i].querySelector('.summary div').innerText;
-          }
-          if (culo[i].querySelector('.summarytext div.no-overflow')) {
-            if (culo[i].querySelector('.summarytext div.no-overflow').innerText !== "") {
-              temp2 = culo[i].querySelector('.summarytext div.no-overflow').innerText;
-            }
-          }
-          // comparamos los datos con la estructura de datos y rellenamos sus elementos unidad
-          if (temp3 && Object.keys(this.datos).indexOf(temp3) !== -1) {
-            temp5 = this.datos[temp3];
-            if (temp4 && Object.keys(temp5.hijos).indexOf(temp4) !== -1) {
-              temp6 = temp5.hijos[temp4];
-              temp6.unidades.push({ texto: temp2, url: temp1, orden: tempIndex });
-              console.log('el texto es ' + temp2 + ', la url es ' + temp1 + ', y el orden es ' + tempIndex);
-            }
-          }
-          // comparamos los datos con la estructura de datos y rellenamos sus elementos recurso
-          if (temp3.includes("rec")) {
-            this.cargarecursos(temp1);
-          }
-        } else {
-          console.log('encontrada seccion sin título')
-        }
-      }
-      
       // esta parte permite volver a secciones visitadas previamente después de editar
       if (localStorage.getItem("seccionactiva") && localStorage.getItem("seccionactiva") !== "null" && window.location.href.indexOf('section=') == -1) {
         if ( localStorage.getItem("tipoactivo") &&
@@ -1125,14 +1062,116 @@ export default {
               //localStorage.setItem("color", null)
         }
       }
-
-      // Fin de carga principal
-
     },
-    cargarecursos(urldestino) {
+    cargaMenu() {
+
+      // Aviso de consola de carga de datos
+      console.log('Carga de menu lateral iniciada')
+
+      // Carga de la estructura de datos del menú
+      this.datos = JSON.parse(sessionStorage.getItem('ncaMenu'))
+
+      // sacamos la url inicial
+      let urlinic = window.location.href
+      if (urlinic.includes("course/view.php")) {
+        while ( urlinic.includes("&")) {
+          urlinic = urlinic.substr( 0, urlinic.lastIndexOf( "&" ) );
+        }
+      }
+      console.log('la url matriz del curso es ' + urlinic);
+
       // definimos variables para usar globalmente
       let datos = this.datos;
       let recursosglobales = this.datosusuario.recursosglobales;
+      let cargaRecursos = this.cargaRecursos;
+
+      // hacemos la consulta para actualizar los valores del slider y lo guardamos en el explorador
+      axios.get(urlinic)
+      .then(function (response) {
+      // handle success
+          // Definimos variables
+          var eInt = document.createElement("div");
+          let culo;
+          let temp1;
+          let temp2;
+          let temp3;
+          let temp4;
+          let temp5;
+          let temp6;
+          let tempIndex;
+
+          // Rescatamos datos
+          //eInt.id = "ncaMenu";
+          eInt.innerHTML = response.data;
+          culo = eInt.querySelectorAll('.course-content .topics li.section')
+          console.log('las secciones encontradas en la carga del menu son ')
+          console.log(culo);
+
+          // barremos el curso sin sección para sacar el número de elementos y generar el menu;
+          for (let i=1; i<culo.length; i++) {
+            
+            console.log('interpolación ' + i);
+            if (culo[i].querySelector('.section-title a')) {
+              // sacamos el titulo, la descripción y la url del elemento;
+              temp1 = culo[i].querySelector('.section-title a').href;
+              temp2 = culo[i].querySelector('.section-title a').innerText;
+              temp2 = temp2.split(" ")[0]; // por si acaso eliminamos texto tras el espacio
+              // sacamos los elementos titulo y subtitulo si existen
+              if (temp2.split("-")[0] && temp2.split("-")[1]) {
+                temp3 = temp2.split("-")[0].toLowerCase();
+                temp4 = temp2.split("-")[1].toLowerCase();
+                tempIndex = temp2.split("-")[2];
+                tempIndex = tempIndex.substring(0, 2); // dejamos sólo los dos primeros caracteres
+              } else {
+                console.log('el título de una sección no está bien escrito ' + temp2)
+                continue;
+              }
+              console.log(temp1 + ' ' + temp2 + ' ' + temp3 + ' ' + temp4)
+              // sacamos el nombre convencional si existe en la descripción
+              if (culo[i].querySelector('.summary div')) {
+                temp2 = culo[i].querySelector('.summary div').innerText;
+              }
+              if (culo[i].querySelector('.summarytext div.no-overflow')) {
+                if (culo[i].querySelector('.summarytext div.no-overflow').innerText !== "") {
+                  temp2 = culo[i].querySelector('.summarytext div.no-overflow').innerText;
+                }
+              }
+              // comparamos los datos con la estructura de datos y rellenamos sus elementos unidad
+              if (temp3 && Object.keys(datos).indexOf(temp3) !== -1) {
+                temp5 = datos[temp3];
+                if (temp4 && Object.keys(temp5.hijos).indexOf(temp4) !== -1) {
+                  temp6 = temp5.hijos[temp4];
+                  temp6.unidades.push({ texto: temp2, url: temp1, orden: tempIndex });
+                  console.log('el texto es ' + temp2 + ', la url es ' + temp1 + ', y el orden es ' + tempIndex);
+                }
+              }
+              // comparamos los datos con la estructura de datos y rellenamos sus elementos recurso
+              if (temp3.includes("rec")) {
+                cargaRecursos(temp1, datos, recursosglobales);  // le pasamos las variables del sistema para que las pueda manipular
+              }
+            } else {
+              console.log('encontrada seccion sin título')
+            }
+          }   
+      })
+      .catch(function (error) {
+        console.log(error)
+      }) //handle error
+      .then(function () {
+        console.log('final de carga de menu')
+      }); // always executed
+
+
+    },
+    cargaRecursos(urldestino, datos, recursosglobales) {
+
+      // Iniciamos la carga de recursos
+      console.log('Inicio de carga de recursos en la url ' + urldestino)
+
+      // definimos variables para usar globalmente
+      // let datos = this.datos;
+      // let recursosglobales = this.datosusuario.recursosglobales;
+
       // hacemos la consulta para actualizar los valores del slider y lo guardamos en el explorador
       axios.get(urldestino)
       .then(function (response) {
@@ -1208,7 +1247,7 @@ export default {
         console.log(error)
       }) //handle error
       .then(function () {}); // always executed
-        console.log('carga recursos');
+        console.log('final de carga de recursos');
     },
     activatipo(tip) {
       if (this.tipos.indexOf(tip) > -1) {
@@ -1257,7 +1296,7 @@ export default {
         urllang = sessionStorage.getItem('ncaLang');
       }
       console.log('el valor de idioma para la seccion activa es ' + urllang)
-      this.datosusuario.lang = urllang;
+      //this.datosusuario.lang = urllang;
       // Variable que contiene las cadenas de los idiomas para sustituir del desplegable
       var listaidiomas = [
         {codigo: 'es', texto: 'Español - Internacional (es)', busqueda: 'Español'},
@@ -1291,8 +1330,25 @@ export default {
       }
       // Lanzamos la función para los elementos previsibles que sean el selector de idiomas en moodle 3.9
       if (document.querySelectorAll('.navbar a.dropdown-toggle').length > 0) {
-        actualizaselector(document.querySelectorAll('.navbar a.dropdown-toggle'), listaidiomas, this.datosusuario.lang)
+        actualizaselector(document.querySelectorAll('.navbar a.dropdown-toggle'), listaidiomas, urllang)
       }
+      // Recargamos el menu para que coja las cadenas traducidas, en el caso de que cambie de idioma
+      if (
+          // en el caso de que el idioma del ámbito deba forzarse o....
+          this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].forzaridioma !== undefined ||
+          (
+            // en el caso de que el idioma del ámbito no sea forzado pero el idioma activo no coincida con el inicial.
+            this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].forzaridioma == undefined &&
+            this.datosusuario.lang !== urllang
+          )
+      ) {
+        // en el caso de ser necesario un cambio de idioma, cambiamos la variable de idioma y refrescamos el menu
+        this.datosusuario.lang = urllang;
+        this.cargaMenu();
+      }
+      console.log('el idioma forzado es ' + this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].forzaridioma);
+      console.log('el idioma actual de usuario es ' + this.datosusuario.lang);
+      console.log('el idioma de primer acceso a la app es ' + urllang);
       // FIN DEL BLOQUE DE MODIFICACIONES PARA FORZAR IDIOMA
 
       // valores locales para meter en el axios
