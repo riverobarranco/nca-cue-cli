@@ -775,7 +775,7 @@ export default {
 
       // carga principal por defecto
       this.cargaUsuario();
-      this.cargaMenu();
+      this.cargaMenu(this.datosusuario.lang);
       this.cargaEstilos();
       this.cargaRevisita();
 
@@ -1044,26 +1044,26 @@ export default {
     cargaRevisita() {
 
       // esta parte permite volver a secciones visitadas previamente después de editar
-      if (localStorage.getItem("seccionactiva") && localStorage.getItem("seccionactiva") !== "null" && window.location.href.indexOf('section=') == -1) {
-        if ( localStorage.getItem("tipoactivo") &&
-             localStorage.getItem("subtipoactivo") &&
-             localStorage.getItem("seccionactiva")
-             //localStorage.getItem("color")
+      if (sessionStorage.getItem("seccionactiva") && sessionStorage.getItem("seccionactiva") !== "null" && window.location.href.indexOf('section=') == -1) {
+        if ( sessionStorage.getItem("tipoactivo") &&
+             sessionStorage.getItem("subtipoactivo") &&
+             sessionStorage.getItem("seccionactiva")
+             //sessionStorage.getItem("color")
             ) {
-              //this.datosusuario.tipoactivo = localStorage.getItem("tipoactivo");
-              this.activatipo(localStorage.getItem("tipoactivo"));
-              this.activasubtipo(localStorage.getItem("subtipoactivo"));
-              this.cargaseccion(localStorage.getItem("seccionactiva"));
-              this.datosusuario.color = localStorage.getItem("color");
-              this.datosusuario.subtipoactivo = localStorage.getItem("subtipoactivo");
-              localStorage.setItem("tipoactivo", null);
-              localStorage.setItem("subtipoactivo", null);
-              localStorage.setItem("seccionactiva", null);
-              //localStorage.setItem("color", null)
+              //this.datosusuario.tipoactivo = sessionStorage.getItem("tipoactivo");
+              this.activatipo(sessionStorage.getItem("tipoactivo"));
+              this.activasubtipo(sessionStorage.getItem("subtipoactivo"));
+              this.cargaseccion(sessionStorage.getItem("seccionactiva"));
+              this.datosusuario.color = sessionStorage.getItem("color");
+              this.datosusuario.subtipoactivo = sessionStorage.getItem("subtipoactivo");
+              sessionStorage.setItem("tipoactivo", null);
+              sessionStorage.setItem("subtipoactivo", null);
+              sessionStorage.setItem("seccionactiva", null);
+              //sessionStorage.setItem("color", null)
         }
       }
     },
-    cargaMenu() {
+    cargaMenu(lang) {
 
       // Aviso de consola de carga de datos
       console.log('Carga de menu lateral iniciada')
@@ -1079,6 +1079,9 @@ export default {
         }
       }
       console.log('la url matriz del curso es ' + urlinic);
+
+      // Incorporamos la cadena de idioma del parametro lang
+      urlinic = urlinic + '&lang=' + lang;
 
       // definimos variables para usar globalmente
       let datos = this.datos;
@@ -1261,12 +1264,23 @@ export default {
         console.log('el color activo es ' + this.datosusuario.color)
         console.log('el valor de datosusuario es ' + this.datosusuario.subtipoactivo)
         console.log(this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo])
-        //if (localStorage.getItem('color') && localStorage.getItem('color') !== 'null') {
-        //  this.datosusuario.color = localStorage.getItem('color')
+        //if (sessionStorage.getItem('color') && sessionStorage.getItem('color') !== 'null') {
+        //  this.datosusuario.color = sessionStorage.getItem('color')
         //}
       } 
     },
     cargaseccion (urldestino) {
+
+      // EN ESTE BLOQUE SE COMPRUEBA QUE SE CUMPLEN LAS CONDICIONES PARA QUE PUEDA FUNCIONAR ESTE MÉTODO
+      // Estan definidos el tipo y el subtipo activos según el esquema actual? En caso contrario los borra en el localstorage y sale de la función porque es una llamada inesperada
+      if (this.datos[this.datosusuario.tipoactivo] == undefined || this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo] == undefined) {
+        sessionStorage.setItem("tipoactivo", null);
+        sessionStorage.setItem("subtipoactivo", null);
+        sessionStorage.setItem("seccionactiva", null);
+        console.log('no están definidos los parámetros para cargar una sección correctamente')
+        return //salimos de la función
+      }
+
       // Cambiamos el valor de estado para mostrar el cargador
       this.datosusuario.estado = 2;
 
@@ -1344,7 +1358,7 @@ export default {
       ) {
         // en el caso de ser necesario un cambio de idioma, cambiamos la variable de idioma y refrescamos el menu
         this.datosusuario.lang = urllang;
-        this.cargaMenu();
+        this.cargaMenu(urllang);
       }
       console.log('el idioma forzado es ' + this.datos[this.datosusuario.tipoactivo].hijos[this.datosusuario.subtipoactivo].forzaridioma);
       console.log('el idioma actual de usuario es ' + this.datosusuario.lang);

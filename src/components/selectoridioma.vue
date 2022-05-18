@@ -75,10 +75,10 @@ export default {
             idiomafiltrado = idioma;
         }
         urlidioma = urlidioma + '&lang=' + idiomafiltrado;
-        localStorage.setItem("tipoactivo", this.idiomausuario.tipoactivo);
-        localStorage.setItem("subtipoactivo", this.idiomausuario.subtipoactivo);
-        localStorage.setItem("seccionactiva", this.idiomausuario.urlseccionactiva);
-        localStorage.setItem("color", this.idiomausuario.color);
+        sessionStorage.setItem("tipoactivo", this.idiomausuario.tipoactivo);
+        sessionStorage.setItem("subtipoactivo", this.idiomausuario.subtipoactivo);
+        sessionStorage.setItem("seccionactiva", this.idiomausuario.urlseccionactiva);
+        sessionStorage.setItem("color", this.idiomausuario.color);
         // Vamos a la url indicada en la misma pestaña
         window.open(urlidioma, "_self");
     }
